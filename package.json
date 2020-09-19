@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "author": "abhay chauhan",
   "license": "ISC",
@@ -14,5 +15,8 @@
     "express": "^4.17.1",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
