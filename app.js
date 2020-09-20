@@ -6,15 +6,30 @@ const bodyParser = require("body-parser");
 const app = express();
 app.use(bodyParser.json());
 
+
 app.use(authroutes);
+
+app.use((error,req,res,next)=>{
+
+  const status=error.statusCode;
+  const data=error.data;
+  const message=error.message;
+
+  res.status(status).json({
+    message:message,
+    data:data
+  })
+
+})
+
 
 mongoose
   .connect(
-    "mongodb+srv://naman:internbazaar123@cluster0.vnmzf.mongodb.net/Users?retryWrites=true&w=majority"
+    "mongodb+srv://abhay:abhaybazaar123@cluster0.vnmzf.mongodb.net/Users?retryWrites=true&w=majority"
   )
   .then((result) => {
     app.listen(3000);
-    console.log("chalu bhaiya");
+    console.log("Server up and running");
   })
   .catch((err) => {
     console.log(err);
