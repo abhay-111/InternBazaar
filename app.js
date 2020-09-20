@@ -1,27 +1,23 @@
 const mongoose = require("mongoose");
 const mongodb = require("mongodb");
 const express = require("express");
-const authroutes = require("./routes/login");
+const authroutes = require("./routes/auth");
 const bodyParser = require("body-parser");
 const app = express();
 app.use(bodyParser.json());
 
-
 app.use(authroutes);
 
-app.use((error,req,res,next)=>{
-
-  const status=error.statusCode;
-  const data=error.data;
-  const message=error.message;
+app.use((error, req, res, next) => {
+  const status = error.statusCode;
+  const data = error.data;
+  const message = error.message;
 
   res.status(status).json({
-    message:message,
-    data:data
-  })
-
-})
-
+    message: message,
+    data: data,
+  });
+});
 
 mongoose
   .connect(
