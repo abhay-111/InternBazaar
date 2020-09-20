@@ -30,7 +30,7 @@ exports.signup = (req, res, next) => {
     .then((result) => {
       if (result) {
         return res.status(401).json({
-          message: "errror",
+          message: "user exists",
         });
       }
       bcryct
@@ -67,4 +67,37 @@ exports.signup = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.login = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error("Validation Failed ");
+    error.statusCode = 401;
+    error.data = errors.array();
+    throw error;
+  }
+
+  const email = req.body.email;
+  const password = req.body.password;
+
+  User.findOne({ email: email }).then((user) => {
+    if (!user) {
+      return res.status(403).json({
+        message: "user not found",
+      });
+    }
+    bcryct.compare(password, user.password).then((match) => {
+      console.log(match);
+      if (match) {
+        return res.status(200).json({
+          message: "password correct",
+        });
+      } else {
+        return res.status(401).json({
+          message: "password incorrect",
+        });
+      }
+    });
+  });
 };
