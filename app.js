@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const mongodb = require("mongodb");
 const express = require("express");
 const bodyParser = require("body-parser");
+const config=require('./config')
 const app = express();
 
 const internshipRoutes = require("./routes/internship");
@@ -35,7 +36,7 @@ app.use((error, req, res, next) => {
 // "mongodb+srv://naman:namanbazaar@cluster0.vnmzf.mongodb.net/Users?retryWrites=true&w=majority"
 mongoose
   .connect(
-    "mongodb+srv://abhay:abhaybazaar123@cluster0.vnmzf.mongodb.net/Users?retryWrites=true&w=majority",
+    config.mongoapikey,
     { useUnifiedTopology: true, useNewUrlParser: true }
   )
   .then((result) => {
