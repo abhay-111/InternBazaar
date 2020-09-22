@@ -4,10 +4,8 @@ const nodemailer = require("nodemailer");
 const config=require("../config")
 const otpGenerator=require('otp-generator')
 
-var api_key = 'dfdb0bae64f929b1b1b8b92b7965dd7c-cb3791c4-31fb3caa';
-var domain = 'sandboxc0445d89b6074e87851458b1991b5287.mailgun.org';
- 
-var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+
+var mailgun = require('mailgun-js')({apiKey: config.mailgunapikey, domain: config.mailgundomain});
 
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const { validationResult } = require("express-validator/check");
