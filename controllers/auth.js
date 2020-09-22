@@ -28,11 +28,6 @@ exports.signup = (req, res, next) => {
 
   User.findOne({ email: email })
     .then((result) => {
-      if (result) {
-        return res.status(401).json({
-          message: "user exists",
-        });
-      }
       bcryct
         .hash(password, 12)
         .then((hashedpassword) => {
@@ -62,10 +57,18 @@ exports.signup = (req, res, next) => {
         })
         .catch((err) => {
           console.log(err);
+          if (!err.statusCode) {
+            err.statusCode = 500;
+          }
+          next(err);
         });
     })
     .catch((err) => {
       console.log(err);
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
     });
 };
 
@@ -86,23 +89,37 @@ exports.login = (req, res, next) => {
       if (!user) {
         const error = new Error("User not found");
         error.statusCode = 401;
+        error.data = errors.array();
         throw error;
       }
-      bcryct.compare(password, user.password).then((match) => {
-        // console.log(match);
-        if (!match) {
-          // const error = new Error("Password incorrect");
-          // error.statusCode = 401;
-          // throw error;
-          return res.status(401).json({
-            message: "password incorrect",
-          });
-        } else {
-          return res.status(200).json({
-            message: "password correct",
-          });
-        }
-      });
+      bcryct
+        .compare(password, user.password)
+        .then((match) => {
+          // console.log(match);
+          if (!match) {
+            // Promise.reject("password incorrect");
+
+            const error = new Error("Validation failed");
+            error.statusCode = 401;
+            const data
+            error.data = errors.array();
+            throw error;
+
+            // return res.status(401).json({
+            //   message: "password incorrect",
+            // });
+          } else {
+            return res.status(200).json({
+              message: "password correct",
+            });
+          }
+        })
+        .catch((err) => {
+          if (!err.statusCode) {
+            err.statusCode = 500;
+          }
+          next(err);
+        });
     })
     .catch((err) => {
       if (!err.statusCode) {
