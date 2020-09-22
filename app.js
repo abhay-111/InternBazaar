@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 const mongodb = require("mongodb");
 const express = require("express");
-const authroutes = require("./routes/auth");
 const bodyParser = require("body-parser");
 const app = express();
+
+const internshipRoutes = require("./routes/internship");
+const authRoutes = require("./routes/auth");
 
 app.use(bodyParser.json());
 
@@ -17,7 +19,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(authroutes);
+app.use("/auth", authRoutes);
+app.use(internshipRoutes);
 
 app.use((error, req, res, next) => {
   const status = error.statusCode;
@@ -29,10 +32,11 @@ app.use((error, req, res, next) => {
     data: data,
   });
 });
-
+// "mongodb+srv://naman:namanbazaar@cluster0.vnmzf.mongodb.net/Users?retryWrites=true&w=majority"
 mongoose
   .connect(
-    "mongodb+srv://naman:namanbazaar@cluster0.vnmzf.mongodb.net/Users?retryWrites=true&w=majority"
+    "mongodb+srv://abhay:abhaybazaar123@cluster0.vnmzf.mongodb.net/Users?retryWrites=true&w=majority",
+    { useUnifiedTopology: true, useNewUrlParser: true }
   )
   .then((result) => {
     app.listen(8080);
