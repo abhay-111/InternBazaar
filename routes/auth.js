@@ -1,10 +1,14 @@
-const Auth = require("../controllers/auth");
+//package imports
 const express = require("express");
 const { body } = require("express-validator/check");
-const User = require("../models/User");
-const config=require("../config")
 const router = express.Router();
 
+//custom imports
+const config = require("../config");
+const User = require("../models/User");
+const authController = require("../controllers/auth");
+
+// POST => /auth/signup
 router.post(
   "/signup",
   [
@@ -22,9 +26,10 @@ router.post(
     body("password").trim().isLength({ min: 5 }),
     body("collegeName").trim().not().notEmpty(),
   ],
-  Auth.signup
+  authController.signup
 );
 
+// POST => /auth/login
 router.post(
   "/login",
   [
@@ -41,7 +46,7 @@ router.post(
       }),
     body("password").trim().isLength({ min: 5 }),
   ],
-  Auth.login
+  authController.login
 );
 
 module.exports = router;

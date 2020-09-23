@@ -1,15 +1,16 @@
 const mongoose = require("mongoose");
-const mongodb = require("mongodb");
 const express = require("express");
 const bodyParser = require("body-parser");
-const config = require("./config");
 const app = express();
 
+//custom imports
+const config = require("./config");
 const internshipRoutes = require("./routes/internship");
 const authRoutes = require("./routes/auth");
 
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // application/json
 
+//CORS HEADERS
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -20,9 +21,11 @@ app.use((req, res, next) => {
   next();
 });
 
+//Routing requests
 app.use("/auth", authRoutes);
-app.use(internshipRoutes);
+app.use("/internships", internshipRoutes);
 
+//handling errors
 app.use((error, req, res, next) => {
   const status = error.statusCode;
   const data = error.data;
@@ -33,7 +36,8 @@ app.use((error, req, res, next) => {
     data: data,
   });
 });
-// "mongodb+srv://naman:namanbazaar@cluster0.vnmzf.mongodb.net/Users?retryWrites=true&w=majority"
+
+//connecting to mongodb database
 mongoose
   .connect(config.mongoapikey, {
     useUnifiedTopology: true,

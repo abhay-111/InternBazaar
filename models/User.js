@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+// defining the schema model for User resgistration
 const userschema = new Schema({
   email: {
     type: String,

@@ -1,19 +1,14 @@
-const User = require("../models/User");
-
-const config = require("../config");
-
+//package imports
 const jwt = require("jsonwebtoken");
 const bcryct = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const otpGenerator = require("otp-generator");
-
-// var mailgun = require("mailgun-js")({
-//   apiKey: config.mailgunapikey,
-//   domain: config.mailgundomain,
-// });
-
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const { validationResult } = require("express-validator/check");
+
+//custom imports
+const config = require("../config");
+const User = require("../models/User");
 
 const transporter = nodemailer.createTransport(
   sendgridTransport({
@@ -23,6 +18,12 @@ const transporter = nodemailer.createTransport(
   })
 );
 
+// var mailgun = require("mailgun-js")({
+//   apiKey: config.mailgunapikey,
+//   domain: config.mailgundomain,
+// });
+
+// signup / registering user
 exports.signup = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -104,6 +105,7 @@ exports.signup = (req, res, next) => {
     });
 };
 
+// login / authenticating user
 exports.login = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -118,21 +120,22 @@ exports.login = (req, res, next) => {
 
   User.findOne({ email: email })
     .then((user) => {
+      //if user does not exist
       if (!user) {
         const error = new Error("Validation Failed");
         error.statusCode = 401;
-        error.data = {
-          value: email,
-          msg: "User not found ",
-          param: "email",
-          location: "login",
-        };
+        // error.data = {
+        //   value: email,
+        //   msg: "User not found ",
+        //   param: "email",
+        //   location: "login",
+        // };
         throw error;
       }
       bcryct
         .compare(password, user.password)
         .then((match) => {
-          // console.log(match);
+          // if passwords do not match
           if (!match) {
             const error = new Error("Validation Failed");
             error.data = {
@@ -143,10 +146,8 @@ exports.login = (req, res, next) => {
             };
             error.statusCode = 401;
             throw error;
-            // return res.status(401).json({
-            //   message: "password incorrect",
-            // });
           } else {
+            //if passwords match sending a token
             const token = jwt.sign(
               {
                 email: user.email,
@@ -155,7 +156,6 @@ exports.login = (req, res, next) => {
               "internbazaarsecret",
               { expiresIn: "1h" }
             );
-            // console.log(token);
             return res.status(200).json({
               message: "password correct",
               token: token,
