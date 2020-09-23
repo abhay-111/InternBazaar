@@ -147,17 +147,20 @@ exports.login = (req, res, next) => {
             //   message: "password incorrect",
             // });
           } else {
-            return res.status(200).json({
-              message: "password correct",
-            });
             const token = jwt.sign(
               {
                 email: user.email,
-                userId: user._id.toString,
+                userId: user._id.toString(),
               },
               "internbazaarsecret",
               { expiresIn: "1h" }
             );
+            // console.log(token);
+            return res.status(200).json({
+              message: "password correct",
+              token: token,
+              userId: user._id.toString(),
+            });
           }
         })
         .catch((err) => {
