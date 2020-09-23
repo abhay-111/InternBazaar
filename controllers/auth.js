@@ -111,7 +111,7 @@ exports.login = (req, res, next) => {
   if (!errors.isEmpty()) {
     const error = new Error("Validation Failed ");
     error.statusCode = 422;
-    error.data = error.array();
+    error.data = errors.array();
     throw error;
   }
 
