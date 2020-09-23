@@ -23,6 +23,8 @@ exports.addInternships = (req, res, next) => {
   const stipend = req.body.stipend;
   const internshipPeriod = req.body.internshipPeriod;
   const companyName = req.body.companyName;
+  const startDate=req.body.startDate
+  const applyBy=req.body.applyBy
 
   const internship = new Internship({
     title: title,
@@ -31,6 +33,8 @@ exports.addInternships = (req, res, next) => {
     internshipPeriod: internshipPeriod,
     companyName: companyName,
     internshipType: internshipType,
+    applyBy:applyBy,
+    startDate:startDate
   });
   internship.save();
 
@@ -42,5 +46,7 @@ exports.addInternships = (req, res, next) => {
     internshipPeriod: internshipPeriod,
     companyName: companyName,
     internshipType: internshipType,
+    applyBy:applyBy,
+    startDate:startDate
   });
 };

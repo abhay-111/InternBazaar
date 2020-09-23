@@ -9,11 +9,22 @@ const InternshipSchema=new Schema({
         type:String,
         required:true
     },
-    
-    description:{
+    startDate:{
+        type:String,
+        required:true
+
+
+    },
+    applyBy:{
         type:String,
         required:true
     },
+    description:{
+        type:String,
+        required:true
+    }
+       
+    ,
     stipend:{
         type:Number,
         required:true
@@ -29,6 +40,14 @@ const InternshipSchema=new Schema({
     },
     internshipType:{
         type:String,
+        required:true
+    },
+    skillsReq:{
+        type:String,
+        required:true
+    },
+    vacancy:{
+        type:Number,
         required:true
     }
 })
