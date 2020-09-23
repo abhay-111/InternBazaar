@@ -1,13 +1,15 @@
 const User = require("../models/User");
+
+const config = require("../config");
+
 const bcryct = require("bcryptjs");
 const nodemailer = require("nodemailer");
-const config = require("../config");
 const otpGenerator = require("otp-generator");
 
-var mailgun = require("mailgun-js")({
-  apiKey: config.mailgunapikey,
-  domain: config.mailgundomain,
-});
+// var mailgun = require("mailgun-js")({
+//   apiKey: config.mailgunapikey,
+//   domain: config.mailgundomain,
+// });
 
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const { validationResult } = require("express-validator/check");
@@ -44,36 +46,38 @@ exports.signup = (req, res, next) => {
             password: hashedpassword,
           });
           user.save();
-          // let Otp = Math.floor(100000 + Math.random() * 900000);
-          // transporter
-          //   .sendMail({
-          //     to: 'abhaychauhan232@gmail.com',
-          //     from: "abhay1912052@akgec.ac.in",
-          //     subject: "Sign up OTP",
-          //     html: `<h1>OTP: ${Otp} </h1>`,
-          //   })
-          //   console.log(transporter.MailMessage)
-          //   .catch((err) => {
-          //     console.log(err);
-          //   })
+          let Otp = Math.floor(100000 + Math.random() * 900000);
+          transporter
+            .sendMail({
+              to: email,
+              from: "naman1913128@akgec.ac.in",
+              subject: "Sign up OTP",
+              html: `<h1>OTP: ${Otp} </h1>`,
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          // console.log(transporter.MailMessage).catch((err) => {
+          //   console.log(err);
+          // });
 
-          const otp = otpGenerator.generate(6, { specialChars: false });
-          var data = {
-            from: "Abhay <abhaychauhan232@gmail.com>",
-            to: "abhaychauhan232@gmail.com",
+          // const otp = otpGenerator.generate(6, { specialChars: false });
+          // var data = {
+          //   from: "Abhay <abhaychauhan232@gmail.com>",
+          //   to: "abhaychauhan232@gmail.com",
 
-            subject: "Sign Up succesfull!!",
+          //   subject: "Sign Up succesfull!!",
 
-            text:
-              "Here is your One time Password. It will expire in the next 15 minutes   " +
-              otp +
-              "",
-            text: "s",
-          };
+          //   text:
+          //     "Here is your One time Password. It will expire in the next 15 minutes   " +
+          //     otp +
+          //     "",
+          //   text: "s",
+          // };
 
-          mailgun.messages().send(data, function (error, body) {
-            console.log(body);
-          });
+          // mailgun.messages().send(data, function (error, body) {
+          //   console.log(body);
+          // });
 
           console.log(collegeName);
           res.status(200).json({
