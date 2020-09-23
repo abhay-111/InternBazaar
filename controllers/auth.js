@@ -2,6 +2,7 @@ const User = require("../models/User");
 
 const config = require("../config");
 
+const jwt = require("jsonwebtoken");
 const bcryct = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const otpGenerator = require("otp-generator");
@@ -126,7 +127,6 @@ exports.login = (req, res, next) => {
           param: "email",
           location: "login",
         };
-
         throw error;
       }
       bcryct
@@ -150,6 +150,14 @@ exports.login = (req, res, next) => {
             return res.status(200).json({
               message: "password correct",
             });
+            const token = jwt.sign(
+              {
+                email: user.email,
+                userId: user._id.toString,
+              },
+              "internbazaarsecret",
+              { expiresIn: "1h" }
+            );
           }
         })
         .catch((err) => {
