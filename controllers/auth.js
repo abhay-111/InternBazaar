@@ -45,6 +45,7 @@ exports.signup = (req, res, next) => {
           const token = jwt.sign(
             {
               email: email,
+              loggedIn: "false",
             },
             config.tokenkey,
             { expiresIn: 600 } //600s = 10min
@@ -147,6 +148,7 @@ exports.login = (req, res, next) => {
               {
                 email: user.email,
                 userId: user._id.toString(),
+                loggedIn: "true",
               },
               "internbazaarsecret",
               { expiresIn: "1h" }
