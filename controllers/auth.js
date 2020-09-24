@@ -39,12 +39,6 @@ exports.signup = (req, res, next) => {
         .hash(password, 12)
         .then((hashedpassword) => {
           // saving user in the database
-          const user = new User({
-            email: email,
-            collegeName: collegeName,
-            password: hashedpassword,
-          });
-          user.save();
 
           //generating otp and token
           let otp = Math.floor(100000 + Math.random() * 900000);
@@ -60,9 +54,14 @@ exports.signup = (req, res, next) => {
           const userOtp = new Otp({
             token: token,
             otp: otp,
+            email: email,
+            collegeName: collegeName,
+            password: hashedpassword,
           });
           userOtp.save();
+          console.log(email);
           console.log("otp=" + otp);
+
           //TODO REMOVE CONSOLE LOG AND UNCOMMENT MAILER CODE
           //sending otp to user via email
           // transporter
@@ -77,9 +76,8 @@ exports.signup = (req, res, next) => {
           //   });
 
           //sending response to frontend
-          console.log(collegeName);
           res.status(200).json({
-            message: "User added",
+            message: "otp sent",
             email: email,
             collegeName: collegeName,
             token: token,
@@ -178,14 +176,40 @@ exports.login = (req, res, next) => {
 exports.otpVerification = (req, res, next) => {
   const recievedToken = req.body.token;
   const recievedOtp = req.body.otp;
+  // searching for otp in database by token
   Otp.findOne({ token: recievedToken })
     .then((data) => {
+      // if token is invalid/not found
+      if (!data) {
+        const error = new Error("Validation failed");
+        error.statusCode = 403;
+        error.data = {
+          value: recievedOtp,
+          msg: "invalid token",
+          param: "otp",
+          location: "otp",
+        };
+        throw error;
+      }
+
+      // check if entered otp is valid
       if (data.otp == recievedOtp) {
-        console.log("otppp");
+        // creating new user to be stored in database
+        const email = data.email;
+        const collegeName = data.collegeName;
+        const password = data.password;
+        const user = new User({
+          email: email,
+          collegeName: collegeName,
+          password: password,
+        });
+        user.save();
+
+        //removing otp from database
+        data.remove();
+
         return res.status(200).json({
-          message: "password correct",
-          // token: recievedToken,
-          // userId: user._id.toString(),
+          message: "password correct, user added",
         });
       } else {
         const error = new Error("Validation Failed");
@@ -194,7 +218,7 @@ exports.otpVerification = (req, res, next) => {
           value: recievedOtp,
           msg: "Otp incorrect",
           param: "otp",
-          location: "signup",
+          location: "otp",
         };
         throw error;
       }
