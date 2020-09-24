@@ -8,6 +8,9 @@ const config = require("../config");
 const User = require("../models/User");
 const authController = require("../controllers/auth");
 
+// POST => /auth/sinup/otp
+router.post("/signup/otp", authController.otpVerification);
+
 // POST => /auth/signup
 router.post(
   "/signup",

@@ -9,6 +9,7 @@ const { validationResult } = require("express-validator/check");
 //custom imports
 const config = require("../config");
 const User = require("../models/User");
+const Otp = require("../models/otp");
 
 const transporter = nodemailer.createTransport(
   sendgridTransport({
@@ -17,11 +18,6 @@ const transporter = nodemailer.createTransport(
     },
   })
 );
-
-// var mailgun = require("mailgun-js")({
-//   apiKey: config.mailgunapikey,
-//   domain: config.mailgundomain,
-// });
 
 // signup / registering user
 exports.signup = (req, res, next) => {
@@ -42,50 +38,51 @@ exports.signup = (req, res, next) => {
       bcryct
         .hash(password, 12)
         .then((hashedpassword) => {
+          // saving user in the database
           const user = new User({
             email: email,
             collegeName: collegeName,
             password: hashedpassword,
           });
           user.save();
-          let Otp = Math.floor(100000 + Math.random() * 900000);
-          transporter
-            .sendMail({
-              to: email,
-              from: "naman1913128@akgec.ac.in",
-              subject: "Sign up OTP",
-              html: `<h1>OTP: ${Otp} </h1>`,
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-          // console.log(transporter.MailMessage).catch((err) => {
-          //   console.log(err);
-          // });
 
-          // const otp = otpGenerator.generate(6, { specialChars: false });
-          // var data = {
-          //   from: "Abhay <abhaychauhan232@gmail.com>",
-          //   to: "abhaychauhan232@gmail.com",
+          //generating otp and token
+          let otp = Math.floor(100000 + Math.random() * 900000);
+          const token = jwt.sign(
+            {
+              email: email,
+            },
+            config.tokenkey,
+            { expiresIn: 600 } //600s = 10min
+          );
 
-          //   subject: "Sign Up succesfull!!",
+          //saving the otp in datavase
+          const userOtp = new Otp({
+            token: token,
+            otp: otp,
+          });
+          userOtp.save();
+          console.log("otp=" + otp);
+          //TODO REMOVE CONSOLE LOG AND UNCOMMENT MAILER CODE
+          //sending otp to user via email
+          // transporter
+          //   .sendMail({
+          //     to: email,
+          //     from: "naman1913128@akgec.ac.in",
+          //     subject: "Sign up OTP",
+          //     html: `<h1>OTP: ${otp} </h1>`,
+          //   })
+          //   .catch((err) => {
+          //     console.log(err);
+          //   });
 
-          //   text:
-          //     "Here is your One time Password. It will expire in the next 15 minutes   " +
-          //     otp +
-          //     "",
-          //   text: "s",
-          // };
-
-          // mailgun.messages().send(data, function (error, body) {
-          //   console.log(body);
-          // });
-
+          //sending response to frontend
           console.log(collegeName);
           res.status(200).json({
             message: "User added",
             email: email,
             collegeName: collegeName,
+            token: token,
           });
         })
         .catch((err) => {
@@ -124,12 +121,12 @@ exports.login = (req, res, next) => {
       if (!user) {
         const error = new Error("Validation Failed");
         error.statusCode = 401;
-        // error.data = {
-        //   value: email,
-        //   msg: "User not found ",
-        //   param: "email",
-        //   location: "login",
-        // };
+        error.data = {
+          value: email,
+          msg: "User not found ",
+          param: "email",
+          location: "login",
+        };
         throw error;
       }
       bcryct
@@ -169,6 +166,38 @@ exports.login = (req, res, next) => {
           }
           next(err);
         });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.otpVerification = (req, res, next) => {
+  const recievedToken = req.body.token;
+  const recievedOtp = req.body.otp;
+  Otp.findOne({ token: recievedToken })
+    .then((data) => {
+      if (data.otp == recievedOtp) {
+        console.log("otppp");
+        return res.status(200).json({
+          message: "password correct",
+          // token: recievedToken,
+          // userId: user._id.toString(),
+        });
+      } else {
+        const error = new Error("Validation Failed");
+        error.statusCode = 401;
+        error.data = {
+          value: recievedOtp,
+          msg: "Otp incorrect",
+          param: "otp",
+          location: "signup",
+        };
+        throw error;
+      }
     })
     .catch((err) => {
       if (!err.statusCode) {
