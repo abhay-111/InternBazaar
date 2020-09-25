@@ -1,0 +1,17 @@
+.Footer{
+    background-color: #30302f;
+    color: #fff;
+    list-style: none;
+    padding-top: 1rem;
+    text-align: center;
+}
+
+.Footer a{
+    color: #fff;
+}
+
+.Row{
+    padding: 1.5rem;
+    font-weight: bold;
+    margin-left: 26rem ;
+}

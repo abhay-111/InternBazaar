@@ -1,0 +1,31 @@
+
+.SearchSpace{
+    background-image: url('../../assets/NoPath_-_Copy_15_bw@2x.png');
+    background-size: cover;
+    height: 300px;
+    color: #fff;
+    font-weight: 900;
+    text-align: center;
+    padding: 5rem;
+    
+}
+
+.SearchSpace input{
+    width: 38%;
+    height: 33%;
+    border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-color: #fff;
+}
+
+.SearchSpace button{
+    width: 40px;
+  padding: 1px 0 7px 0;
+  background: #fff;
+  color: #000;
+  font-size: 25px;
+  border: 1px solid black; 
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  cursor: pointer;
+}
