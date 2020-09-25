@@ -24,11 +24,11 @@ app.use((req, res, next) => {
 
 //Routing requests
 app.use("/auth", authRoutes);
-app.use("/internships", internshipRoutes);
+app.use( "/intern",internshipRoutes);
 
 //handling errors
 app.use((error, req, res, next) => {
-  const status = error.statusCode;
+  const status = error.statusCode||500;
   const data = error.data;
   const message = error.message;
 

@@ -4,9 +4,9 @@ const router = express.Router();
 const Users = require("../controllers/internship");
 
 // GET => /internships/:internshipType
-router.get("/:internshipType", Users.getInternships);
+router.get("/internships", Users.getInternships);
 
 // POST => /internships
-router.post("/", Users.addInternships);
+// router.post("/add", Users.addInternships);
 
 module.exports = router;
