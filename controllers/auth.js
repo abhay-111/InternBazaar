@@ -33,15 +33,13 @@ exports.signup = (req, res, next) => {
   const password = req.body.password;
   const email = req.body.email;
 
-  User.findOne({ email: email })
-    .then((result) => {
-      bcryct
+    bcryct
         .hash(password, 12)
         .then((hashedpassword) => {
           // saving user in the database
 
           //generating otp and token
-          let otp = otpGenerator.generate(6,{upperCase:false,specialChars:false})
+          let otp = otpGenerator.generate(6,{alphabets:false,specialChars:false,upperCase:false})
           const token = jwt.sign(
             {
               email: email,
@@ -91,14 +89,7 @@ exports.signup = (req, res, next) => {
           }
           next(err);
         });
-    })
-    .catch((err) => {
-      console.log(err);
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
-    });
+    
 };
 
 // login / authenticating user

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const otpGenerator = require("otp-generator");
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
@@ -45,6 +46,7 @@ mongoose
   })
   .then((result) => {
     app.listen(8080);
+    
     console.log("Server up and running");
   })
   .catch((err) => {
