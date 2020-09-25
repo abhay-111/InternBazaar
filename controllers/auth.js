@@ -41,7 +41,7 @@ exports.signup = (req, res, next) => {
           // saving user in the database
 
           //generating otp and token
-          let otp = Math.floor(100000 + Math.random() * 900000);
+          let otp = otpGenerator.generate(6,{upperCase:false,specialChars:false})
           const token = jwt.sign(
             {
               email: email,
