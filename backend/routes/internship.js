@@ -7,6 +7,6 @@ const Users = require("../controllers/internship");
 router.get("/internships", Users.getInternships);
 
 // POST => /internships
-// router.post("/add", Users.addInternships);
+router.post("/add", Users.addInternships);
 
 module.exports = router;

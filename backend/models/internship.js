@@ -22,7 +22,7 @@ const InternshipSchema = new Schema({
   },
 
   stipend: {
-    type: String,
+    type: Number,
     required: true,
   },
   internshipPeriod: {
