@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Form, Button} from 'react-bootstrap';
-
+import {Link} from 'react-router-dom';
 import Modal from '../UIelements/Modal/Modal';
 import classes from './Forms.css';
 
@@ -31,7 +31,8 @@ class LoginForm extends Component {
          .catch(error => console.error('Error:', error))
          .then(response => {console.log('Success:', response)
                            if(response.message==="password correct")
-                           alert("you have successfully logged in!");
+                           {localStorage.setItem('token', response.token);
+                           alert("you have successfully logged in!");}
                            else
                            this.errorHandler();
                           });
@@ -70,7 +71,7 @@ class LoginForm extends Component {
         <Button variant="primary" type="submit" className={classes.Button}>
         Login
         </Button>
-        <p>Don't have an account? <a href="/signup">Sign up!</a></p>
+        <p>Don't have an account? <Link to="/signup">Sign up!</Link></p>
       </Form>
         </div>
         </div>

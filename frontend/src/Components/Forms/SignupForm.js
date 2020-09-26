@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import Modal from '../UIelements/Modal/Modal';
 import { Form, Button } from 'react-bootstrap';
@@ -39,7 +39,7 @@ class SignupForm extends Component {
                 if(response.message==="otp sent")
                 {
                   localStorage.setItem('token', response.token)
-                  this.setState({ redirect: "/signup/verifyotp" });
+                  this.setState({ redirect:"/verifyotp" });
                 }
                 else
                 {alert("Registration Failed!")}
@@ -99,12 +99,13 @@ class SignupForm extends Component {
         return <Redirect to={this.state.redirect} />
       }
         return(
-            
+              
         <Modal show={true}>
         <div className={classes.gridContainer}>
         <div className={classes.item1}><h2>Looks like you're new here!</h2><p>Signup Now to find Your dream internships!</p></div>
         <div className={classes.item2}></div>
         <div className={classes.item3}>
+          <div className={classes.cross}>X</div>
         <Form onSubmit={this.handleSubmit} style={{marginTop: '20%'}} >
         <div className="text-danger">{this.state.errors.msg}</div> 
         <Form.Group>
@@ -131,13 +132,13 @@ class SignupForm extends Component {
         <Button variant="primary" type="submit" className={classes.Button}>
         Signup
         </Button>
-        <p>Already have an account? <a href="/login">Login!</a></p>
+        <p>Already have an account? <Link to="/login">Login!</Link></p>
       </Form>
         </div>
         </div>
 
     </Modal>
-
+    
         );
     }
 }

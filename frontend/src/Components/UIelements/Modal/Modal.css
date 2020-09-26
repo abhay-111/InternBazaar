@@ -8,7 +8,7 @@
     box-sizing: border-box;
     transition: all 0.3s ease-out;
     border-radius: 10px;
-    bottom: 4rem;
+    bottom: 2rem;
 }
 
 @media (min-width: 600px) {
