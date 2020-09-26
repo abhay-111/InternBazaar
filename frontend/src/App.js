@@ -11,10 +11,11 @@ class App extends Component {
   render() {
     return (
       <div>
+        
        <Route path="/" component={LandingPage} />
        <Route path="/login" component={LoginForm} />
        <Route path="/signup" component={SignupForm} />
-       <Route path="/signup/verifyotp" component={OtpPage} />
+       <Route path='/verifyotp' component={OtpPage} />
 
       </div>
     );
