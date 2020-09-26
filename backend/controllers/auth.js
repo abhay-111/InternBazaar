@@ -110,7 +110,7 @@ exports.login = (req, res, next) => {
         .then((match) => {
           // if passwords do not match
           if (!match) {
-            const error = new Error("Validation Failed");
+            const error = new Error("Login Failed");
             error.data = {
               value: null,
               msg: "Password Incorrect ",
@@ -176,25 +176,25 @@ exports.otpVerification = (req, res, next) => {
         User.findOne({ email: data.email }).then((user) => {
           user.isVerified = "true";
           user.save();
-        });
 
-        //removing otp from database
-        data.remove();
+          //removing otp from database
+          data.remove();
 
-        const token = jwt.sign(
-          {
-            email: user.email,
+          const token = jwt.sign(
+            {
+              email: user.email,
+              userId: user._id.toString(),
+              loggedIn: "true",
+            },
+            "internbazaarsecret",
+            { expiresIn: "1h" }
+          );
+
+          return res.status(200).json({
+            message: "password correct, user added",
+            token: token,
             userId: user._id.toString(),
-            loggedIn: "true",
-          },
-          "internbazaarsecret",
-          { expiresIn: "1h" }
-        );
-
-        return res.status(200).json({
-          message: "password correct, user added",
-          token: token,
-          userId: user._id.toString(),
+          });
         });
       } else {
         const error = new Error("Validation Failed");
