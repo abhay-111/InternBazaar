@@ -38,7 +38,7 @@ class SignupForm extends Component {
                 .then(response => {console.log('Success:', response);
                 if(response.message==="otp sent")
                 {
-                  localStorage.setItem('token', response.token)
+                  localStorage.setItem('id', response.id)
                   this.setState({ redirect:"/verifyotp" });
                 }
                 else
