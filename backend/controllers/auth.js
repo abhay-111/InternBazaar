@@ -40,39 +40,13 @@ exports.signup = (req, res, next) => {
       const user = new User({
         email: email,
         collegeName: collegeName,
-        password: password,
+        password: hashedpassword,
         isVerified: "false",
       });
       user.save();
 
-      //generating otp
-      let otp = otpGenerator.generate(6, {
-        alphabets: false,
-        specialChars: false,
-        upperCase: false,
-      });
-
-      //saving the otp in database
-      const userOtp = new Otp({
-        otp: otp,
-        email: email,
-      });
-      userOtp.save();
-      console.log(email);
-      console.log("otp=" + otp);
-
-      //TODO REMOVE CONSOLE LOG AND UNCOMMENT MAILER CODE
-      //sending otp to user via email
-      // transporter
-      //   .sendMail({
-      //     to: email,
-      //     from: "naman1913128@akgec.ac.in",
-      //     subject: "Sign up OTP",
-      //     html: `<h1>OTP: ${otp} </h1>`,
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      //generating otp, saving it in database and sending email
+      const userOtp = saveAndSendOtp(email);
 
       //sending response to frontend
       res.status(200).json({
@@ -102,13 +76,14 @@ exports.login = (req, res, next) => {
 
   const email = req.body.email;
   const password = req.body.password;
+  console.log(password);
 
   User.findOne({ email: email })
     .then((user) => {
       //if user does not exist
       if (!user) {
-        const error = new Error("Validation Failed");
-        error.statusCode = 401;
+        const error = new Error("Login Failed");
+        error.statusCode = 422;
         error.data = {
           value: email,
           msg: "User not found ",
@@ -117,6 +92,19 @@ exports.login = (req, res, next) => {
         };
         throw error;
       }
+
+      //if user is not verfied
+      if (user.isVerified == "false") {
+        const otp = saveAndSendOtp(email);
+        const error = new Error("Login failed, user not verified");
+        error.statusCode = 403;
+        error.data = {
+          msg: "otp sent please verify yourself",
+          location: "login",
+        };
+        throw error;
+      }
+
       bcryct
         .compare(password, user.password)
         .then((match) => {
@@ -173,7 +161,7 @@ exports.otpVerification = (req, res, next) => {
       // if id is invalid/not found
       if (!data) {
         const error = new Error("Validation failed");
-        error.statusCode = 403;
+        error.statusCode = 422;
         error.data = {
           value: recievedOtp,
           msg: "invalid id",
@@ -188,7 +176,6 @@ exports.otpVerification = (req, res, next) => {
         //verify the user
         User.findOne({ email: data.email }).then((user) => {
           user.isVerified = "true";
-          console.log(user);
           user.save();
         });
 
@@ -220,6 +207,7 @@ exports.otpVerification = (req, res, next) => {
 
 // this function generates, saves and sends the otp to the user
 function saveAndSendOtp(email) {
+  //generate otp
   let otp = otpGenerator.generate(6, {
     alphabets: false,
     specialChars: false,
@@ -232,8 +220,9 @@ function saveAndSendOtp(email) {
     email: email,
   });
   userOtp.save();
+
   console.log(email);
-  console.log("otp=" + otp);
+  console.log("otp=" + userOtp.otp);
 
   //sending otp to user via email
   // transporter
@@ -247,5 +236,5 @@ function saveAndSendOtp(email) {
   //     console.log(err);
   //   });
 
-  return otp;
+  return userOtp;
 }
