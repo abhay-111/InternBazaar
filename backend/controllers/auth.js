@@ -33,63 +33,61 @@ exports.signup = (req, res, next) => {
   const password = req.body.password;
   const email = req.body.email;
 
-    bcryct
-        .hash(password, 12)
-        .then((hashedpassword) => {
-          // saving user in the database
+  bcryct
+    .hash(password, 12)
+    .then((hashedpassword) => {
+      // saving user in the database
+      const user = new User({
+        email: email,
+        collegeName: collegeName,
+        password: password,
+        isVerified: "false",
+      });
+      user.save();
 
-          //generating otp and token
-          let otp = otpGenerator.generate(6,{alphabets:false,specialChars:false,upperCase:false})
-          const token = jwt.sign(
-            {
-              email: email,
-              loggedIn: "false",
-            },
-            config.tokenkey,
-            { expiresIn: 600 } //600s = 10min
-          );
+      //generating otp
+      let otp = otpGenerator.generate(6, {
+        alphabets: false,
+        specialChars: false,
+        upperCase: false,
+      });
 
-          //saving the otp in datavase
-          const userOtp = new Otp({
-            token: token,
-            otp: otp,
-            email: email,
-            collegeName: collegeName,
-            password: hashedpassword,
-          });
-          userOtp.save();
-          console.log(email);
-          console.log("otp=" + otp);
+      //saving the otp in database
+      const userOtp = new Otp({
+        otp: otp,
+        email: email,
+      });
+      userOtp.save();
+      console.log(email);
+      console.log("otp=" + otp);
 
-          //TODO REMOVE CONSOLE LOG AND UNCOMMENT MAILER CODE
-          //sending otp to user via email
-          // transporter
-          //   .sendMail({
-          //     to: email,
-          //     from: "naman1913128@akgec.ac.in",
-          //     subject: "Sign up OTP",
-          //     html: `<h1>OTP: ${otp} </h1>`,
-          //   })
-          //   .catch((err) => {
-          //     console.log(err);
-          //   });
+      //TODO REMOVE CONSOLE LOG AND UNCOMMENT MAILER CODE
+      //sending otp to user via email
+      // transporter
+      //   .sendMail({
+      //     to: email,
+      //     from: "naman1913128@akgec.ac.in",
+      //     subject: "Sign up OTP",
+      //     html: `<h1>OTP: ${otp} </h1>`,
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
 
-          //sending response to frontend
-          res.status(200).json({
-            message: "otp sent",
-            email: email,
-            collegeName: collegeName,
-            token: token,
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          if (!err.statusCode) {
-            err.statusCode = 500;
-          }
-          next(err);
-        });
-    
+      //sending response to frontend
+      res.status(200).json({
+        message: "otp sent",
+        email: email,
+        id: userOtp._id,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };
 
 // login / authenticating user
@@ -167,18 +165,18 @@ exports.login = (req, res, next) => {
 };
 
 exports.otpVerification = (req, res, next) => {
-  const recievedToken = req.body.token;
+  const recievedId = req.body.id;
   const recievedOtp = req.body.otp;
   // searching for otp in database by token
-  Otp.findOne({ token: recievedToken })
+  Otp.findOne({ _id: recievedId })
     .then((data) => {
-      // if token is invalid/not found
+      // if id is invalid/not found
       if (!data) {
         const error = new Error("Validation failed");
         error.statusCode = 403;
         error.data = {
           value: recievedOtp,
-          msg: "invalid token",
+          msg: "invalid id",
           param: "otp",
           location: "otp",
         };
@@ -187,16 +185,12 @@ exports.otpVerification = (req, res, next) => {
 
       // check if entered otp is valid
       if (data.otp == recievedOtp) {
-        // creating new user to be stored in database
-        const email = data.email;
-        const collegeName = data.collegeName;
-        const password = data.password;
-        const user = new User({
-          email: email,
-          collegeName: collegeName,
-          password: password,
+        //verify the user
+        User.findOne({ email: data.email }).then((user) => {
+          user.isVerified = "true";
+          console.log(user);
+          user.save();
         });
-        user.save();
 
         //removing otp from database
         data.remove();
@@ -223,3 +217,35 @@ exports.otpVerification = (req, res, next) => {
       next(err);
     });
 };
+
+// this function generates, saves and sends the otp to the user
+function saveAndSendOtp(email) {
+  let otp = otpGenerator.generate(6, {
+    alphabets: false,
+    specialChars: false,
+    upperCase: false,
+  });
+
+  //saving the otp in database
+  const userOtp = new Otp({
+    otp: otp,
+    email: email,
+  });
+  userOtp.save();
+  console.log(email);
+  console.log("otp=" + otp);
+
+  //sending otp to user via email
+  // transporter
+  //   .sendMail({
+  //     to: email,
+  //     from: "naman1913128@akgec.ac.in",
+  //     subject: "Sign up OTP",
+  //     html: `<h1>OTP: ${otp} </h1>`,
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+
+  return otp;
+}
