@@ -125,7 +125,6 @@ exports.login = (req, res, next) => {
               {
                 email: user.email,
                 userId: user._id.toString(),
-                loggedIn: "true",
               },
               "internbazaarsecret",
               { expiresIn: "1h" }
@@ -182,8 +181,20 @@ exports.otpVerification = (req, res, next) => {
         //removing otp from database
         data.remove();
 
+        const token = jwt.sign(
+          {
+            email: user.email,
+            userId: user._id.toString(),
+            loggedIn: "true",
+          },
+          "internbazaarsecret",
+          { expiresIn: "1h" }
+        );
+
         return res.status(200).json({
           message: "password correct, user added",
+          token: token,
+          userId: user._id.toString(),
         });
       } else {
         const error = new Error("Validation Failed");
