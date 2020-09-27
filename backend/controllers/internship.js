@@ -1,7 +1,20 @@
 const Internship = require("../models/Internship");
+const { validationResult } = require("express-validator/check");
+
 
 // // adding internships to database
 exports.addInternships = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    
+    return req.status(422).json({
+      data:errors.array(),
+      msg:"validation failed"
+    })
+  }
+  
+
 
 
   // const skillreq=req.body.skillsReq
@@ -29,7 +42,7 @@ exports.addInternships = (req, res, next) => {
     applyBy: applyBy,
     startDate: startDate,
   });
-  internship.save()
+  internship.save();
     
   res.status(200).json({
     message: "Internship added",
@@ -51,20 +64,17 @@ exports.addInternships = (req, res, next) => {
 };
 
 
-exports.getInternships = (req, res, next) => {
-
-  
-     
+exports.getInternships = (req, res, next) => {  
     Internship.find(req.query).then((result) => {
       if (result.length === 0) {
         return res.status(422).json({
         message: "No such internships found",
         });
       }
-     
 
       res.status(200).json({
         message: "Internships loaded",
+
         post: result,
       });
     }).catch((err) => {
@@ -74,8 +84,4 @@ exports.getInternships = (req, res, next) => {
       }
       next(err);
     });
-
-
-   
-
 };

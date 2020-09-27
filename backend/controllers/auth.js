@@ -23,10 +23,11 @@ const transporter = nodemailer.createTransport(
 exports.signup = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const error = new Error("Validation Failed ");
-    error.statusCode = 422;
-    error.data = errors.array();
-    throw error;
+    
+    return req.status(422).json({
+      data:errors.array(),
+      msg:"validation failed"
+    })
   }
 
   const collegeName = req.body.collegeName;
