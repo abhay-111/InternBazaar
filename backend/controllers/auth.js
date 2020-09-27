@@ -101,6 +101,7 @@ exports.login = (req, res, next) => {
         error.data = {
           msg: "otp sent please verify yourself",
           location: "login",
+          id: otp._id,
         };
         throw error;
       }
@@ -133,6 +134,9 @@ exports.login = (req, res, next) => {
               message: "password correct",
               token: token,
               userId: user._id.toString(),
+              data: {
+                id: undefined,
+              },
             });
           }
         })

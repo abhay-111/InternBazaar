@@ -1,19 +1,16 @@
-
-.Logo{
-    font-family: fantasy;
-    font-size: 1.8rem;
-    color: midnightblue;
+.Logo {
+  font-family: fantasy;
+  font-size: 1.8rem;
+  color: midnightblue;
 }
 
-.Navlink{
-    box-sizing: border-box;
-    border-radius: 5px;
-    background-color: #345beb;
-    color: #fff;
-    padding: 5px;
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-right: 1rem;
+.Navlink {
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-color: #345beb;
+  color: #fff;
+  padding: 5px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-right: 1rem;
 }
-
-

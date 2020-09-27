@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 import Modal from "../UIelements/Modal/Modal";
 import classes from "./Forms.css";
@@ -44,6 +44,8 @@ class OtpPage extends Component {
       });
   };
 
+  resendHandler = () => {};
+
   render() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
@@ -52,8 +54,8 @@ class OtpPage extends Component {
       <Modal show={true}>
         <div className={classes.gridContainer}>
           <div className={classes.item1}>
-            <h2>OTP Verification!</h2>
-            <p>An OTP has been sent to your E-mail!</p>
+            <h2>Verify Yourself!</h2>
+            <p>An OTP has been sent to your E-mail for verification!</p>
           </div>
           <div className={classes.item2}></div>
           <div className={classes.item3}>
