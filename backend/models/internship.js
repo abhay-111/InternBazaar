@@ -20,6 +20,15 @@ const InternshipSchema = new Schema({
     type: String,
     required: true,
   },
+  whocanApply:{
+    type:String,
+    required:true
+  },
+  perks:{
+    type:String,
+    required:true
+  },
+
 
   stipend: {
     type: String,
@@ -32,6 +41,10 @@ const InternshipSchema = new Schema({
   companyName: {
     type: String,
     required: true,
+  },
+  location:{
+    type:String,
+    required:true,
   },
   internshipType: {
     type: String,

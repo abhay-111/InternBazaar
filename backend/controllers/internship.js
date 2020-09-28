@@ -14,7 +14,7 @@ exports.addInternships = (req, res, next) => {
     })
   }
   // const skillreq=req.body.skillsReq
-  const internshipType = req.body.internshipType;
+  var internshipType = req.body.internshipType;
   const title = req.body.title;
   const description = req.body.description;
   const stipend = req.body.stipend;
@@ -24,9 +24,14 @@ exports.addInternships = (req, res, next) => {
   const applyBy = req.body.applyBy;
   const vacancy=req.body.vacancy;
   const skillsReq=req.body.skillsReq
-
+  const perks=req.body.perks
+  const whocanApply=req.body.whocanApply
+  var location =req.body.location
+  location=String(location).toLowerCase()
+  internshipType=String(internshipType).toLowerCase()
 
   const internship = new Internship({
+    location:location,
     vacancy:vacancy,
     skillsReq:skillsReq,
     title: title,
@@ -37,11 +42,15 @@ exports.addInternships = (req, res, next) => {
     internshipType: internshipType,
     applyBy: applyBy,
     startDate: startDate,
+    whocanApply:whocanApply,
+    perks:perks
   });
   internship.save();
     
   res.status(200).json({
     message: "Internship added",
+    perks:perks,
+    whocanApply:whocanApply,
     title: title,
     description: description,
     stipend: stipend,
@@ -50,8 +59,7 @@ exports.addInternships = (req, res, next) => {
     internshipType: internshipType,
     applyBy: applyBy,
     startDate: startDate,
-
-
+    location:location
   })
 
 
@@ -86,6 +94,7 @@ exports.getInternships = (req, res, next) => {
 exports.viewinternship=(req,res,next)=>{
 
   const internshipId=req.params.internshipId;
+  console.log(typeof(internshipId))
 
   Internship.findById(internshipId).then((data)=>{
 console.log('ABHAY',data)
