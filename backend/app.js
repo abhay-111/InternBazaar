@@ -8,6 +8,7 @@ const app = express();
 const config = require("./config");
 const internshipRoutes = require("./routes/internship");
 const authRoutes = require("./routes/auth");
+const profileRoutes = require("./routes/profile");
 
 app.use(bodyParser.json()); // application/json
 
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 //Routing requests
 app.use("/auth", authRoutes);
 app.use("/internships", internshipRoutes);
+app.use("/profile", profileRoutes);
 
 //handling errors
 app.use((error, req, res, next) => {
@@ -46,7 +48,7 @@ mongoose
   })
   .then((result) => {
     app.listen(8080);
-    
+
     console.log("Server up and running");
   })
   .catch((err) => {

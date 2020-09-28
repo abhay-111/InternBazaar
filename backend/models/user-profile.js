@@ -29,6 +29,10 @@ const education = {
 
 // defining the schema model for User resgistration
 const profileSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -44,4 +48,4 @@ const profileSchema = new Schema({
   links: [String],
 });
 
-module.exports = mongoose.model("profile", profileSchema);
+module.exports = mongoose.model("UserProfile", profileSchema);
