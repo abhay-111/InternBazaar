@@ -13,10 +13,6 @@ exports.addInternships = (req, res, next) => {
       msg:"validation failed"
     })
   }
-  
-
-
-
   // const skillreq=req.body.skillsReq
   const internshipType = req.body.internshipType;
   const title = req.body.title;
@@ -85,3 +81,45 @@ exports.getInternships = (req, res, next) => {
       next(err);
     });
 };
+
+
+exports.viewinternship=(req,res,next)=>{
+
+  const internshipId=req.params.internshipId;
+
+  Internship.findById(internshipId).then((data)=>{
+console.log('ABHAY',data)
+    if(!data)
+    {
+      const error = new Error("No such internship exists");
+        error.statusCode = 422;
+        error.data = {
+          value: null,
+          msg: "Internship not found ",
+          // param: internshipId,
+          location: "viewinternship",
+        };
+        throw error;
+
+    }
+
+    res.status(200).json({
+      message:"Internship Found",
+      data:data,
+    })
+
+
+
+  }).catch((err) => {
+    console.log(err);
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  });
+
+
+
+
+
+}

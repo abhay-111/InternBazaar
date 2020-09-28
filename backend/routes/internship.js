@@ -3,18 +3,19 @@ const { body, check } = require("express-validator/check");
 
 const router = express.Router();
 
-const Users = require("../controllers/internship");
+const internship = require("../controllers/internship");
+const User = require("../models/User");
 
-// GET => /internships/:internshipType
-router.get("/internships",Users.getInternships);
+// GET => /internship/getinternships?query=value
+router.get("/getinternships",internship.getInternships);
 
 // POST => /internships
-router.post("/add",[
+router.post("/addInternship",[
 
     check('vacancy').isNumeric(),
     check('skillsReq').isString(),
     check('title').isString(),
-    check('description').isString(),
+    check('description').trim().isString(),
     check('stipend').isString(),
     check('internshipPeriod').isString(),
     check('companyName').isString(),
@@ -26,6 +27,8 @@ router.post("/add",[
 
 
 
-], Users.addInternships);
+], internship.addInternships);
+// GET => /view/:internshipId
+router.get("/view/:internshipId",internship.viewinternship)
 
 module.exports = router;

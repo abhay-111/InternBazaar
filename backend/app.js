@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 
 //Routing requests
 app.use("/auth", authRoutes);
-app.use( "/intern",internshipRoutes);
+app.use( "/internship",internshipRoutes);
 
 //handling errors
 app.use((error, req, res, next) => {
