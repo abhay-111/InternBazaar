@@ -6,15 +6,14 @@ exports.updateUser = (req, res, next) => {
   const data = req.body.data;
   User.findById(id)
     .then((user) => {
-      console.log(user);
+      // console.log(user);
       for (const key in data) {
         console.log("key=" + key + " data=" + data[key]);
-        user.key = data[key];
-        console.log(user);
-        // if (data.hasOwnProperty(key)) {
-        // }
+        if (data.hasOwnProperty(key)) {
+          user.set(key, data[key]);
+        }
       }
-      user.isVerfied = "false";
+      console.log(user);
       user.save();
       res.status(200).json({
         message: "updated user",

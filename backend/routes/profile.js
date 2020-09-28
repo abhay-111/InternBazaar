@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require("../controllers/profile");
 
 // GET => /internships/:internshipType
-router.post("/", User.updateUser);
+router.post("/add", User.updateUser);
 
 // POST => /internships
 // router.post("/", Users.addInternships);
