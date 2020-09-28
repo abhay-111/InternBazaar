@@ -1,0 +1,38 @@
+.body {
+  background-color: #f0f0f0;
+}
+
+.Row {
+  padding: 1rem;
+}
+
+.list {
+  list-style: none;
+}
+
+.shadow {
+  box-shadow: -1px 2px 5px 5px rgba(219, 219, 219, 1);
+}
+
+.heading {
+  font-weight: bold;
+  color: #5e5e5e;
+}
+
+.table {
+  margin: 1rem;
+}
+
+@media (min-width: 991px) {
+  .link {
+    margin-left: 85%;
+  }
+}
+
+.container {
+  background-color: #fff;
+}
+
+.button {
+  margin-left: 45%;
+}

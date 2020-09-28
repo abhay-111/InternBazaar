@@ -1,3 +1,7 @@
+.Navbar {
+  box-shadow: 0px 0px 8px 2px #cccccc;
+}
+
 .Logo {
   font-family: fantasy;
   font-size: 1.8rem;
@@ -13,4 +17,8 @@
   font-size: 1.3rem;
   font-weight: bold;
   margin-right: 1rem;
+}
+.Navlink:hover {
+  background-color: #345beb;
+  color: #fff;
 }

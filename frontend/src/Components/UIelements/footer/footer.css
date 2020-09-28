@@ -1,17 +1,24 @@
-.Footer{
-    background-color: #30302f;
-    color: #fff;
-    list-style: none;
-    padding-top: 1rem;
-    text-align: center;
+.Footer {
+  background-color: #30302f;
+  color: #fff;
+  list-style: none;
+  padding-top: 1rem;
+  text-align: center;
+  width: 100%;
 }
 
-.Footer a{
-    color: #fff;
+.Footer a {
+  color: #fff;
 }
 
-.Row{
-    padding: 1.5rem;
-    font-weight: bold;
-    margin-left: 26rem ;
+.Row {
+  padding: 1.5rem;
+  font-weight: bold;
+  margin-left: 40%;
+}
+
+@media (max-width: 600px) {
+  .Row {
+    margin-left: 25%;
+  }
 }
