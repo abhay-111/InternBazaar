@@ -1,12 +1,34 @@
 const express = require("express");
+const { body, check } = require("express-validator/check");
+
 const router = express.Router();
 
-const Users = require("../controllers/internship");
+const internship = require("../controllers/internship");
+const User = require("../models/User");
 
-// GET => /internships/:internshipType
-router.get("/:internshipType", Users.getInternships);
+// GET => /internship/getinternships?query=value
+router.get("/getinternships",internship.getInternships);
 
 // POST => /internships
-router.post("/", Users.addInternships);
+router.post("/addInternship",[
+
+    check('vacancy').isNumeric(),
+    check('skillsReq').isString(),
+    check('title').isString(),
+    check('description').trim().isString(),
+    check('stipend').isString(),
+    check('internshipPeriod').isString(),
+    check('companyName').isString(),
+    check('internshipType').isString(),
+    check('applyBy').isString(),
+    check('startDate').isString()
+
+
+
+
+
+], internship.addInternships);
+// GET => /view/:internshipId
+router.get("/view/:internshipId",internship.viewinternship)
 
 module.exports = router;

@@ -2,13 +2,14 @@ const mongoose = require("mongoose");
 const otpGenerator = require("otp-generator");
 const express = require("express");
 const bodyParser = require("body-parser");
+
 const app = express();
 
 //custom imports
 const config = require("./config");
 const internshipRoutes = require("./routes/internship");
 const authRoutes = require("./routes/auth");
-
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json()); // application/json
 
 //CORS HEADERS
@@ -24,11 +25,11 @@ app.use((req, res, next) => {
 
 //Routing requests
 app.use("/auth", authRoutes);
-app.use("/internships", internshipRoutes);
+app.use( "/internship",internshipRoutes);
 
 //handling errors
 app.use((error, req, res, next) => {
-  const status = error.statusCode;
+  const status = error.statusCode||500;
   const data = error.data;
   const message = error.message;
 
