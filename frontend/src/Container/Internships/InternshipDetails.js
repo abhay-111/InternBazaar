@@ -2,11 +2,38 @@ import React, { Component } from "react";
 import Navbar from "../../Components/UIelements/Navbar/Navbar";
 import Footer from "../../Components/UIelements/footer/footer";
 import { Container, Table, Card, Row, Col, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import classes from "./Internships.css";
+import ServerService from "../../ServerService";
 
 class InternshipDetails extends Component {
+  state = {
+    data: [],
+  };
+
+  componentDidMount() {
+    //console.log(this.props.history.location.state.internshipId);
+    let id = this.props.history.location.state.internshipId;
+    ServerService.getDetails(id).then((response) => {
+      this.setState({ data: response.data.data });
+      console.log(response);
+    });
+  }
+
   render() {
+    const applyBy = this.state.data.applyBy;
+    const companyName = this.state.data.companyName;
+    const description = this.state.data.description;
+    const internshipPeriod = this.state.data.internshipPeriod;
+    const internshipType = this.state.data.internshipType;
+    const location = this.state.data.location;
+    const skillsReq = this.state.data.skillsReq;
+    const startDate = this.state.data.startDate;
+    const stipend = this.state.data.stipend;
+    const title = this.state.data.title;
+    const whoCanApply = this.state.data.whocanApply;
+    const Perks = this.state.data.perks;
+    const vacancy = this.state.data.vacancy;
+
     return (
       <React.Fragment>
         <Navbar />
@@ -16,14 +43,11 @@ class InternshipDetails extends Component {
               <Col xs={12}>
                 <Card className={classes.shadow}>
                   <Card.Body>
-                    <Card.Title>Designing</Card.Title>
+                    <Card.Title> {title} </Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">
-                      Adobe
+                      {companyName}
                     </Card.Subtitle>
-                    <p>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
+                    <p>{internshipType}</p>
                     <Table responsive="md" className={classes.table}>
                       <tbody>
                         <tr className={classes.heading}>
@@ -34,27 +58,27 @@ class InternshipDetails extends Component {
                           <td>APPLY BY</td>
                         </tr>
                         <tr>
-                          <td>Gurgaon</td>
-                          <td>Immediately</td>
-                          <td>3 months</td>
-                          <td>Unpaid</td>
-                          <td>8 Nov 20</td>
+                          <td> {location} </td>
+                          <td> {startDate} </td>
+                          <td> {internshipPeriod} </td>
+                          <td> {stipend} </td>
+                          <td> {applyBy} </td>
                         </tr>
                       </tbody>
                     </Table>
                     <hr />
-                    <Card.Title>About Adobe</Card.Title>
+                    <Card.Title>About {companyName}</Card.Title>
                     <p>about the company</p>
                     <Card.Title>About Internship</Card.Title>
-                    <p>About the Internship</p>
+                    <p> {description} </p>
                     <Card.Title>Skills Required</Card.Title>
-                    <p>skills required</p>
+                    <p> {skillsReq} </p>
                     <Card.Title>Who can apply</Card.Title>
-                    <p>who can apply</p>
+                    <p> {whoCanApply} </p>
                     <Card.Title>Perks</Card.Title>
-                    <p>Perks</p>
-                    <Card.Title>No. of openings</Card.Title>
-                    <p>5</p>
+                    <p> {Perks} </p>
+                    <Card.Title> No. of openings </Card.Title>
+                    <p>{vacancy}</p>
 
                     <Button
                       type="button"

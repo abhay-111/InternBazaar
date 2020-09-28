@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import Modal from "../UIelements/Modal/Modal";
 import classes from "./Forms.css";

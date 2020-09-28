@@ -35,22 +35,22 @@ class LoggedoutNavBar extends Component {
           sticky="top"
           className={classes.Navbar}
         >
-          <Navbar.Brand href="/">
-            <span className={classes.Logo}>InternBazaar</span>
+          <Navbar.Brand>
+            <Link to="/" className={classes.Logo}>
+              InternBazaar
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto"></Nav>
             <Nav>
-              <Nav.Link>
-                <Link
-                  href="/"
-                  className={classes.Navlink}
-                  onClick={this.logoutHandler}
-                >
-                  Logout
-                </Link>
-              </Nav.Link>
+              <Link
+                href="/"
+                className={classes.Navlink}
+                onClick={this.logoutHandler}
+              >
+                Logout
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -64,21 +64,21 @@ class LoggedoutNavBar extends Component {
           sticky="top"
           className={classes.Navbar}
         >
-          <Navbar.Brand href="/">
-            <span className={classes.Logo}>InternBazaar</span>
+          <Navbar.Brand>
+            <Link to="/" className={classes.Logo}>
+              InternBazaar
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto"></Nav>
             <Nav>
-              <Nav.Link>
-                <Link to="/login" className={classes.Navlink}>
-                  Login
-                </Link>
-                <Link to="/signup" className={classes.Navlink}>
-                  Signup
-                </Link>
-              </Nav.Link>
+              <Link to="/login" className={classes.Navlink}>
+                Login
+              </Link>
+              <Link to="/signup" className={classes.Navlink}>
+                Signup
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>

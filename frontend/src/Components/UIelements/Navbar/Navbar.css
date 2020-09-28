@@ -7,7 +7,10 @@
   font-size: 1.8rem;
   color: midnightblue;
 }
-
+.Logo:hover {
+  color: midnightblue;
+  text-decoration: none;
+}
 .Navlink {
   box-sizing: border-box;
   border-radius: 5px;
@@ -21,4 +24,5 @@
 .Navlink:hover {
   background-color: #345beb;
   color: #fff;
+  text-decoration: none;
 }

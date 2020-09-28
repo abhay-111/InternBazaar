@@ -21,7 +21,10 @@ class Industry extends Component {
 
   clickHandler = (event) => {
     let name = event.target.name;
-    this.setState({ redirect: "/internships/" + name });
+    console.log(name);
+    if (name !== undefined) {
+      this.setState({ redirect: "/internships/" + name });
+    }
   };
 
   render() {
