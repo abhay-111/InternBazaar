@@ -1,4 +1,3 @@
-const { Decimal128 } = require("mongodb");
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
@@ -7,18 +6,18 @@ const Schema = mongoose.Schema;
 const education = {
   collegeName: {
     type: String,
-    // required: true,
+    required: true,
   },
   degree: {
     type: String,
-    // required: true,
+    required: true,
   },
   startYear: {
     type: Number,
   },
   endYear: {
     type: Number,
-    // required: true,
+    required: true,
   },
   performanceScale: {
     type: String,
@@ -29,12 +28,12 @@ const education = {
 };
 
 // defining the schema model for User resgistration
-const userschema = new Schema({
-  email: {
+const profileSchema = new Schema({
+  name: {
     type: String,
     required: true,
   },
-  password: {
+  email: {
     type: String,
     required: true,
   },
@@ -42,17 +41,11 @@ const userschema = new Schema({
     type: String,
     required: true,
   },
-  isVerified: {
-    type: String,
-    require: true,
-  },
   education: [education],
-  phone: {
-    type: String,
-  },
+  phone: String,
   location: [String],
   skills: [String],
   links: [String],
 });
 
-module.exports = mongoose.model("User", userschema);
+module.exports = mongoose.model("UserProfile", profileSchema);

@@ -1,16 +1,1 @@
-packages to look into
-
-generating otp:
--shortid
-
-sending mails:
--mailgun
-
-ignorning files:
-.gitignore
-.npmignore
-
-helpful articles:
-https://medium.com/@paulrohan/sending-verification-otp-to-user-email-with-mailgun-in-a-react-node-and-mongo-app-56ba7e4ac29
-
-https://docs.npmjs.com/misc/developers#keeping-files-out-of-your-package
+TODO: update otp verification by sending id instead of token and send token only after otp verification
