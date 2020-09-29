@@ -20,6 +20,14 @@ const companyschema = new Schema({
     type: String,
     require: true,
   },
+  website: String,
+  established: String,
+  about: String,
+  phone: String,
+  address: String,
+  location: [String],
+  links: [String],
+  internshipsPosted: [Schema.Types.ObjectId],
 });
 
 module.exports = mongoose.model("Company", companyschema);
