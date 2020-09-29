@@ -132,3 +132,33 @@ console.log('ABHAY',data)
 
 
 }
+
+
+exports.allinternships=(req,res,next)=>{
+
+  Internship.find({}).then((result)=>{
+
+    if(result.length===0)
+    {
+      const error=new Error("No internship found");
+      error.status=401
+      throw error
+    }
+
+    res.status(200).json({
+      message:"All internships fetched",
+      data:result,
+      
+    })
+
+  
+
+
+  }).catch((err) => {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  });
+
+}

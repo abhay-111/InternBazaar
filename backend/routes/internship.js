@@ -28,6 +28,12 @@ router.post("/addInternship",[
 
 
 ], internship.addInternships);
+
+
+router.get("/view/allinternships",internship.allinternships);
+
+
+
 // GET => /view/:internshipId
 router.get("/view/:internshipId",internship.viewinternship)
 
