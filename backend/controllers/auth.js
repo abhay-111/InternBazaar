@@ -190,8 +190,9 @@ exports.otpVerification = (req, res, next) => {
         throw error;
       }
 
+      let userType = data.userType;
       let UserType;
-      if (data.userType == "user") {
+      if (userType == "user") {
         UserType = User;
       } else {
         UserType = Employer;
@@ -221,6 +222,7 @@ exports.otpVerification = (req, res, next) => {
             message: "password correct, user added",
             token: token,
             userId: user._id.toString(),
+            userType: userType,
           });
         });
       } else {

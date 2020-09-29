@@ -34,7 +34,7 @@ router.post(
           }
         });
       }),
-    body("password").trim().isLength({ min: 5 }),
+    body("password").trim().isLength({ min: 6 }),
     body("name").trim().not().notEmpty(),
   ],
   authController.signup
@@ -45,7 +45,7 @@ router.post(
   "/login/:userType",
   [
     body("email").isEmail().withMessage("Invalid email").normalizeEmail(),
-    body("password").trim().isLength({ min: 5 }),
+    body("password").trim().isLength({ min: 6 }),
   ],
   authController.login
 );
