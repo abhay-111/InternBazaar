@@ -14,15 +14,48 @@
 .Navlink {
   box-sizing: border-box;
   border-radius: 5px;
-  background-color: #345beb;
+  background-color: #0062ff;
   color: #fff;
-  padding: 5px;
+  padding: 7px;
   font-size: 1.3rem;
   font-weight: bold;
   margin-right: 1rem;
+  width: 100 !important;
 }
-.Navlink:hover {
+.Navlink:hover,
+.Dropdown:hover {
   background-color: #345beb;
   color: #fff;
   text-decoration: none;
+}
+
+.Dropdown {
+  border-radius: 5px !important;
+  font-size: 1.3rem !important;
+  font-weight: bold !important;
+  background-color: #0062ff !important;
+  color: #fff !important;
+  margin-right: 1.5rem !important;
+}
+
+.Navlink:hover,
+.Dropdown:hover {
+  background-color: #345beb !important ;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+.login {
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .Navlink {
+    margin: 5px;
+
+    align-self: flex-start;
+  }
+  .Logo {
+    align-self: center;
+  }
 }

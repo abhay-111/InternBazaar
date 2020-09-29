@@ -3,9 +3,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import Navbar from "../../Components/UIelements/Navbar/Navbar";
 import Footer from "../../Components/UIelements/footer/footer";
 import classes from "./Internships.css";
-import InternshipCard from "./InternshipcCard";
+import InternshipCard from "./InternshipCard";
 import CategoryList from "./CategoryList";
-import ServerService from "../../ServerService";
+import ServerService from "../../Services/ServerService";
 import uuid from "react-uuid";
 
 class Internships extends Component {
@@ -16,8 +16,8 @@ class Internships extends Component {
   componentDidMount() {
     let id = this.props.match.params.id;
     console.log(id);
-    // console.log(this.props.match.params.id);
-    ServerService.getInternships(id).then((response) => {
+    console.log(this.props.match.params.id);
+    ServerService.getInternshipsByLocation(id).then((response) => {
       this.setState({ posts: response.data.post });
       console.log(response);
     });
@@ -43,7 +43,6 @@ class Internships extends Component {
         />
       );
     });
-
     return (
       <React.Fragment>
         <Navbar />

@@ -1,0 +1,24 @@
+.body {
+  background-color: #f0f0f0;
+}
+
+.Row {
+  padding: 1rem;
+}
+
+.list {
+  list-style: none;
+}
+
+.shadow {
+  box-shadow: -1px 2px 5px 5px rgba(219, 219, 219, 1);
+}
+
+.container {
+  background-color: #f0f0f0;
+  margin-bottom: 1rem;
+}
+
+.button {
+  margin-left: 45%;
+}

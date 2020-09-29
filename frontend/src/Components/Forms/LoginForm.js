@@ -39,7 +39,7 @@ class LoginForm extends Component {
           console.log("status=" + res.status);
 
           if (res.status === 200) {
-            localStorage.setItem("token", "abcd");
+            //localStorage.setItem("token", "abcd");
             this.setState({ redirect: "/" });
           } else if (res.status === 404) {
             const response = res.json();
