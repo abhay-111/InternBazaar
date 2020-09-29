@@ -30,7 +30,7 @@ exports.signup = (req, res, next) => {
     throw error;
   }
 
-  const collegeName = req.body.collegeName;
+  const name = req.body.name;
   const password = req.body.password;
   const email = req.body.email;
   const userType = req.body.userType;
@@ -47,8 +47,8 @@ exports.signup = (req, res, next) => {
     .then((hashedpassword) => {
       // saving user in the database
       const user = new UserType({
+        name: name,
         email: email,
-        collegeName: collegeName,
         password: hashedpassword,
         isVerified: "false",
       });
@@ -175,7 +175,7 @@ exports.otpVerification = (req, res, next) => {
   const recievedId = req.body.id;
   const recievedOtp = req.body.otp;
   // searching for otp in database by token
-  Otp.findOne({ _id: recievedId })
+  Otp.findById(recievedId)
     .then((data) => {
       // if id is invalid/not found
       if (!data) {

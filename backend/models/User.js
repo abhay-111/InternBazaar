@@ -30,6 +30,10 @@ const education = {
 
 // defining the schema model for User resgistration
 const userschema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -38,21 +42,16 @@ const userschema = new Schema({
     type: String,
     required: true,
   },
-  collegeName: {
-    type: String,
-    required: true,
-  },
   isVerified: {
     type: String,
     require: true,
   },
-  education: [education],
-  phone: {
-    type: String,
-  },
-  location: [String],
-  skills: [String],
-  links: [String],
+  collegeName: String,
+  education: String,
+  phone: String,
+  location: String,
+  skills: String,
+  links: String,
   applications: [{ internshipId: String }],
 });
 

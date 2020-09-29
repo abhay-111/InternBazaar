@@ -35,7 +35,7 @@ router.post(
         });
       }),
     body("password").trim().isLength({ min: 5 }),
-    body("collegeName").trim().not().notEmpty(),
+    body("name").trim().not().notEmpty(),
   ],
   authController.signup
 );
