@@ -5,11 +5,11 @@ const nodemailer = require("nodemailer");
 const otpGenerator = require("otp-generator");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const { validationResult } = require("express-validator/check");
-const Company=require('../models/Company')
 
 //custom imports
 const config = require("../config");
 const User = require("../models/User");
+const Employer = require("../models/Company");
 const Otp = require("../models/otp");
 
 const transporter = nodemailer.createTransport(
@@ -24,91 +24,53 @@ const transporter = nodemailer.createTransport(
 exports.signup = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return req.status(422).json({
-      data: errors.array(),
-      msg: "validation failed",
-    });
+    const error = new Error("Validation Failed ");
+    error.statusCode = 422;
+    error.data = errors.array();
+    throw error;
   }
 
   const collegeName = req.body.collegeName;
   const password = req.body.password;
   const email = req.body.email;
-  const userType=req.body.userType;
+  const userType = req.body.userType;
 
-
-  if(userType==="User")
-  {
-    
-      bcryct
-      .hash(password, 12)
-      .then((hashedpassword) => {
-        // saving user in the database
-        const user = new User({
-          email: email,
-          collegeName: collegeName,
-          password: hashedpassword,
-          isVerified: "false",
-        });
-        user.save();
-
-        //generating otp, saving it in database and sending email
-        const userOtp = saveAndSendOtp(email);
-
-        //sending response to frontend
-        res.status(200).json({
-          message: "otp sent",
-          email: email,
-          id: userOtp._id,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        if (!err.statusCode) {
-          err.statusCode = 500;
-        }
-        next(err);
-      });
-
-
+  let UserType;
+  if (userType == "User") {
+    UserType = User;
+  } else {
+    UserType = Employer;
   }
-  if(userType==="Employer")
-  {
-    
+
   bcryct
-  .hash(password, 12)
-  .then((hashedpassword) => {
-    // saving user in the database
-    const company = new Company({
-      email: email,
-      collegeName: collegeName,
-      password: hashedpassword,
-      isVerified: "false",
+    .hash(password, 12)
+    .then((hashedpassword) => {
+      // saving user in the database
+      const user = new UserType({
+        email: email,
+        collegeName: collegeName,
+        password: hashedpassword,
+        isVerified: "false",
+      });
+      user.save();
+
+      //generating otp, saving it in database and sending email
+      const userOtp = saveAndSendOtp(email);
+
+      //sending response to frontend
+      res.status(200).json({
+        message: "otp sent",
+        email: email,
+        id: userOtp._id,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
     });
-    company.save();
-
-    //generating otp, saving it in database and sending email
-    const userOtp = saveAndSendOtp(email);
-
-    //sending response to frontend
-    res.status(200).json({
-      message: "otp sent",
-      email: email,
-      id: userOtp._id,
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-    next(err);
-  });
-
-  }
-
-
-
-  
 };
 
 // login / authenticating user
@@ -123,9 +85,16 @@ exports.login = (req, res, next) => {
 
   const email = req.body.email;
   const password = req.body.password;
-  console.log(password);
+  const userType = req.body.userType;
 
-  User.findOne({ email: email })
+  let UserType;
+  if (userType == "User") {
+    UserType = User;
+  } else {
+    UserType = Employer;
+  }
+
+  UserType.findOne({ email: email })
     .then((user) => {
       //if user does not exist
       if (!user) {
