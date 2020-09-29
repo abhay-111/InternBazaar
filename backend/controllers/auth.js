@@ -36,7 +36,7 @@ exports.signup = (req, res, next) => {
   const userType = req.body.userType;
 
   let UserType;
-  if (userType == "User") {
+  if (userType == "user") {
     UserType = User;
   } else {
     UserType = Employer;
@@ -55,7 +55,7 @@ exports.signup = (req, res, next) => {
       user.save();
 
       //generating otp, saving it in database and sending email
-      const userOtp = saveAndSendOtp(email);
+      const userOtp = saveAndSendOtp(email, userType);
 
       //sending response to frontend
       res.status(200).json({
@@ -85,10 +85,10 @@ exports.login = (req, res, next) => {
 
   const email = req.body.email;
   const password = req.body.password;
-  const userType = req.body.userType;
+  const userType = req.params.userType;
 
   let UserType;
-  if (userType == "User") {
+  if (userType == "user") {
     UserType = User;
   } else {
     UserType = Employer;
@@ -190,10 +190,17 @@ exports.otpVerification = (req, res, next) => {
         throw error;
       }
 
+      let UserType;
+      if (data.userType == "user") {
+        UserType = User;
+      } else {
+        UserType = Employer;
+      }
+
       // check if entered otp is valid
       if (data.otp == recievedOtp) {
         //verify the user
-        User.findOne({ email: data.email }).then((user) => {
+        UserType.findOne({ email: data.email }).then((user) => {
           user.isVerified = "true";
           user.save();
 
@@ -237,7 +244,7 @@ exports.otpVerification = (req, res, next) => {
 };
 
 // this function generates, saves and sends the otp to the user
-function saveAndSendOtp(email) {
+function saveAndSendOtp(email, userType) {
   //generate otp
   let otp = otpGenerator.generate(6, {
     alphabets: false,
@@ -249,6 +256,7 @@ function saveAndSendOtp(email) {
   const userOtp = new Otp({
     otp: otp,
     email: email,
+    userType: userType,
   });
   userOtp.save();
 
