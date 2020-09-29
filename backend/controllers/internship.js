@@ -1,5 +1,6 @@
 const Internship = require("../models/Internship");
 const { validationResult } = require("express-validator/check");
+const User = require("../models/User");
 
 // // adding internships to database
 exports.addInternships = (req, res, next) => {
@@ -25,10 +26,12 @@ exports.addInternships = (req, res, next) => {
   const perks = req.body.perks;
   const whocanApply = req.body.whocanApply;
   var location = req.body.location;
+  // var creatorId = req.body.creatorId;
   location = String(location).toLowerCase();
   internshipType = String(internshipType).toLowerCase();
 
   const internship = new Internship({
+    // creatorId: creatorId,
     location: location,
     vacancy: vacancy,
     skillsReq: skillsReq,
@@ -131,6 +134,65 @@ exports.allinternships = (req, res, next) => {
         message: "All internships fetched",
         data: result,
       });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.applyinternship = (req, res, next) => {
+  const internshipId = req.params.internshipId;
+  const userId = req.body.userId;
+
+  Internship.findById(internshipId)
+    .then((result) => {
+      result.applications.forEach((application) => {
+        if (application.userId === userId) {
+          const error = new Error("You have already applied");
+          error.data = {
+            userId: userId,
+          };
+          throw error;
+        }
+      });
+
+      const application = {
+        userId: userId,
+      };
+      console.log(result.applications);
+      console.log("abhay");
+      const updatedapplications = [...result.applications, application];
+      result.applications = updatedapplications;
+      result.save();
+
+      User.findById(userId)
+        .then((data) => {
+          const appli = {
+            internshipId: internshipId,
+          };
+          console.log(data.applications);
+
+          const updatedapplications = [...data.applications, appli];
+          data.applications = updatedapplications;
+          data.save();
+
+          res.status(200).json({
+            message: "Applied to this internship",
+            data: {
+              internshipId: internshipId,
+              userId: userId,
+            },
+          });
+        })
+        .catch((err) => {
+          if (!err.statusCode) {
+            err.statusCode = 500;
+          }
+          next(err);
+        });
     })
     .catch((err) => {
       if (!err.statusCode) {

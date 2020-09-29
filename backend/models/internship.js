@@ -8,6 +8,12 @@ const InternshipSchema = new Schema({
     type: String,
     required: true,
   },
+  // creatorId: {
+  //   required: true,
+  //   type: Schema.Types.ObjectId,
+  // },
+  applications: [{ userId: String }],
+
   startDate: {
     type: String,
     required: true,
@@ -20,15 +26,14 @@ const InternshipSchema = new Schema({
     type: String,
     required: true,
   },
-  whocanApply:{
-    type:String,
-    required:true
+  whocanApply: {
+    type: String,
+    required: true,
   },
-  perks:{
-    type:String,
-    required:true
+  perks: {
+    type: String,
+    required: true,
   },
-
 
   stipend: {
     type: String,
@@ -42,9 +47,9 @@ const InternshipSchema = new Schema({
     type: String,
     required: true,
   },
-  location:{
-    type:String,
-    required:true,
+  location: {
+    type: String,
+    required: true,
   },
   internshipType: {
     type: String,
