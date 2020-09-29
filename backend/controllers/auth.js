@@ -5,6 +5,7 @@ const nodemailer = require("nodemailer");
 const otpGenerator = require("otp-generator");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const { validationResult } = require("express-validator/check");
+const Company=require('../models/Company')
 
 //custom imports
 const config = require("../config");
@@ -33,36 +34,82 @@ exports.signup = (req, res, next) => {
   const collegeName = req.body.collegeName;
   const password = req.body.password;
   const email = req.body.email;
+  const userType=req.body.userType;
 
+
+  if(userType==="User")
+  {
+    
+      bcryct
+      .hash(password, 12)
+      .then((hashedpassword) => {
+        // saving user in the database
+        const user = new User({
+          email: email,
+          collegeName: collegeName,
+          password: hashedpassword,
+          isVerified: "false",
+        });
+        user.save();
+
+        //generating otp, saving it in database and sending email
+        const userOtp = saveAndSendOtp(email);
+
+        //sending response to frontend
+        res.status(200).json({
+          message: "otp sent",
+          email: email,
+          id: userOtp._id,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        if (!err.statusCode) {
+          err.statusCode = 500;
+        }
+        next(err);
+      });
+
+
+  }
+  if(userType==="Employer")
+  {
+    
   bcryct
-    .hash(password, 12)
-    .then((hashedpassword) => {
-      // saving user in the database
-      const user = new User({
-        email: email,
-        collegeName: collegeName,
-        password: hashedpassword,
-        isVerified: "false",
-      });
-      user.save();
-
-      //generating otp, saving it in database and sending email
-      const userOtp = saveAndSendOtp(email);
-
-      //sending response to frontend
-      res.status(200).json({
-        message: "otp sent",
-        email: email,
-        id: userOtp._id,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+  .hash(password, 12)
+  .then((hashedpassword) => {
+    // saving user in the database
+    const company = new Company({
+      email: email,
+      collegeName: collegeName,
+      password: hashedpassword,
+      isVerified: "false",
     });
+    company.save();
+
+    //generating otp, saving it in database and sending email
+    const userOtp = saveAndSendOtp(email);
+
+    //sending response to frontend
+    res.status(200).json({
+      message: "otp sent",
+      email: email,
+      id: userOtp._id,
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  });
+
+  }
+
+
+
+  
 };
 
 // login / authenticating user
