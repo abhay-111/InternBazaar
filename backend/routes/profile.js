@@ -3,10 +3,10 @@ const router = express.Router();
 
 const User = require("../controllers/profile");
 
-// GET => /internships/:internshipType
-router.post("/", User.updateUser);
+// POST => /profile/add
+router.post("/add", User.updateProfile);
 
-// POST => /internships
-// router.post("/", Users.addInternships);
+// GET => /profile/view/userID
+router.get("/view/:userId", User.viewProfile);
 
 module.exports = router;

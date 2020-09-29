@@ -1,23 +1,57 @@
 const { body } = require("express-validator");
 const User = require("../models/User");
 
-exports.updateUser = (req, res, next) => {
+exports.updateProfile = (req, res, next) => {
   const id = req.body.id;
   const data = req.body.data;
-  User.findById(id)
+
+  for (const key in data) {
+    if (Array.isArray(data[key])) {
+      User.findByIdAndUpdate(id, { $push: { [key]: data[key] } })
+        .then(console.log("done"))
+        .catch((err) => {
+          if (!err.statusCode) {
+            err.statusCode = 500;
+          }
+          next(err);
+        });
+    } else {
+      User.findById(id)
+        .then((user) => {
+          user.set(key, data[key]);
+          user.save();
+        })
+        .catch((err) => {
+          if (!err.statusCode) {
+            err.statusCode = 500;
+          }
+          next(err);
+        });
+    }
+  }
+  res.status(200).json({
+    message: "updated user",
+  });
+};
+
+exports.viewProfile = (req, res, next) => {
+  const userID = req.params.userId;
+  User.findById(userID)
     .then((user) => {
-      console.log(user);
-      for (const key in data) {
-        console.log("key=" + key + " data=" + data[key]);
-        user.key = data[key];
-        console.log(user);
-        // if (data.hasOwnProperty(key)) {
-        // }
+      if (!user) {
+        const error = new Error("Invalid user id");
+        error.statusCode = 422;
+        error.data = {
+          location: "profile",
+          msg: "user does not exist",
+          param: "userId",
+          value: userID,
+        };
+        throw error;
       }
-      user.isVerfied = "false";
-      user.save();
       res.status(200).json({
-        message: "updated user",
+        message: "user found",
+        user: user,
       });
     })
     .catch((err) => {

@@ -24,11 +24,10 @@ const transporter = nodemailer.createTransport(
 exports.signup = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    
     return req.status(422).json({
-      data:errors.array(),
-      msg:"validation failed"
-    })
+      data: errors.array(),
+      msg: "validation failed",
+    });
   }
 
   const collegeName = req.body.collegeName;
@@ -288,16 +287,16 @@ function saveAndSendOtp(email) {
   console.log("otp=" + userOtp.otp);
 
   //sending otp to user via email
-  transporter
-    .sendMail({
-      to: email,
-      from: "naman1913128@akgec.ac.in",
-      subject: "Sign up OTP",
-      html: `<h1>OTP: ${otp} </h1>`,
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  // transporter
+  //   .sendMail({
+  //     to: email,
+  //     from: "naman1913128@akgec.ac.in",
+  //     subject: "Sign up OTP",
+  //     html: `<h1>OTP: ${otp} </h1>`,
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 
   return userOtp;
 }
