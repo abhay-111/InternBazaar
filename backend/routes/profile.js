@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const User = require("../controllers/profile");
+const profileController = require("../controllers/profile");
 
-// POST => /profile/add
-router.post("/add", User.updateProfile);
+// POST => /profile/edit
+router.post("/edit", profileController.updateResume);
 
-// GET => /profile/view/userID
-router.get("/view/:userId", User.viewProfile);
+// GET => /profile/view
+router.post("/view", profileController.viewResume);
 
 router.post("/myapplications", User.myapplications);
 

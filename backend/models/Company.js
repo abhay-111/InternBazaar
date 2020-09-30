@@ -31,4 +31,4 @@ const companyschema = new Schema({
   internshipsPosted: [Schema.Types.ObjectId],
 });
 
-module.exports = mongoose.model("Company", companyschema);
+module.exports = mongoose.model("Employer", companyschema);

@@ -41,7 +41,7 @@ router.post(
   authController.signup
 );
 
-// POST => /auth/login
+// POST => /auth/login/userType
 router.post(
   "/login/:userType",
   [
