@@ -46,13 +46,11 @@ const userschema = new Schema({
     type: String,
     require: true,
   },
-  education: [education],
-  phone: {
-    type: String,
-  },
-  location: [String],
-  skills: [String],
-  links: [String],
+  education: String,
+  phone: String,
+  location: String,
+  skills: String,
+  links: String,
   applications: [
     {
       internshipId: String,

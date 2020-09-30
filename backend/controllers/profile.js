@@ -127,10 +127,9 @@ exports.viewResume = (req, res, next) => {
     });
 };
 
-<<<<<<< HEAD
 exports.myapplications = (req, res, next) => {
   const userId = req.body.userId;
-  User.findById(userId)
+  Student.findById(userId)
     .then((data) => {
       const applications = data.applications;
       res.status(200).json({
@@ -145,10 +144,12 @@ exports.myapplications = (req, res, next) => {
       next(err);
     });
 };
-=======
+
 // exports.viewApplications = (req, res, next) => {
 //   const userID = req.userID;
 
-//   User.findById(userID);
-// }
->>>>>>> company-profile
+//   Employer.findById(userID).then((employer) => {
+//     const internshipsPosted = employer.internshipsPosted;
+//     // find all the internships by id in Internships databse
+//   });
+// };

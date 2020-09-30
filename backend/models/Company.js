@@ -26,8 +26,8 @@ const companyschema = new Schema({
   about: String,
   phone: String,
   address: String,
-  location: [String],
-  links: [String],
+  location: String,
+  links: String,
   internshipsPosted: [Schema.Types.ObjectId],
 });
 
