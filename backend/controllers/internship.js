@@ -173,7 +173,7 @@ exports.applyinternship = (req, res, next) => {
           const appli = {
             internshipId: internshipId,
             status: "Applied",
-            noofapplicants: data.applications.length,
+
             companyName: result.companyName,
           };
           console.log(data.applications);

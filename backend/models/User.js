@@ -46,7 +46,6 @@ const userschema = new Schema({
     type: String,
     require: true,
   },
-<<<<<<< HEAD
   education: [education],
   phone: {
     type: String,
@@ -58,19 +57,9 @@ const userschema = new Schema({
     {
       internshipId: String,
       status: String,
-      noofapplicants: Number,
       companyName: String,
     },
   ],
-=======
-  collegeName: String,
-  education: String,
-  phone: String,
-  location: String,
-  skills: String,
-  links: String,
-  applications: [{ internshipId: String }],
->>>>>>> 9bf79a67fef0257c5fecb484ce0b6b08919fc150
 });
 
 module.exports = mongoose.model("User", userschema);
