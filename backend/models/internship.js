@@ -12,7 +12,11 @@ const InternshipSchema = new Schema({
   //   required: true,
   //   type: Schema.Types.ObjectId,
   // },
-  applications: [{ userId: String }],
+  applications: [
+    {
+      userId: String,
+    },
+  ],
 
   startDate: {
     type: String,

@@ -172,6 +172,9 @@ exports.applyinternship = (req, res, next) => {
         .then((data) => {
           const appli = {
             internshipId: internshipId,
+            status: "Applied",
+            noofapplicants: data.applications.length,
+            companyName: result.companyName,
           };
           console.log(data.applications);
 
@@ -179,6 +182,7 @@ exports.applyinternship = (req, res, next) => {
           data.applications = updatedapplications;
           data.save();
 
+          console.log(internshipId);
           res.status(200).json({
             message: "Applied to this internship",
             data: {

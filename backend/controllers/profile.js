@@ -61,3 +61,21 @@ exports.viewProfile = (req, res, next) => {
       next(err);
     });
 };
+
+exports.myapplications = (req, res, next) => {
+  const userId = req.body.userId;
+  User.findById(userId)
+    .then((data) => {
+      const applications = data.applications;
+      res.status(200).json({
+        message: "All applications Fetched",
+        data: applications,
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};

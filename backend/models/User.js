@@ -53,7 +53,14 @@ const userschema = new Schema({
   location: [String],
   skills: [String],
   links: [String],
-  applications: [{ internshipId: String }],
+  applications: [
+    {
+      internshipId: String,
+      status: String,
+      noofapplicants: Number,
+      companyName: String,
+    },
+  ],
 });
 
 module.exports = mongoose.model("User", userschema);

@@ -9,4 +9,6 @@ router.post("/add", User.updateProfile);
 // GET => /profile/view/userID
 router.get("/view/:userId", User.viewProfile);
 
+router.post("/myapplications", User.myapplications);
+
 module.exports = router;
