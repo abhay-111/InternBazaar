@@ -30,6 +30,10 @@ const education = {
 
 // defining the schema model for User resgistration
 const userschema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -38,14 +42,11 @@ const userschema = new Schema({
     type: String,
     required: true,
   },
-  collegeName: {
-    type: String,
-    required: true,
-  },
   isVerified: {
     type: String,
     require: true,
   },
+<<<<<<< HEAD
   education: [education],
   phone: {
     type: String,
@@ -61,6 +62,15 @@ const userschema = new Schema({
       companyName: String,
     },
   ],
+=======
+  collegeName: String,
+  education: String,
+  phone: String,
+  location: String,
+  skills: String,
+  links: String,
+  applications: [{ internshipId: String }],
+>>>>>>> 9bf79a67fef0257c5fecb484ce0b6b08919fc150
 });
 
 module.exports = mongoose.model("User", userschema);

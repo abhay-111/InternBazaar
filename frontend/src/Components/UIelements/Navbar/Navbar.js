@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classes from "./Navbar.css";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 class LoggedoutNavBar extends Component {
@@ -10,11 +10,10 @@ class LoggedoutNavBar extends Component {
   //     redirect: null,
   //   };
   // }
-
   logoutHandler = () => {
     localStorage.clear();
     //this.setState({ redirect: "/" });
-    window.location.reload();
+    window.location.href = "/";
   };
 
   render() {
@@ -24,7 +23,9 @@ class LoggedoutNavBar extends Component {
 
     let token = localStorage.getItem("token");
     let Auth = false;
-    if (token !== null) Auth = true;
+    if (token !== null) {
+      if (token !== undefined) Auth = true;
+    }
 
     if (Auth) {
       return (
@@ -44,13 +45,9 @@ class LoggedoutNavBar extends Component {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto"></Nav>
             <Nav>
-              <Link
-                href="/"
-                className={classes.Navlink}
-                onClick={this.logoutHandler}
-              >
+              <a className={classes.Navlink} onClick={this.logoutHandler}>
                 Logout
-              </Link>
+              </a>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -73,9 +70,16 @@ class LoggedoutNavBar extends Component {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto"></Nav>
             <Nav>
-              <Link to="/login" className={classes.Navlink}>
-                Login
-              </Link>
+              <NavDropdown
+                title={<span className={classes.login}>Login</span>}
+                id="collasible-nav-dropdown"
+                className={classes.Dropdown}
+              >
+                <NavDropdown.Item href="/login">As a student</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item>As an employer</NavDropdown.Item>
+              </NavDropdown>
+
               <Link to="/signup" className={classes.Navlink}>
                 Signup
               </Link>

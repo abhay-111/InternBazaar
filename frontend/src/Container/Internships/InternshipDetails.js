@@ -1,25 +1,40 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+
 import Navbar from "../../Components/UIelements/Navbar/Navbar";
 import Footer from "../../Components/UIelements/footer/footer";
 import { Container, Table, Card, Row, Col, Button } from "react-bootstrap";
 import classes from "./Internships.css";
-import ServerService from "../../ServerService";
+import ServerService from "../../Services/ServerService";
 
 class InternshipDetails extends Component {
   state = {
     data: [],
+    redirect: null,
   };
 
   componentDidMount() {
     //console.log(this.props.history.location.state.internshipId);
-    let id = this.props.history.location.state.internshipId;
+    var id = this.props.history.location.state.internshipId;
     ServerService.getDetails(id).then((response) => {
       this.setState({ data: response.data.data });
       console.log(response);
     });
   }
 
+  ApplyHandler = () => {
+    const id = this.state.data._id;
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+      console.log(id);
+    } else this.setState({ redirect: "/login" });
+  };
+
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
+
     const applyBy = this.state.data.applyBy;
     const companyName = this.state.data.companyName;
     const description = this.state.data.description;
@@ -84,6 +99,7 @@ class InternshipDetails extends Component {
                       type="button"
                       value="Input"
                       className={classes.button}
+                      onClick={this.ApplyHandler}
                     >
                       Apply Now
                     </Button>

@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 // defining the schema model for User resgistration
 const companyschema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -12,14 +16,11 @@ const companyschema = new Schema({
     type: String,
     required: true,
   },
-  collegeName: {
-    type: String,
-    required: true,
-  },
   isVerified: {
     type: String,
     require: true,
   },
+  collegeName: String,
   website: String,
   established: String,
   about: String,

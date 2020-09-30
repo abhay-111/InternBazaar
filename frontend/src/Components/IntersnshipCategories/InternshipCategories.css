@@ -1,26 +1,32 @@
-.heading{
-    text-align: center;
-    font-size: 2rem;
-    color: #011536;
-    margin-top: 2rem;
-    font-weight: bold;
+.heading {
+  text-align: center;
+  font-size: 2rem;
+  color: #011536;
+  margin-top: 2rem;
+  font-weight: bold;
 }
 
-.Container{
-    box-sizing: border-box;
-    display: flex;
-    flex-flow: row;
-    margin: 1rem;
+.Container {
+  box-sizing: border-box;
 }
-.Container div{
-    text-align: center;
-    height: 10rem;
-    padding: 1rem;
-    margin: 10px;
+.Container div {
+  text-align: center;
+  height: 9rem;
+  margin: 1.2rem;
+  padding: 0.5rem;
 }
 
-.Container div:hover{
-    box-shadow: -1px 1px 12px 6px rgba(196,196,196,1);
-    color: #0b04cf;
-    cursor: pointer;
+.Container div:hover {
+  box-shadow: -1px 1px 12px 6px rgba(196, 196, 196, 1);
+  color: #0b04cf;
+  cursor: pointer;
+}
+
+.Container a {
+  text-decoration: none;
+  color: #011536;
+}
+.Container a:hover {
+  text-decoration: none;
+  color: #011536;
 }

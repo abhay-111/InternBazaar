@@ -35,9 +35,15 @@ class ServerService {
   // }
   //
 
-  getInternships(category) {
+  getInternshipsByCategory(category) {
     return axios.get(
       BASE_URL + "internship/getinternships?internshipType=" + category
+    );
+  }
+
+  getInternshipsByLocation(location) {
+    return axios.get(
+      BASE_URL + "internship/getinternships?location=" + location
     );
   }
 
