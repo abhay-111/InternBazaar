@@ -13,28 +13,28 @@ class StudentSidebar extends Component {
     return (
       <Card className={classes.card}>
         <Card.Body>
-          <Link to="#">
+          <Link to="/student/credentials">
             <div className={classes.link}>
               <img src={user} className={classes.icon} alt="" />
-              <span class={classes.heading}>EDIT E-MAIL/PASSWORD</span>
+              <span className={classes.heading}>EDIT E-MAIL/PASSWORD</span>
             </div>
           </Link>
-          <Link to="#">
+          <Link to="/student/view">
             <div className={classes.link}>
               <img src={lists} className={classes.icon} alt="" />
-              <span class={classes.heading}>VIEW RESUME</span>
+              <span className={classes.heading}>VIEW RESUME</span>
             </div>
           </Link>
-          <Link to="#">
+          <Link to="/student/edit">
             <div className={classes.link}>
               <img src={checklists} className={classes.icon} alt="" />
-              <span class={classes.heading}>EDIT RESUME</span>
+              <span className={classes.heading}>EDIT RESUME</span>
             </div>
           </Link>
-          <Link to="#">
+          <Link to="/student/applications">
             <div className={classes.link}>
               <img src={files} className={classes.icon} alt="" />
-              <span class={classes.heading}>MY APPLICATIONS</span>
+              <span className={classes.heading}>MY APPLICATIONS</span>
             </div>
           </Link>
         </Card.Body>

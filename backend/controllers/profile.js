@@ -6,7 +6,8 @@ exports.updateResume = (req, res, next) => {
   const id = req.body.userId;
   const data = req.body.data;
   const userType = req.body.userType;
-
+  console.log(id);
+  console.log(data, userType);
   // const tokenUserId = req.id;
   // if (tokenUserId != id) {
   //   const error = new Error("Update request failed, token unverified");

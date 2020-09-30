@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 
 import LandingPage from "./Container/LandingPage/LandingPage";
-import LoginForm from "./Components/Forms/LoginForm";
+import StudentLoginForm from "./Components/Forms/StudentLoginForm";
+import CompanyLoginForm from "./Components/Forms/CompanyLoginForm";
 import SignupForm from "./Components/Forms/SignupForm";
 import OtpPage from "./Components/Forms/otp";
 import InternshipsByCategory from "./Container/Internships/InternshipsByCategory";
@@ -31,14 +32,15 @@ class App extends Component {
             exact
             component={InternshipDetails}
           />
-          <Route path="/company" component={CompanyProfilePage} />
-          <Route path="/home" component={StudentProfilePage} />
+          <Route path="/employer" component={CompanyProfilePage} />
+          <Route path="/student" component={StudentProfilePage} />
           <Route path="/" component={LandingPage} />
         </Switch>
 
-        <Route path="/login" component={LoginForm} />
-        <Route path="/signup" component={SignupForm} />
-        <Route path="/verifyotp" component={OtpPage} />
+        <Route path="/studentlogin" exact component={StudentLoginForm} />
+        <Route path="/employerlogin" exact component={CompanyLoginForm} />
+        <Route path="/signup" exact component={SignupForm} />
+        <Route path="/verifyotp" exact component={OtpPage} />
       </div>
     );
   }

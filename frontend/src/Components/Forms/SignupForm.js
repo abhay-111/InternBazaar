@@ -9,7 +9,13 @@ class SignupForm extends Component {
   constructor() {
     super();
     this.state = {
-      input: { email: "", password: "", confirmPassword: "", collegeName: "" },
+      input: {
+        name: "",
+        userType: "student",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      },
       errors: { msg: "", passwordlen: "", confirmpw: "" },
 
       redirect: null,
@@ -27,14 +33,18 @@ class SignupForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    localStorage.setItem("userType", this.state.input.userType);
     if (this.validate()) {
       event.preventDefault();
       const url = "http://localhost:8080/auth/signup";
       const data = {
+        name: this.state.input.name,
+        userType: this.state.input.userType,
         email: this.state.input.email,
         password: this.state.input.password,
-        collegeName: this.state.input.collegeName,
       };
+      console.log(data);
+
       fetch(url, {
         method: "POST",
         body: JSON.stringify(data),
@@ -93,7 +103,14 @@ class SignupForm extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
+      return (
+        <Redirect
+          to={{
+            pathname: this.state.redirect,
+            state: { userType: this.state.input.userType },
+          }}
+        />
+      );
     }
     return (
       <Modal show={true}>
@@ -104,8 +121,30 @@ class SignupForm extends Component {
           </div>
           <div className={classes.item2}></div>
           <div className={classes.item3}>
-            <div className={classes.cross}>X</div>
-            <Form onSubmit={this.handleSubmit} style={{ marginTop: "20%" }}>
+            <Form onSubmit={this.handleSubmit} className={classes.signupForm}>
+              <Form.Group>
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your Name/Organization Name"
+                  name="name"
+                  required
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="exampleForm.ControlSelect1">
+                <Form.Label>User Type</Form.Label>
+                <Form.Control
+                  as="select"
+                  name="userType"
+                  required
+                  onChange={this.handleChange}
+                >
+                  <option>student</option>
+                  <option>employer</option>
+                </Form.Control>
+              </Form.Group>
+
               <Form.Group>
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
@@ -142,16 +181,6 @@ class SignupForm extends Component {
                   onChange={this.handleChange}
                 />
                 <div className="text-danger">{this.state.errors.confirmpw}</div>
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Organization/Institute</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter Organization/Institute"
-                  name="collegeName"
-                  onChange={this.handleChange}
-                />
               </Form.Group>
 
               <Button

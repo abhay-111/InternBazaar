@@ -23,7 +23,7 @@ class OtpPage extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const id = localStorage.getItem("id");
-    console.log(id);
+    const userType = this.props.location.state.userType;
 
     const url = "http://localhost:8080/auth/signup/otp";
     const data = { otp: this.state.input.otp, id: id };
@@ -39,12 +39,14 @@ class OtpPage extends Component {
         console.log("Success:", response);
         if (response.message === "password correct, user added") {
           localStorage.setItem("token", response.token);
-          this.setState({ redirect: "/" });
+          if (userType === "employer") {
+            this.setState({ redirect: "/employer" });
+          } else {
+            this.setState({ redirect: "/student" });
+          }
         } else alert("registration failed!");
       });
   };
-
-  resendHandler = () => {};
 
   render() {
     if (this.state.redirect) {
@@ -59,7 +61,7 @@ class OtpPage extends Component {
           </div>
           <div className={classes.item2}></div>
           <div className={classes.item3}>
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit} className={classes.loginForm}>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>OTP</Form.Label>
                 <Form.Control

@@ -3,8 +3,9 @@ import { Form, Button } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import Modal from "../UIelements/Modal/Modal";
 import classes from "./Forms.css";
+import ServerService from "../../Services/ServerService";
 
-class LoginForm extends Component {
+class StudentLoginForm extends Component {
   constructor() {
     super();
     this.state = {
@@ -23,45 +24,69 @@ class LoginForm extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
+    localStorage.setItem("userType", "employer");
     if (this.validate()) {
-      const url = "http://localhost:8080/auth/login";
       const data = {
         email: this.state.input.email,
         password: this.state.input.password,
       };
+      ServerService.employerLogin(data)
+        .then((response) => {
+          console.log(response);
+          const status = response.status;
+          if (status === 200) {
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("userId", response.data.userId);
+            this.setState({ redirect: "/employer" });
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+          console.log(error);
+          console.log(response.status);
 
-      fetch(url, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((res) => {
-          console.log("status=" + res.status);
+          console.log(error.response);
 
-          if (res.status === 200) {
-            //localStorage.setItem("token", "abcd");
-            this.setState({ redirect: "/" });
-          } else if (res.status === 404) {
-            const response = res.json();
-            console.log(response);
+          if (response.status === 403) {
+            localStorage.setItem("id", response.data.data.id);
             this.setState({ redirect: "/verifyotp" });
           } else {
-            this.errorHandler();
+            this.errorHandler(response.data);
           }
-          return res.json();
-        })
-        .catch((error) => console.error("Error:", error))
-        .then((response) => {
-          console.log(response.data.id);
-          if (response.data.id !== undefined) {
-            localStorage.setItem("id", response.data.id);
-            this.setState({ redirect: "/verifyotp" });
-          }
-          localStorage.setItem("token", response.token);
-          console.log("Success:", response);
         });
     }
   };
+  // fetch(url, {
+  //   method: "POST",
+  //   body: JSON.stringify(data),
+  //   headers: { "Content-Type": "application/json" },
+  // })
+  //   .then((res) => {
+  //     console.log("status=" + res.status);
+  //
+  //     if (res.status === 200) {
+  //       //localStorage.setItem("token", "abcd");
+  //       this.setState({ redirect: "/" });
+  //     } else if (res.status === 404) {
+  //       const response = res.json();
+  //       console.log(response);
+  //       this.setState({ redirect: "/verifyotp" });
+  //     } else {
+  //       this.errorHandler();
+  //     }
+  //     return res.json();
+  //   })
+  //   .catch((error) => console.error("Error:", error))
+  //   .then((response) => {
+  //     console.log(response.data.id);
+  //     if (response.data.id !== undefined) {
+  //       localStorage.setItem("id", response.data.id);
+  //       this.setState({ redirect: "/verifyotp" });
+  //     }
+  //     localStorage.setItem("token", response.token);
+  //     console.log("Success:", response);
+  //   });
+  // }
 
   validate = () => {
     let input = this.state.input;
@@ -87,9 +112,9 @@ class LoginForm extends Component {
     }
   };
 
-  errorHandler = () => {
+  errorHandler = (response) => {
     let errors = {};
-    errors["error"] = " Wrong email or password!";
+    errors["error"] = response.data.msg;
 
     this.setState({
       errors: errors,
@@ -105,14 +130,14 @@ class LoginForm extends Component {
       <Modal show={true}>
         <div className={classes.gridContainer}>
           <div className={classes.item1}>
-            <h2>Welcome Back!</h2>
+            <h2>Welcome Back Employer!</h2>
             <p>
               Login to gain access to hundreds of opportunities waiting for you!
             </p>
           </div>
           <div className={classes.item2}></div>
           <div className={classes.item3}>
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit} className={classes.loginForm}>
               <div className="text-danger">{this.state.errors.error}</div>
 
               <Form.Group controlId="formBasicEmail">
@@ -158,4 +183,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default StudentLoginForm;

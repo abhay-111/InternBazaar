@@ -23,10 +23,10 @@ class LoggedoutNavBar extends Component {
 
     let token = localStorage.getItem("token");
     let Auth = false;
-    if (token !== null) {
-      if (token !== undefined) Auth = true;
+    if (token != null) {
+      if (token != "undefined") Auth = true;
     }
-
+    //console.log(typeof token);
     if (Auth) {
       return (
         <Navbar
@@ -75,9 +75,13 @@ class LoggedoutNavBar extends Component {
                 id="collasible-nav-dropdown"
                 className={classes.Dropdown}
               >
-                <NavDropdown.Item href="/login">As a student</NavDropdown.Item>
+                <NavDropdown.Item href="/studentlogin">
+                  As a student
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item>As an employer</NavDropdown.Item>
+                <NavDropdown.Item href="/employerlogin">
+                  As an employer
+                </NavDropdown.Item>
               </NavDropdown>
 
               <Link to="/signup" className={classes.Navlink}>

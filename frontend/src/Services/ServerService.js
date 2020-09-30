@@ -3,20 +3,25 @@ import axios from "axios";
 const BASE_URL = "http://localhost:8080/";
 
 class ServerService {
-  // login(username, password) {
-  //   return axios
-  //     .post(API_URL + "login", {
-  //       username,
-  //       password,
-  //     })
-  //     .then((response) => {
-  //       if (response.data.accessToken) {
-  //         localStorage.setItem("user", JSON.stringify(response.data));
-  //       }
-  //
-  //       return response.data;
-  //     });
-  // }
+  studentLogin(data) {
+    return axios.post(BASE_URL + "auth/login/student", data);
+  }
+
+  employerLogin(data) {
+    return axios.post(BASE_URL + "auth/login/employer", data);
+  }
+
+  editProfile(data) {
+    return axios.post(BASE_URL + "profile/edit", data);
+  }
+
+  viewProfile(data) {
+    return axios.post(BASE_URL + "profile/view", data);
+  }
+
+  //if (response.data.token) {
+  //localStorage.setItem("user", JSON.stringify(response.data));
+
   //
   // logout() {
   //   localStorage.removeItem("user");

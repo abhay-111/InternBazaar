@@ -190,7 +190,7 @@ exports.otpVerification = (req, res, next) => {
 
       let userType = data.userType;
       let UserType;
-      if (userType == "user") {
+      if (userType == "student") {
         UserType = Student;
       } else {
         UserType = Employer;

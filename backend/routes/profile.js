@@ -9,6 +9,6 @@ router.post("/edit", profileController.updateResume);
 // GET => /profile/view
 router.post("/view", profileController.viewResume);
 
-router.post("/myapplications", User.myapplications);
+router.post("/myapplications", profileController.myapplications);
 
 module.exports = router;

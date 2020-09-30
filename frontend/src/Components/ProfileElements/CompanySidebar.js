@@ -16,25 +16,25 @@ class CompanySidebar extends Component {
           <Link to="#">
             <div className={classes.link}>
               <img src={group} className={classes.icon} alt="" />
-              <span class={classes.heading}>ORGANIZATION DEAILS</span>
+              <span className={classes.heading}>ORGANIZATION DEAILS</span>
             </div>
           </Link>
-          <Link to="#">
+          <Link to="/employer/edit">
             <div className={classes.link}>
               <img src={checklists} className={classes.icon} alt="" />
-              <span class={classes.heading}>EDIT DETAILS</span>
+              <span className={classes.heading}>EDIT DETAILS</span>
             </div>
           </Link>
           <Link to="#">
             <div className={classes.link}>
               <img src={lists} className={classes.icon} alt="" />
-              <span class={classes.heading}>POSTED INTERNSHIPS</span>
+              <span className={classes.heading}>POSTED INTERNSHIPS</span>
             </div>
           </Link>
-          <Link to="#">
+          <Link to="/employer/post">
             <div className={classes.link}>
               <img src={post} className={classes.icon} alt="" />
-              <span class={classes.heading}>POST NEW INTERNSHIPS</span>
+              <span className={classes.heading}>POST NEW INTERNSHIP</span>
             </div>
           </Link>
         </Card.Body>

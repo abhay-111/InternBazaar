@@ -8,6 +8,7 @@ import Footer from "../../Components/UIelements/footer/footer";
 import ProfileName from "../../Components/ProfileElements/ProfileName";
 import CompanySidebar from "../../Components/ProfileElements/CompanySidebar";
 import EditDetails from "../../Components/ProfileElements/EditOrganizationDetails";
+import PostInternship from "../../Components/ProfileElements/PostInternship";
 
 class CompanyProfilePage extends Component {
   render() {
@@ -23,7 +24,14 @@ class CompanyProfilePage extends Component {
               </Col>
 
               <Col xs={8}>
-                <EditDetails />
+                <Switch>
+                  <Route path="/employer/edit" exact component={EditDetails} />
+                  <Route
+                    path="/employer/post"
+                    exact
+                    component={PostInternship}
+                  />
+                </Switch>
               </Col>
             </Row>
           </Container>

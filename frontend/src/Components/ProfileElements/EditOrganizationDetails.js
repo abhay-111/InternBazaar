@@ -2,12 +2,16 @@ import React, { Component } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 
 import classes from "./ProfileElements.css";
+import ServerService from "../../Services/ServerService";
 
 class EditDetails extends Component {
   constructor() {
     super();
     this.state = {
-      input: {},
+      input: {
+        name: "",
+        about: "",
+      },
       redirect: null,
     };
   }
@@ -21,6 +25,22 @@ class EditDetails extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
+    const data = {
+      name: this.state.input.name,
+      about: this.state.input.about,
+    };
+    const request = {
+      userId: localStorage.getItem("userId"),
+      userType: localStorage.getItem("userType"),
+      data: data,
+    };
+    ServerService.editProfile(request)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   };
 
   render() {
@@ -43,6 +63,7 @@ class EditDetails extends Component {
                 type="text"
                 placeholder="Enter the name of your organization"
                 name="name"
+                onChange={this.handleChange}
               />
             </Form.Group>
 
@@ -52,7 +73,8 @@ class EditDetails extends Component {
                 as="textarea"
                 rows="3"
                 placeholder="Enter the description of your organization"
-                name="description"
+                name="about"
+                onChange={this.handleChange}
               />
             </Form.Group>
 

@@ -8,6 +8,8 @@ import Footer from "../../Components/UIelements/footer/footer";
 import ProfileName from "../../Components/ProfileElements/ProfileName";
 import Sidebar from "../../Components/ProfileElements/StudentSidebar";
 import EditResume from "../../Components/ProfileElements/EditResume";
+import MyApplications from "../../Components/ProfileElements/MyApplications";
+import ViewResume from "../../Components/ProfileElements/ViewResume";
 
 class ProfilePage extends Component {
   render() {
@@ -23,7 +25,15 @@ class ProfilePage extends Component {
               </Col>
 
               <Col xs={8}>
-                <EditResume />
+                <Switch>
+                  <Route path="/student/edit" component={EditResume} />
+                  <Route path="/student/view" exact component={ViewResume} />
+                  <Route
+                    path="/student/applications"
+                    exact
+                    component={MyApplications}
+                  />
+                </Switch>
               </Col>
             </Row>
           </Container>
