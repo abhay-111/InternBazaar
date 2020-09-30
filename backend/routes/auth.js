@@ -8,6 +8,7 @@ const config = require("../config");
 const User = require("../models/User");
 const Employer = require("../models/Company");
 const authController = require("../controllers/auth");
+const isAuth = require("../middleware/is-auth");
 
 // POST => /auth/sinup/otp
 router.post("/signup/otp", authController.otpVerification);
@@ -49,5 +50,7 @@ router.post(
   ],
   authController.login
 );
+
+router.post("/verifytoken", isAuth, authController.verifyToken);
 
 module.exports = router;

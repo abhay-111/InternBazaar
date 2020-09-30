@@ -111,7 +111,7 @@ exports.login = (req, res, next) => {
 
       //if user is not verfied
       if (user.isVerified == "false") {
-        const otp = saveAndSendOtp(email);
+        const otp = saveAndSendOtp(email, userType);
         const error = new Error("Login failed, user not verified");
         error.statusCode = 403;
         error.data = {
@@ -279,3 +279,9 @@ function saveAndSendOtp(email, userType) {
 
   return userOtp;
 }
+
+exports.verifyToken = (req, res, next) => {
+  return res.status(200).json({
+    message: "token verified",
+  });
+};
