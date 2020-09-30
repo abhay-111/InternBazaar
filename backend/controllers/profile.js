@@ -1,11 +1,11 @@
 const { body } = require("express-validator");
-const User = require("../models/User");
+const Student = require("../models/User");
 const Employer = require("../models/Company");
 
-exports.updateProfile = (req, res, next) => {
+exports.updateResume = (req, res, next) => {
   const id = req.body.userId;
   const data = req.body.data;
-  const userType = req.query.userType;
+  const userType = req.body.userType;
 
   // const tokenUserId = req.id;
   // if (tokenUserId != id) {
@@ -21,8 +21,8 @@ exports.updateProfile = (req, res, next) => {
   // }
 
   let UserType;
-  if (userType == "user") {
-    UserType = User;
+  if (userType == "student") {
+    UserType = Student;
   } else {
     UserType = Employer;
   }
@@ -43,7 +43,7 @@ exports.updateProfile = (req, res, next) => {
 
       for (const key in data) {
         if (data.hasOwnProperty(key)) {
-          user.set(key, data[key]);
+          if (data[key] != null) user.set(key, data[key]);
         }
       }
       return user.save();
@@ -90,18 +90,18 @@ exports.updateProfile = (req, res, next) => {
 // });
 // };
 
-exports.viewProfile = (req, res, next) => {
-  const userID = req.params.userId;
-  const userType = req.query.userType;
+exports.viewResume = (req, res, next) => {
+  const userID = req.body.userId;
+  const userType = req.body.userType;
 
   let UserType;
-  if (userType == "user") {
-    UserType = User;
+  if (userType == "student") {
+    UserType = Student;
   } else {
     UserType = Employer;
   }
 
-  User.findById(userID)
+  UserType.findById(userID)
     .then((user) => {
       if (!user) {
         const error = new Error("Invalid user id");
@@ -126,3 +126,9 @@ exports.viewProfile = (req, res, next) => {
       next(err);
     });
 };
+
+// exports.viewApplications = (req, res, next) => {
+//   const userID = req.userID;
+
+//   User.findById(userID);
+// }

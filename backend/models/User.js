@@ -55,4 +55,4 @@ const userschema = new Schema({
   applications: [{ internshipId: String }],
 });
 
-module.exports = mongoose.model("User", userschema);
+module.exports = mongoose.model("Student", userschema);

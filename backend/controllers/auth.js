@@ -8,7 +8,7 @@ const { validationResult } = require("express-validator/check");
 
 //custom imports
 const config = require("../config");
-const User = require("../models/User");
+const Student = require("../models/User");
 const Employer = require("../models/Company");
 const Otp = require("../models/otp");
 
@@ -36,8 +36,8 @@ exports.signup = (req, res, next) => {
   const userType = req.body.userType;
 
   let UserType;
-  if (userType == "user") {
-    UserType = User;
+  if (userType == "student") {
+    UserType = Student;
   } else {
     UserType = Employer;
   }
@@ -88,8 +88,8 @@ exports.login = (req, res, next) => {
   const userType = req.params.userType;
 
   let UserType;
-  if (userType == "user") {
-    UserType = User;
+  if (userType == "student") {
+    UserType = Student;
   } else {
     UserType = Employer;
   }
@@ -150,9 +150,6 @@ exports.login = (req, res, next) => {
               message: "password correct",
               token: token,
               userId: user._id.toString(),
-              data: {
-                id: undefined,
-              },
             });
           }
         })
@@ -175,6 +172,7 @@ exports.otpVerification = (req, res, next) => {
   const recievedId = req.body.id;
   const recievedOtp = req.body.otp;
   // searching for otp in database by token
+  console.log(recievedId);
   Otp.findById(recievedId)
     .then((data) => {
       // if id is invalid/not found
@@ -193,7 +191,7 @@ exports.otpVerification = (req, res, next) => {
       let userType = data.userType;
       let UserType;
       if (userType == "user") {
-        UserType = User;
+        UserType = Student;
       } else {
         UserType = Employer;
       }
