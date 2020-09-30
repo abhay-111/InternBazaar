@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const User = require("../controllers/profile");
+const profileController = require("../controllers/profile");
 
-// POST => /profile/add
-router.post("/add", User.updateProfile);
+// POST => /profile/edit/?userType=UserType
+router.post("/edit", profileController.updateProfile);
 
-// GET => /profile/view/userID
-router.get("/view/:userId", User.viewProfile);
+// GET => /profile/view/userID/?userType=UserType
+router.get("/view/:userId", profileController.viewProfile);
 
 module.exports = router;
