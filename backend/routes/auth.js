@@ -51,6 +51,25 @@ router.post(
   authController.login
 );
 
+// POST => /auth/verifytoken
 router.post("/verifytoken", isAuth, authController.verifyToken);
+
+// POST => /auth/resendOtp
+router.post(
+  "/resendOtp",
+  [body("email").isEmail().withMessage("Invalid email").normalizeEmail()],
+  authController.resendOtp
+);
+
+// POST => /auth/resetPassword
+router.post(
+  "/resetPassword",
+  [
+    body("oldPassword").trim().isLength({ min: 6 }),
+    body("newPassword").trim().isLength({ min: 6 }),
+    body("confirmPassword").trim().isLength({ min: 6 }),
+  ],
+  authController.resetPassword
+);
 
 module.exports = router;

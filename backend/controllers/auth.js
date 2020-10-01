@@ -283,3 +283,112 @@ exports.verifyToken = (req, res, next) => {
     message: "token verified",
   });
 };
+
+exports.resendOtp = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error("Validation Failed ");
+    error.statusCode = 422;
+    error.data = errors.array();
+    throw error;
+  }
+
+  const email = req.body.email;
+  const userType = req.body.userType;
+
+  //generating otp, saving it in database and sending email
+  const userOtp = saveAndSendOtp(email, userType);
+
+  //sending response to frontend
+  res.status(200).json({
+    message: "otp sent",
+    email: email,
+    id: userOtp._id,
+  });
+};
+
+exports.resetPassword = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error("Validation Failed ");
+    error.statusCode = 422;
+    error.data = errors.array();
+    throw error;
+  }
+
+  const userId = req.body.userId;
+  const userType = req.body.userType;
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+  const confirmPassword = req.body.confirmPassword;
+
+  // checking if new passwords match
+  if (newPassword != confirmPassword) {
+    const error = new Error("Password reset failed");
+    error.statusCode = 422;
+    error.data = {
+      msg: "Confirm passwords do not match",
+      param: "confirmPassword",
+    };
+    throw error;
+  }
+
+  let UserType;
+  if (userType == "student") {
+    UserType = Student;
+  } else {
+    UserType = Employer;
+  }
+
+  let loadedUser;
+  UserType.findById(userId)
+    .then((user) => {
+      //if user does not exist
+      if (!user) {
+        const error = new Error("Password reset failed");
+        error.statusCode = 422;
+        error.data = {
+          value: email,
+          msg: "User not found ",
+          param: "userId",
+          value: userId,
+          location: "password reset",
+        };
+        throw error;
+      }
+
+      loadedUser = user;
+      return bcryct.compare(oldPassword.user.password);
+    })
+    .then((match) => {
+      // if old password does not match the one in the database
+      if (!match) {
+        const error = new Error("Password reset failed");
+        error.statusCode = 401;
+        error.data = {
+          msg: "password incorrect",
+          param: "oldPassword",
+          location: "password reset",
+        };
+        throw error;
+      }
+
+      //hashing the new password
+      return bcryct.hash(newPassword, 12);
+    })
+    .then((hashedpassword) => {
+      loadedUser.password = hashedpassword;
+      return loadedUser.save();
+    })
+    .then((user) => {
+      return res.status(200).json({
+        message: "password updated",
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};

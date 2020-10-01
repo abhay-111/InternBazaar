@@ -51,6 +51,8 @@ const userschema = new Schema({
   location: String,
   skills: String,
   links: String,
+  jobs: String,
+  additional: String,
   applications: [
     {
       internshipId: String,
