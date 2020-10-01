@@ -1,6 +1,7 @@
 const { body } = require("express-validator");
 const Student = require("../models/User");
 const Employer = require("../models/Company");
+const Internship = require("../models/Internship");
 
 exports.updateResume = (req, res, next) => {
   const id = req.body.userId;
@@ -131,6 +132,25 @@ exports.viewResume = (req, res, next) => {
 exports.myapplications = (req, res, next) => {
   const userId = req.body.userId;
   Student.findById(userId)
+    .then((data) => {
+      const applications = data.applications;
+      res.status(200).json({
+        message: "All applications Fetched",
+        data: applications,
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.appliedusers = (req, res, next) => {
+  const internshipId = req.body.internshipId;
+
+  Internship.findById(internshipId)
     .then((data) => {
       const applications = data.applications;
       res.status(200).json({

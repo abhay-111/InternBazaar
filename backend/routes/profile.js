@@ -10,5 +10,6 @@ router.post("/edit", profileController.updateResume);
 router.post("/view", profileController.viewResume);
 
 router.post("/myapplications", profileController.myapplications);
+router.post("/applieduser", profileController.appliedusers);
 
 module.exports = router;

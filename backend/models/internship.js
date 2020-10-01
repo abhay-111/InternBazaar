@@ -8,10 +8,10 @@ const InternshipSchema = new Schema({
     type: String,
     required: true,
   },
-  // creatorId: {
-  //   required: true,
-  //   type: Schema.Types.ObjectId,
-  // },
+  creatorId: {
+    required: true,
+    type: Schema.Types.ObjectId,
+  },
   applications: [
     {
       userId: String,

@@ -29,7 +29,7 @@ exports.addInternships = (req, res, next) => {
   const perks = req.body.perks;
   const whocanApply = req.body.whocanApply;
   var location = req.body.location;
-  // var creatorId = req.body.creatorId;
+  var creatorId = req.body.creatorId;
   location = String(location).toLowerCase();
   internshipType = String(internshipType).toLowerCase();
 
@@ -48,6 +48,7 @@ exports.addInternships = (req, res, next) => {
     startDate: startDate,
     whocanApply: whocanApply,
     perks: perks,
+    creatorId: creatorId,
   });
   internship.save();
 
@@ -147,7 +148,7 @@ exports.allinternships = (req, res, next) => {
 };
 
 exports.applyinternship = (req, res, next) => {
-  const internshipId = req.params.internshipId;
+  const internshipId = req.body.internshipId;
   const userId = req.body.userId;
 
   Internship.findById(internshipId)
@@ -217,8 +218,8 @@ exports.viewresume = (req, res, next) => {
     .then((data) => {
       const resumeName = "resume-" + userId + ".pdf";
 
-      const resumePath = path.join(__dirname, "resume", resumeName);
-
+      const resumePath = path.join(__dirname, "..", "resume", resumeName);
+      console.log(__dirname);
       const pdfDoc = new PDFDocument();
       console.log("hhha");
       res.setHeader("Content-Type", "application/pdf");
