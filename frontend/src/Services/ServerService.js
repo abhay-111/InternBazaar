@@ -19,6 +19,18 @@ class ServerService {
     return axios.post(BASE_URL + "profile/view", data);
   }
 
+  myApplications(userId) {
+    return axios.post(BASE_URL + "profile/myapplications", userId);
+  }
+
+  applyNow(data) {
+    return axios.post(BASE_URL + "internship/apply", data);
+  }
+
+  postInternship(data) {
+    return axios.post(BASE_URL + "internship/addInternship", data);
+  }
+
   //if (response.data.token) {
   //localStorage.setItem("user", JSON.stringify(response.data));
 

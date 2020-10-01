@@ -23,7 +23,7 @@ class OtpPage extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const id = localStorage.getItem("id");
-    const userType = this.props.location.state.userType;
+    const userType = localStorage.getItem("userType");
 
     const url = "http://localhost:8080/auth/signup/otp";
     const data = { otp: this.state.input.otp, id: id };

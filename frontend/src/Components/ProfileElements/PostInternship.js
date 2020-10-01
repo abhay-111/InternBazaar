@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card, Form, Button, Row, Col } from "react-bootstrap";
+import ServerService from "../../Services/ServerService";
 
 import classes from "./ProfileElements.css";
 
@@ -7,7 +8,20 @@ class PostInternship extends Component {
   constructor() {
     super();
     this.state = {
-      input: {},
+      input: {
+        title: "",
+        startDate: "",
+        applyBy: "",
+        description: "",
+        whocanApply: "",
+        perks: "",
+        stipend: "",
+        internshipPeriod: "",
+        skillsReq: "",
+        location: "",
+        internshipType: "",
+        vacancy: "",
+      },
       redirect: null,
     };
   }
@@ -21,7 +35,24 @@ class PostInternship extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
+    const data = {
+      ...this.state.input,
+      companyName: this.props.userName,
+      creatorId: localStorage.getItem("userId"),
+    };
+    console.log(data);
+    ServerService.postInternship(data)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   };
+
+  // componentDidMount() {
+  //   console.log(this.props.userName)
+  // }
 
   render() {
     return (
@@ -39,11 +70,13 @@ class PostInternship extends Component {
           <hr />
           <Form onSubmit={this.handleSubmit}>
             <Form.Group>
-              <Form.Label>Primary Profile</Form.Label>
+              <Form.Label>Internship Title</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Type your internship profile"
-                name="profile"
+                placeholder="Type your internship title"
+                name="title"
+                required
+                onChange={this.handleChange}
               />
             </Form.Group>
 
@@ -54,6 +87,8 @@ class PostInternship extends Component {
                 placeholder="Type your internship description"
                 rows="4"
                 name="description"
+                required
+                onChange={this.handleChange}
               />
             </Form.Group>
 
@@ -63,7 +98,9 @@ class PostInternship extends Component {
                 as="textarea"
                 placeholder="Type what type of skills are required for the internship"
                 rows="3"
-                name="skills"
+                name="skillsReq"
+                required
+                onChange={this.handleChange}
               />
             </Form.Group>
 
@@ -73,7 +110,20 @@ class PostInternship extends Component {
                 as="textarea"
                 placeholder="Type who can apply for your internship"
                 rows="3"
-                name="whoCanApply"
+                name="whocanApply"
+                required
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Stipend</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Type the stipend of your internship"
+                name="stipend"
+                required
+                onChange={this.handleChange}
               />
             </Form.Group>
 
@@ -84,6 +134,8 @@ class PostInternship extends Component {
                 rows="3"
                 as="textarea"
                 name="perks"
+                required
+                onChange={this.handleChange}
               />
             </Form.Group>
 
@@ -92,9 +144,11 @@ class PostInternship extends Component {
                 <Form.Group>
                   <Form.Label>No. of openings</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="number"
                     placeholder="type no. of openings"
                     name="vacancy"
+                    required
+                    onChange={this.handleChange}
                   />
                 </Form.Group>
                 <Form.Group>
@@ -103,6 +157,8 @@ class PostInternship extends Component {
                     type="text"
                     placeholder="dd/mm/yyyy"
                     name="startDate"
+                    required
+                    onChange={this.handleChange}
                   />
                 </Form.Group>
                 <Form.Group>
@@ -110,7 +166,9 @@ class PostInternship extends Component {
                   <Form.Control
                     type="text"
                     placeholder="Duration of internship"
-                    name="duration"
+                    name="internshipPeriod"
+                    required
+                    onChange={this.handleChange}
                   />
                 </Form.Group>
               </Col>
@@ -121,11 +179,29 @@ class PostInternship extends Component {
                     type="text"
                     placeholder="dd/mm/yyyy"
                     name="applyBy"
+                    required
+                    onChange={this.handleChange}
                   />
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Location</Form.Label>
-                  <Form.Control type="text" placeholder="city" name="city" />
+                  <Form.Control
+                    type="text"
+                    placeholder="city"
+                    name="location"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Internship Type</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Internship type"
+                    name="internshipType"
+                    required
+                    onChange={this.handleChange}
+                  />
                 </Form.Group>
               </Col>
             </Row>

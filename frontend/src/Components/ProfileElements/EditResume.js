@@ -35,11 +35,11 @@ class EditResume extends Component {
     event.preventDefault();
     const data = {
       name: this.state.input.name || this.state.data.name,
-      email: this.state.input.email,
-      phone: this.state.input.phone,
+      email: this.state.input.email || this.state.data.email,
+      phone: this.state.input.phone || this.state.data.phone,
       //address: this.state.input.address,
-      education: this.state.input.education,
-      skills: this.state.input.skills,
+      education: this.state.input.education || this.state.data.education,
+      skills: this.state.input.skills || this.state.data.skills,
       //experience: "",
       //additional: "",
     };
@@ -123,8 +123,7 @@ class EditResume extends Component {
                 type="text"
                 placeholder="Enter Contact No."
                 name="phone"
-                required
-                defaultValue={this.state.data.contact}
+                defaultValue={this.state.data.phone}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -135,8 +134,6 @@ class EditResume extends Component {
                 type="text"
                 placeholder="Enter your Address"
                 name="address"
-                required
-                defaultValue={this.state.data.address}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -147,7 +144,8 @@ class EditResume extends Component {
                 as="textarea"
                 rows="3"
                 name="education"
-                required
+                defaultValue={this.state.data.education}
+                placeholder="Enter Your Educational Details"
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -158,6 +156,8 @@ class EditResume extends Component {
                 as="textarea"
                 rows="3"
                 name="skills"
+                placeholder="Enter your Skills"
+                defaultValue={this.state.data.skills}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -168,6 +168,7 @@ class EditResume extends Component {
                 as="textarea"
                 rows="3"
                 name="experience"
+                placeholder="Enter your previos Jobs/Internships"
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -178,6 +179,7 @@ class EditResume extends Component {
                 as="textarea"
                 rows="3"
                 name="additional"
+                placeholder="Any additional details you wish to provide"
                 onChange={this.handleChange}
               />
             </Form.Group>

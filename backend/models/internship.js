@@ -10,7 +10,7 @@ const InternshipSchema = new Schema({
   },
   creatorId: {
     required: true,
-    type: Schema.Types.ObjectId,
+    type: String,
   },
   applications: [
     {

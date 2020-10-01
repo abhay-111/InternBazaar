@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classes from "./Navbar.css";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import userIcon from "../../../assets/user.png";
 
 class LoggedoutNavBar extends Component {
   // constructor() {
@@ -37,14 +38,20 @@ class LoggedoutNavBar extends Component {
           className={classes.Navbar}
         >
           <Navbar.Brand>
-            <Link to="/" className={classes.Logo}>
+            <a href="/" className={classes.Logo}>
               InternBazaar
-            </Link>
+            </a>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto"></Nav>
             <Nav>
+              <Link
+                to={"/" + localStorage.getItem("userType")}
+                style={{ paddingRight: "2rem", paddingTop: "2px" }}
+              >
+                <img src={userIcon} alt="" />
+              </Link>
               <a className={classes.Navlink} onClick={this.logoutHandler}>
                 Logout
               </a>

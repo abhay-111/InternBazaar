@@ -103,14 +103,7 @@ class SignupForm extends Component {
 
   render() {
     if (this.state.redirect) {
-      return (
-        <Redirect
-          to={{
-            pathname: this.state.redirect,
-            state: { userType: this.state.input.userType },
-          }}
-        />
-      );
+      return <Redirect to={this.state.redirect} />;
     }
     return (
       <Modal show={true}>
