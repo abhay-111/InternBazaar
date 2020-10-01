@@ -5,7 +5,7 @@ import classes from "./footer.css";
 const Footer = () => {
   return (
     <div className={classes.Footer}>
-      <Container>
+      <Container fluid>
         <Row>
           <Col sm={4}>
             <h5>Get to Know Us</h5>

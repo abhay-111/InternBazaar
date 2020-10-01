@@ -23,10 +23,26 @@ class InternshipDetails extends Component {
   }
 
   ApplyHandler = () => {
-    const id = this.state.data._id;
+    const internshipId = this.state.data._id;
+    const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
+    const data = {
+      internshipId: internshipId,
+      userId: userId,
+    };
+    console.log(data);
     if (token !== null) {
-      console.log(id);
+      //console.log(id);
+      ServerService.applyNow(data)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          if (err.response.status === 422) {
+            alert(err.response.data.message);
+          }
+        });
     } else this.setState({ redirect: "/login" });
   };
 

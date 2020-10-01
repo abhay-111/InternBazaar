@@ -1,10 +1,14 @@
 import React, { Component } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Col, Row, Container } from "react-bootstrap";
 
 import classes from "./ProfileElements.css";
 import ServerService from "../../Services/ServerService";
 
 class ViewResume extends Component {
+  state = {
+    data: [],
+  };
+
   componentDidMount() {
     const data = {
       userId: localStorage.getItem("userId"),
@@ -13,6 +17,7 @@ class ViewResume extends Component {
     ServerService.viewProfile(data)
       .then((response) => {
         console.log(response);
+        this.setState({ data: response.data.user });
       })
       .catch((err) => {
         console.log(err.response);
@@ -32,6 +37,34 @@ class ViewResume extends Component {
           >
             VIEW RESUME
           </Card.Title>
+          <Container className={classes.data}>
+            <Row>
+              <h4>Name : </h4> <span>{this.state.data.name}</span>
+            </Row>
+            <Row>
+              <h4>E-Mail : </h4> <span>{this.state.data.email}</span>
+            </Row>
+            <Row>
+              <h4>Contact : </h4> <span>{this.state.data.phone}</span>
+            </Row>
+            <Row>
+              <h4>Address : </h4> <span>{this.state.data.address}</span>
+            </Row>
+            <Row>
+              <h4>Educational Details : </h4>{" "}
+              <span>{this.state.data.education}</span>
+            </Row>
+            <Row>
+              <h4>Skills : </h4> <span>{this.state.data.skills}</span>
+            </Row>
+            <Row>
+              <h4>Jobs/Internships : </h4> <span>{this.state.data.jobs}</span>
+            </Row>
+            <Row>
+              <h4>Additional Details : </h4>{" "}
+              <span>{this.state.data.additional}</span>
+            </Row>
+          </Container>
         </Card.Body>
       </Card>
     );

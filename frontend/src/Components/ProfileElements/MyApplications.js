@@ -3,8 +3,29 @@ import { Card, Table } from "react-bootstrap";
 
 import ApplicationRow from "./ApplicationRow";
 import classes from "./ProfileElements.css";
+import ServerService from "../../Services/ServerService";
 
 class MyApplications extends Component {
+  state = {
+    data: [],
+  };
+
+  componentDidMount() {
+    const id = "5f75e8287283d763fc076186";
+    const data = {
+      userId: id,
+    };
+    console.log(data);
+    ServerService.myApplications(data)
+      .then((response) => {
+        console.log(response);
+        this.setState({ data: response.data.data });
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }
+
   render() {
     return (
       <Card className={classes.card}>

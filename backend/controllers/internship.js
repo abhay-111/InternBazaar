@@ -8,12 +8,11 @@ const path = require("path");
 // // adding internships to database
 exports.addInternships = (req, res, next) => {
   const errors = validationResult(req);
-
   if (!errors.isEmpty()) {
-    return req.status(422).json({
-      data: errors.array(),
-      msg: "validation failed",
-    });
+    const error = new Error("Validation Failed ");
+    error.statusCode = 422;
+    error.data = errors.array();
+    throw error;
   }
   // const skillreq=req.body.skillsReq
   var internshipType = req.body.internshipType;
@@ -29,12 +28,12 @@ exports.addInternships = (req, res, next) => {
   const perks = req.body.perks;
   const whocanApply = req.body.whocanApply;
   var location = req.body.location;
-  // var creatorId = req.body.creatorId;
+  var creatorId = req.body.creatorId;
   location = String(location).toLowerCase();
   internshipType = String(internshipType).toLowerCase();
 
   const internship = new Internship({
-    // creatorId: creatorId,
+    creatorId: creatorId,
     location: location,
     vacancy: vacancy,
     skillsReq: skillsReq,
@@ -49,22 +48,31 @@ exports.addInternships = (req, res, next) => {
     whocanApply: whocanApply,
     perks: perks,
   });
-  internship.save();
-
-  res.status(200).json({
-    message: "Internship added",
-    perks: perks,
-    whocanApply: whocanApply,
-    title: title,
-    description: description,
-    stipend: stipend,
-    internshipPeriod: internshipPeriod,
-    companyName: companyName,
-    internshipType: internshipType,
-    applyBy: applyBy,
-    startDate: startDate,
-    location: location,
-  });
+  internship
+    .save()
+    .then((data) => {
+      res.status(200).json({
+        message: "Internship added",
+        perks: perks,
+        whocanApply: whocanApply,
+        title: title,
+        description: description,
+        stipend: stipend,
+        internshipPeriod: internshipPeriod,
+        companyName: companyName,
+        internshipType: internshipType,
+        applyBy: applyBy,
+        startDate: startDate,
+        location: location,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };
 
 exports.getInternships = (req, res, next) => {
@@ -147,14 +155,16 @@ exports.allinternships = (req, res, next) => {
 };
 
 exports.applyinternship = (req, res, next) => {
-  const internshipId = req.params.internshipId;
+  const internshipId = req.body.internshipId;
   const userId = req.body.userId;
+  console.log(userId, internshipId);
 
   Internship.findById(internshipId)
     .then((result) => {
       result.applications.forEach((application) => {
         if (application.userId === userId) {
           const error = new Error("You have already applied");
+          error.statusCode = 422;
           error.data = {
             userId: userId,
           };

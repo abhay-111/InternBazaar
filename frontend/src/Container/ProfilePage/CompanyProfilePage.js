@@ -9,17 +9,37 @@ import ProfileName from "../../Components/ProfileElements/ProfileName";
 import CompanySidebar from "../../Components/ProfileElements/CompanySidebar";
 import EditDetails from "../../Components/ProfileElements/EditOrganizationDetails";
 import PostInternship from "../../Components/ProfileElements/PostInternship";
+import ServerService from "../../Services/ServerService";
 
 class CompanyProfilePage extends Component {
+  state = {
+    user: [],
+  };
+
+  componentDidMount() {
+    const data = {
+      userId: localStorage.getItem("userId"),
+      userType: localStorage.getItem("userType"),
+    };
+    ServerService.viewProfile(data)
+      .then((response) => {
+        console.log(response);
+        this.setState({ user: response.data.user });
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }
+
   render() {
     return (
       <BrowserRouter>
         <section className={classes.body}>
           <Navbar />
-          <Container className={classes.container}>
+          <Container className={classes.body}>
             <Row>
               <Col xs={4}>
-                <ProfileName />
+                <ProfileName userName={this.state.user.name} />
                 <CompanySidebar />
               </Col>
 
@@ -29,7 +49,10 @@ class CompanyProfilePage extends Component {
                   <Route
                     path="/employer/post"
                     exact
-                    component={PostInternship}
+                    component={() => (
+                      <PostInternship userName={this.state.user.name} />
+                    )}
+                    userName={this.state.user.name}
                   />
                 </Switch>
               </Col>

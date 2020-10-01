@@ -14,19 +14,13 @@
 .Navlink {
   box-sizing: border-box;
   border-radius: 5px;
-  background-color: #0062ff;
-  color: #fff;
+  background-color: #0062ff !important;
+  color: #fff !important;
   padding: 7px;
   font-size: 1.3rem;
   font-weight: bold;
   margin-right: 1rem;
   width: 100 !important;
-}
-.Navlink:hover,
-.Dropdown:hover {
-  background-color: #345beb;
-  color: #fff;
-  text-decoration: none;
 }
 
 .Dropdown {
@@ -40,6 +34,7 @@
 
 .Navlink:hover,
 .Dropdown:hover {
+  cursor: pointer;
   background-color: #345beb !important ;
   color: #fff !important;
   text-decoration: none !important;

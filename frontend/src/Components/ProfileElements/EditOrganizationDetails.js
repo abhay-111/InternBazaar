@@ -13,6 +13,7 @@ class EditDetails extends Component {
         about: "",
       },
       redirect: null,
+      data: [],
     };
   }
   handleChange = (event) => {
@@ -26,14 +27,15 @@ class EditDetails extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const data = {
-      name: this.state.input.name,
-      about: this.state.input.about,
+      name: this.state.input.name || this.state.data.name,
+      about: this.state.input.about || this.state.data.about,
     };
     const request = {
       userId: localStorage.getItem("userId"),
       userType: localStorage.getItem("userType"),
       data: data,
     };
+    console.log(request);
     ServerService.editProfile(request)
       .then((response) => {
         console.log(response);
@@ -42,6 +44,21 @@ class EditDetails extends Component {
         console.log(err.response);
       });
   };
+
+  componentDidMount() {
+    const data = {
+      userId: localStorage.getItem("userId"),
+      userType: localStorage.getItem("userType"),
+    };
+    ServerService.viewProfile(data)
+      .then((response) => {
+        console.log(response);
+        this.setState({ data: response.data.user });
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }
 
   render() {
     return (
@@ -62,6 +79,7 @@ class EditDetails extends Component {
               <Form.Control
                 type="text"
                 placeholder="Enter the name of your organization"
+                defaultValue={this.state.data.name}
                 name="name"
                 onChange={this.handleChange}
               />
@@ -73,6 +91,7 @@ class EditDetails extends Component {
                 as="textarea"
                 rows="3"
                 placeholder="Enter the description of your organization"
+                defaultValue={this.state.data.about}
                 name="about"
                 onChange={this.handleChange}
               />
