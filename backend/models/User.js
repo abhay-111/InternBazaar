@@ -56,6 +56,7 @@ const userschema = new Schema({
       internshipId: String,
       status: String,
       companyName: String,
+      internshipProfile: String,
     },
   ],
 });

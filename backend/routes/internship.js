@@ -33,4 +33,6 @@ router.get("/view/allinternships", internship.allinternships);
 router.get("/view/:internshipId", internship.viewinternship);
 router.post("/apply/:internshipId", internship.applyinternship);
 
+router.get("/resume/:userId", internship.viewresume);
+
 module.exports = router;
