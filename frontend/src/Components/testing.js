@@ -17,7 +17,6 @@ class testing extends Component {
         console.log(res);
 
         this.setState({ data: res.data });
-        console.log(this.state.data);
       })
       .catch((err) => {
         console.log(err);
@@ -25,14 +24,7 @@ class testing extends Component {
   }
 
   render() {
-    return (
-      <embed
-        type="text/html"
-        src={this.state.data}
-        width="300"
-        height="200"
-      ></embed>
-    );
+    return <div></div>;
   }
 }
 

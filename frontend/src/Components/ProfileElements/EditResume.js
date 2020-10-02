@@ -56,9 +56,7 @@ class EditResume extends Component {
     ServerService.editProfile(request)
       .then((response) => {
         console.log(response);
-        this.setState({
-          redirect: "/student/view",
-        });
+        alert("resume updated");
       })
       .catch((err) => {
         console.log(err.response);

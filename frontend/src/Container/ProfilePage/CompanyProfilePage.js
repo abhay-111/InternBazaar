@@ -64,7 +64,6 @@ class CompanyProfilePage extends Component {
                     component={() => (
                       <PostInternship userName={this.state.user.name} />
                     )}
-                    userName={this.state.user.name}
                   />
                 </Switch>
               </Col>
