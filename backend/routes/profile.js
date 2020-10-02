@@ -1,20 +1,24 @@
 const express = require("express");
 const router = express.Router();
-
+const isAuth = require("../middleware/is-auth");
 const profileController = require("../controllers/profile");
 
 // POST => /profile/edit
-router.post("/edit", profileController.updateResume);
+router.post("/edit", isAuth, profileController.updateResume);
 
 // GET => /profile/view
-router.post("/view", profileController.viewResume);
+router.post("/view", isAuth, profileController.viewResume);
 
-router.post("/myapplications", profileController.myapplications);
-router.post("/applieduser", profileController.appliedusers);
+router.post("/myapplications", isAuth, profileController.myapplications);
+router.post("/applieduser", isAuth, profileController.appliedusers);
 
 // POST => /profile/postedInternships
-router.post("/postedInternships", profileController.viewPostedInternships);
+router.post(
+  "/postedInternships",
+  isAuth,
+  profileController.viewPostedInternships
+);
 
-router.post("/changeStatus", profileController.changeStatus);
+router.post("/changeStatus", isAuth, profileController.changeStatus);
 
 module.exports = router;
