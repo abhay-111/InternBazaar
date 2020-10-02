@@ -48,7 +48,8 @@ class ViewResume extends Component {
               <h4>Contact : </h4> <span>{this.state.data.phone}</span>
             </Row>
             <Row>
-              <h4>Address : </h4> <span>{this.state.data.address}</span>
+              <h4>Preferred Locations : </h4>{" "}
+              <span>{this.state.data.location}</span>
             </Row>
             <Row>
               <h4>Educational Details : </h4>{" "}
@@ -56,6 +57,9 @@ class ViewResume extends Component {
             </Row>
             <Row>
               <h4>Skills : </h4> <span>{this.state.data.skills}</span>
+            </Row>
+            <Row>
+              <h4>Links : </h4> <span>{this.state.data.links}</span>
             </Row>
             <Row>
               <h4>Jobs/Internships : </h4> <span>{this.state.data.jobs}</span>

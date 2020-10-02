@@ -13,10 +13,12 @@ class EditResume extends Component {
         name: "",
         email: "",
         phone: "",
-        address: "",
+        about: "",
+        location: "",
         education: "",
         skills: "",
-        experience: "",
+        jobs: "",
+        links: "",
         additional: "",
       },
       redirect: null,
@@ -37,11 +39,13 @@ class EditResume extends Component {
       name: this.state.input.name || this.state.data.name,
       email: this.state.input.email || this.state.data.email,
       phone: this.state.input.phone || this.state.data.phone,
-      //address: this.state.input.address,
+      about: this.state.input.about || this.state.data.about,
+      location: this.state.input.location || this.state.data.phone,
       education: this.state.input.education || this.state.data.education,
       skills: this.state.input.skills || this.state.data.skills,
-      //experience: "",
-      //additional: "",
+      jobs: this.state.input.jobs || this.state.data.jobs,
+      links: this.state.input.links || this.state.data.links,
+      additional: this.state.input.additional || this.state.data.additional,
     };
     const request = {
       userId: localStorage.getItem("userId"),
@@ -128,12 +132,25 @@ class EditResume extends Component {
               />
             </Form.Group>
 
+            <Form.Group controlId="exampleForm.ControlTextarea1">
+              <Form.Label>About Me</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows="3"
+                name="about"
+                defaultValue={this.state.data.about}
+                placeholder="Type something about yourself"
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+
             <Form.Group>
-              <Form.Label>Address</Form.Label>
+              <Form.Label>Preferred Locations</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter your Address"
-                name="address"
+                placeholder="Enter your preferred locations"
+                name="location"
+                defaultValue={this.state.data.location}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -167,8 +184,21 @@ class EditResume extends Component {
               <Form.Control
                 as="textarea"
                 rows="3"
-                name="experience"
+                name="jobs"
                 placeholder="Enter your previos Jobs/Internships"
+                defaultValue={this.state.data.jobs}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Links</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows="3"
+                name="links"
+                placeholder="Enter your Github, linkedin or any other profile links"
+                defaultValue={this.state.data.links}
                 onChange={this.handleChange}
               />
             </Form.Group>

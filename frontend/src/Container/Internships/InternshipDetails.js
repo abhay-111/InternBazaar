@@ -43,7 +43,7 @@ class InternshipDetails extends Component {
             alert(err.response.data.message);
           }
         });
-    } else this.setState({ redirect: "/login" });
+    } else this.setState({ redirect: "/studentlogin" });
   };
 
   render() {

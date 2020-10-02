@@ -5,11 +5,10 @@ class ApplicationRow extends Component {
     return (
       <React.Fragment>
         <tr>
-          <td>Table cell</td>
-          <td>Table cell</td>
-          <td>Table cell</td>
-          <td>Table cell</td>
-          <td>Table cell</td>
+          <td>{this.props.companyName}</td>
+          <td> {this.props.profile} </td>
+          <td> {this.props.appliedOn} </td>
+          <td> {this.props.status} </td>
         </tr>
       </React.Fragment>
     );

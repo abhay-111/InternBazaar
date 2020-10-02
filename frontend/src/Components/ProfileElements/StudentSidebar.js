@@ -13,10 +13,10 @@ class StudentSidebar extends Component {
     return (
       <Card className={classes.card}>
         <Card.Body>
-          <Link to="/student/credentials">
+          <Link to="/student/password">
             <div className={classes.link}>
               <img src={user} className={classes.icon} alt="" />
-              <span className={classes.heading}>EDIT E-MAIL/PASSWORD</span>
+              <span className={classes.heading}>CHANGE PASSWORD</span>
             </div>
           </Link>
           <Link to="/student/view">
