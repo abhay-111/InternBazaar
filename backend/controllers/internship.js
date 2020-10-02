@@ -229,7 +229,8 @@ exports.viewresume = (req, res, next) => {
       const resumeName = "resume-" + userId + ".pdf";
 
       const resumePath = path.join(__dirname, "../", "resume", resumeName);
-
+      data.resume = "resume-" + userId + ".pdf";
+      data.save();
       const pdfDoc = new PDFDocument();
       pdfDoc.pipe(fs.createWriteStream(resumePath));
       pdfDoc.pipe(res);
@@ -261,12 +262,17 @@ exports.viewresume = (req, res, next) => {
       pdfDoc.fontSize(18).text("Social media links", { underline: true });
       pdfDoc.fontSize(15).text(data.links);
 
+<<<<<<< HEAD
       data.resume = "resume-" + userId + ".pdf";
       data.save();
       pdfDoc.end(() => {
         res.status(200).json({
           path: data.resume,
         });
+=======
+      pdfDoc.end(() => {
+        res.status(200).json({ path: data.resume });
+>>>>>>> f65f0600e1422190cac57c834d5941efc396f6f8
       });
     })
     .catch((err) => {

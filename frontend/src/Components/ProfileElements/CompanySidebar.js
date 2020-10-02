@@ -32,7 +32,7 @@ class CompanySidebar extends Component {
               <span className={classes.heading}>EDIT DETAILS</span>
             </div>
           </Link>
-          <Link to="#">
+          <Link to="/employer/posted">
             <div className={classes.link}>
               <img src={lists} className={classes.icon} alt="" />
               <span className={classes.heading}>POSTED INTERNSHIPS</span>

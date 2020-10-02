@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Axios from "axios";
 
 import classes from "./ProfilePage.css";
 import Navbar from "../../Components/UIelements/Navbar/Navbar";
@@ -31,6 +32,20 @@ class ProfilePage extends Component {
       .catch((err) => {
         console.log(err.response);
       });
+    Axios.get(
+      "http://localhost:8080/internship/resume/" +
+        localStorage.getItem("userId")
+    )
+      .then((res) => {
+        console.log(res);
+
+        //     const path = "http://localhost:8080/" + this.props.path;
+        //     console.log(path);
+        //     window.open(path);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   }
 
   render() {
@@ -47,9 +62,19 @@ class ProfilePage extends Component {
 
               <Col xs={8}>
                 <Switch>
-                  <Route path="/student/password" component={ChangePassword} />
-                  <Route path="/student/edit" component={EditResume} />
-                  <Route path="/student/view" exact component={ViewResume} />
+                  <Route
+                    path="/student/password"
+                    exact
+                    component={ChangePassword}
+                  />
+                  <Route path="/student/edit" exact component={EditResume} />
+                  <Route
+                    path="/student/view"
+                    exact
+                    component={() => (
+                      <ViewResume path={this.state.user.resume} />
+                    )}
+                  />
                   <Route
                     path="/student/applications"
                     exact

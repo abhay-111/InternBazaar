@@ -3,76 +3,98 @@ import { Card, Col, Row, Container } from "react-bootstrap";
 
 import classes from "./ProfileElements.css";
 import ServerService from "../../Services/ServerService";
+import Axios from "axios";
 
 class ViewResume extends Component {
   state = {
-    data: [],
+    path: "",
   };
 
   componentDidMount() {
-    const data = {
-      userId: localStorage.getItem("userId"),
-      userType: localStorage.getItem("userType"),
-    };
-    ServerService.viewProfile(data)
-      .then((response) => {
-        console.log(response);
-        this.setState({ data: response.data.user });
+    Axios.get(
+      "http://localhost:8080/internship/resume/" +
+        localStorage.getItem("userId")
+    )
+      .then((res) => {
+        console.log(res);
+
+        const path = "http://localhost:8080/" + this.props.path;
+        console.log(path);
+        window.open(path);
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log(err);
       });
   }
 
   render() {
-    return (
-      <Card className={classes.card}>
-        <Card.Body>
-          <Card.Title
-            style={{
-              textAlign: "center",
-              fontSize: "1.5rem",
-              fontWeight: "bold",
-            }}
-          >
-            VIEW RESUME
-          </Card.Title>
-          <Container className={classes.data}>
-            <Row>
-              <h4>Name : </h4> <span>{this.state.data.name}</span>
-            </Row>
-            <Row>
-              <h4>E-Mail : </h4> <span>{this.state.data.email}</span>
-            </Row>
-            <Row>
-              <h4>Contact : </h4> <span>{this.state.data.phone}</span>
-            </Row>
-            <Row>
-              <h4>Preferred Locations : </h4>{" "}
-              <span>{this.state.data.location}</span>
-            </Row>
-            <Row>
-              <h4>Educational Details : </h4>{" "}
-              <span>{this.state.data.education}</span>
-            </Row>
-            <Row>
-              <h4>Skills : </h4> <span>{this.state.data.skills}</span>
-            </Row>
-            <Row>
-              <h4>Links : </h4> <span>{this.state.data.links}</span>
-            </Row>
-            <Row>
-              <h4>Jobs/Internships : </h4> <span>{this.state.data.jobs}</span>
-            </Row>
-            <Row>
-              <h4>Additional Details : </h4>{" "}
-              <span>{this.state.data.additional}</span>
-            </Row>
-          </Container>
-        </Card.Body>
-      </Card>
-    );
+    return <div></div>;
   }
-}
+
+  //componentDidMount() {
+  //  const data = {
+  //    userId: localStorage.getItem("userId"),
+  //    userType: localStorage.getItem("userType"),
+  //  };
+  //  ServerService.viewProfile(data)
+  //    .then((response) => {
+  //      console.log(response);
+  //      this.setState({ data: response.data.user });
+  //    })
+  //    .catch((err) => {
+  //      console.log(err.response);
+  //    });
+  //}
+
+  // render() {
+  //   return (
+  //     <Card className={classes.card}>
+  //       <Card.Body>
+  //         <Card.Title
+  //           style={{
+  //             textAlign: "center",
+  //             fontSize: "1.5rem",
+  //             fontWeight: "bold",
+  //           }}
+  //         >
+  //           VIEW RESUME
+  //         </Card.Title>
+  //         <Container className={classes.data}>
+  //           <Row>
+  //             <h4>Name : </h4> <span>{this.state.data.name}</span>
+  //           </Row>
+  //           <Row>
+  //             <h4>E-Mail : </h4> <span>{this.state.data.email}</span>
+  //           </Row>
+  //           <Row>
+  //             <h4>Contact : </h4> <span>{this.state.data.phone}</span>
+  //           </Row>
+  //           <Row>
+  //             <h4>Preferred Locations : </h4>{" "}
+  //             <span>{this.state.data.location}</span>
+  //           </Row>
+  //           <Row>
+  //             <h4>Educational Details : </h4>{" "}
+  //             <span>{this.state.data.education}</span>
+  //           </Row>
+  //           <Row>
+  //             <h4>Skills : </h4> <span>{this.state.data.skills}</span>
+  //           </Row>
+  //           <Row>
+  //             <h4>Links : </h4> <span>{this.state.data.links}</span>
+  //           </Row>
+  //           <Row>
+  //             <h4>Jobs/Internships : </h4> <span>{this.state.data.jobs}</span>
+  //           </Row>
+  //           <Row>
+  //             <h4>Additional Details : </h4>{" "}
+  //             <span>{this.state.data.additional}</span>
+  //           </Row>
+  //         </Container>
+  //       </Card.Body>
+  //     </Card>
+  //   );
+  // }
+} //
 
 export default ViewResume;
