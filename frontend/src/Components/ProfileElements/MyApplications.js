@@ -11,7 +11,7 @@ class MyApplications extends Component {
   };
 
   componentDidMount() {
-    const id = "5f75e8287283d763fc076186";
+    const id = localStorage.getItem("userId");
     const data = {
       userId: id,
     };

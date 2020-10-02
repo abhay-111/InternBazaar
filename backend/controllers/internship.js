@@ -197,6 +197,7 @@ exports.applyinternship = (req, res, next) => {
   Internship.findById(internshipId)
     .then((result) => {
       result.applications.forEach((application) => {
+        console.log("hello");
         if (application.userId === userId) {
           const error = new Error("You have already applied");
           error.statusCode = 422;

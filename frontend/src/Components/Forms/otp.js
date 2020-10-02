@@ -39,6 +39,7 @@ class OtpPage extends Component {
         console.log("Success:", response);
         if (response.message === "password correct, user added") {
           localStorage.setItem("token", response.token);
+          localStorage.setItem("userId", response.userId);
           if (userType === "employer") {
             this.setState({ redirect: "/employer" });
           } else {
