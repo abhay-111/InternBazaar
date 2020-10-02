@@ -260,7 +260,8 @@ exports.viewresume = (req, res, next) => {
       pdfDoc.moveDown();
       pdfDoc.fontSize(18).text("Social media links", { underline: true });
       pdfDoc.fontSize(15).text(data.links);
-
+      data.resume = "resume" + userId + ".pdf";
+      data.save();
       pdfDoc.end();
     })
     .catch((err) => {
