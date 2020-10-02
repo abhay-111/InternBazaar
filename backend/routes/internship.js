@@ -36,7 +36,7 @@ router.get("/view/allinternships", internship.allinternships);
 router.get("/view/:internshipId", internship.viewinternship);
 
 // POST => /internship/apply
-router.post("/apply", isAuth, internship.applyinternship);
+router.post("/apply", internship.applyinternship);
 
 router.get("/resume/:userId", isAuth, internship.viewresume);
 router.get("/search");
