@@ -7,7 +7,6 @@ class ApplicationRow extends Component {
         <tr>
           <td>{this.props.companyName}</td>
           <td> {this.props.profile} </td>
-          <td> {this.props.appliedOn} </td>
           <td> {this.props.status} </td>
         </tr>
       </React.Fragment>

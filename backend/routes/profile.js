@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const isauth = require("../middleware/is-auth");
 
 const profileController = require("../controllers/profile");
 
@@ -13,7 +14,11 @@ router.post("/myapplications", profileController.myapplications);
 router.post("/applieduser", profileController.appliedusers);
 
 // POST => /profile/postedInternships
-router.post("/postedInternships", profileController.viewPostedInternships);
+router.post(
+  "/postedInternships",
+
+  profileController.viewPostedInternships
+);
 
 router.post("/changeStatus", profileController.changeStatus);
 

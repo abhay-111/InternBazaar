@@ -56,7 +56,6 @@ class MyApplications extends Component {
               <tr>
                 <th>Company</th>
                 <th>Profile</th>
-                <th>Applied On</th>
                 <th>Application Status</th>
               </tr>
             </thead>

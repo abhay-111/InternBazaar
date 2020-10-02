@@ -184,8 +184,10 @@ exports.appliedusers = (req, res, next) => {
 
 exports.viewPostedInternships = (req, res, next) => {
   const userId = req.body.userId;
+  console.log(userId);
   Employer.findById(userId)
     .then((user) => {
+      console.log(user);
       if (!user) {
         const error = new Error("Invalid user id");
         error.statusCode = 422;
@@ -193,7 +195,7 @@ exports.viewPostedInternships = (req, res, next) => {
           location: "profile",
           msg: "user does not exist",
           param: "userId",
-          value: userID,
+          value: userId,
         };
         throw error;
       }
