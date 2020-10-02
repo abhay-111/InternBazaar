@@ -166,6 +166,59 @@ exports.appliedusers = (req, res, next) => {
     });
 };
 
+exports.viewPostedInternships = (req, res, next) => {
+  const userId = req.body.userId;
+  Employer.findById(userId)
+    .then((user) => {
+      if (!user) {
+        const error = new Error("Invalid user id");
+        error.statusCode = 422;
+        error.data = {
+          location: "profile",
+          msg: "user does not exist",
+          param: "userId",
+          value: userID,
+        };
+        throw error;
+      }
+
+      const internships = user.internshipsPosted;
+      return Internship.find().where("_id").in(internships);
+    })
+    .then((fetchedInternships) => {
+      return res.status(200).json({
+        message: "All posted internships Fetched",
+        numberOfInternships: fetchedInternships.length,
+        internships: fetchedInternships,
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.changeStatus = (req, res, next) => {
+  const userId = req.body.userID;
+  const internshipId = req.body.internshipId;
+  Internship.findById(internshipId)
+    .then((internship) => {
+      const lol = internship.applications.find({ status: "Applied" });
+      console.log(lol);
+      return res.status(200).json({
+        lel: lol,
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
 // exports.viewApplications = (req, res, next) => {
 //   const userID = req.userID;
 

@@ -14,7 +14,11 @@ const InternshipSchema = new Schema({
   },
   applications: [
     {
-      userId: String,
+      userId: {
+        type: Schema.Types.ObjectId,
+        ref: "Student",
+      },
+      status: String,
     },
   ],
 
