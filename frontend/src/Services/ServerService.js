@@ -31,27 +31,6 @@ class ServerService {
     return axios.post(BASE_URL + "internship/addInternship", data);
   }
 
-  //if (response.data.token) {
-  //localStorage.setItem("user", JSON.stringify(response.data));
-
-  //
-  // logout() {
-  //   localStorage.removeItem("user");
-  // }
-  //
-  // register(username, email, password) {
-  //   return axios.post(API_URL + "signup", {
-  //     username,
-  //     email,
-  //     password,
-  //   });
-  // }
-  //
-  // getCurrentUser() {
-  //   return JSON.parse(localStorage.getItem("user"));
-  // }
-  //
-
   getInternshipsByCategory(category) {
     return axios.get(
       BASE_URL + "internship/getinternships?internshipType=" + category
@@ -66,6 +45,18 @@ class ServerService {
 
   getDetails(id) {
     return axios.get(BASE_URL + "internship/view/" + id);
+  }
+
+  postedInternships(userId) {
+    return axios.post(BASE_URL + "profile/postedInternships", userId);
+  }
+
+  getApplicants(internshipId) {
+    return axios.post(BASE_URL + "profile/applieduser", internshipId);
+  }
+
+  changeStatus(data) {
+    return axios.post(BASE_URL + "profile/changeStatus", data);
   }
 }
 

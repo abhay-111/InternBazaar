@@ -14,13 +14,13 @@ class CompanySidebar extends Component {
     return (
       <Card className={classes.card}>
         <Card.Body>
-          <Link to="employer/password">
+          <Link to="/employer/password">
             <div className={classes.link}>
               <img src={user} className={classes.icon} alt="" />
               <span className={classes.heading}>CHANGE PASSWORD</span>
             </div>
           </Link>
-          <Link to="#">
+          <Link to="/employer/details">
             <div className={classes.link}>
               <img src={group} className={classes.icon} alt="" />
               <span className={classes.heading}>ORGANIZATION DEAILS</span>

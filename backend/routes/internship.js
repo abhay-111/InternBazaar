@@ -2,6 +2,7 @@ const express = require("express");
 const { body, check } = require("express-validator/check");
 
 const router = express.Router();
+const isAuth = require("../middleware/is-auth");
 
 const internship = require("../controllers/internship");
 const User = require("../models/User");
@@ -24,6 +25,7 @@ router.post(
     check("applyBy").isString(),
     check("startDate").isString(),
   ],
+  isAuth,
   internship.addInternships
 );
 
@@ -34,9 +36,9 @@ router.get("/view/allinternships", internship.allinternships);
 router.get("/view/:internshipId", internship.viewinternship);
 
 // POST => /internship/apply
-router.post("/apply", internship.applyinternship);
+router.post("/apply", isAuth, internship.applyinternship);
 
-router.get("/resume/:userId", internship.viewresume);
+router.get("/resume/:userId", isAuth, internship.viewresume);
 router.get("/search");
 
 module.exports = router;

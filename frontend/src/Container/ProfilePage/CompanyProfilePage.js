@@ -12,6 +12,8 @@ import PostInternship from "../../Components/ProfileElements/PostInternship";
 import ServerService from "../../Services/ServerService";
 import ChangePassword from "../../Components/ProfileElements/ChangePassword";
 import PostedInternships from "../../Components/ProfileElements/PostedInternships/PostedInternships";
+import ViewOrganizationDetails from "../../Components/ProfileElements/ViewOrganizationDetails";
+import Applicants from "../../Components/ProfileElements/PostedInternships/Applicants";
 
 class CompanyProfilePage extends Component {
   state = {
@@ -49,6 +51,11 @@ class CompanyProfilePage extends Component {
                 <Switch>
                   <Route path="/employer/edit" exact component={EditDetails} />
                   <Route
+                    path="/employer/details"
+                    exact
+                    component={ViewOrganizationDetails}
+                  />
+                  <Route
                     path="/employer/password"
                     exact
                     component={ChangePassword}
@@ -57,6 +64,11 @@ class CompanyProfilePage extends Component {
                     path="/employer/posted"
                     exact
                     component={PostedInternships}
+                  />
+                  <Route
+                    path="/employer/applicants"
+                    exact
+                    component={Applicants}
                   />
                   <Route
                     path="/employer/post"
