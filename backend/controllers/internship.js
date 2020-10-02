@@ -244,8 +244,12 @@ exports.viewresume = (req, res, next) => {
         underline: true,
       });
       pdfDoc.text("-----------------------");
+
       pdfDoc.end();
-      file.pipe(res);
+      //file.pipe(res);
+      res.status(200).json({
+        path: data.resume,
+      });
     })
     .catch((err) => {
       if (!err.statusCode) {
