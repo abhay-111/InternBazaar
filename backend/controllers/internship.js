@@ -228,24 +228,40 @@ exports.viewresume = (req, res, next) => {
     .then((data) => {
       const resumeName = "resume-" + userId + ".pdf";
 
-      const resumePath = path.join(__dirname, "..", "resume", resumeName);
-      console.log(__dirname);
+      const resumePath = path.join(__dirname, "../", "resume", resumeName);
+
       const pdfDoc = new PDFDocument();
-      console.log("hhha");
-      res.setHeader("Content-Type", "application/pdf");
-      res.setHeader(
-        "Content-Disposition",
-        'inline; filename="' + resumeName + '"'
-      );
       pdfDoc.pipe(fs.createWriteStream(resumePath));
       pdfDoc.pipe(res);
 
-      pdfDoc.fontSize(26).text("HELLO" + data.name, {
+      pdfDoc.fontSize(22).text("Hello there , I am " + data.name, {
         underline: true,
       });
-      pdfDoc.text("-----------------------");
+
+      pdfDoc.moveDown();
+      pdfDoc.fontSize(18).text("Education", {
+        underline: true,
+      });
+
+      pdfDoc.moveDown();
+      pdfDoc.fontSize(15).text("" + data.education);
+      pdfDoc.moveDown();
+      pdfDoc.fontSize(18).text("Skills", {
+        underline: true,
+      });
+      pdfDoc.moveDown();
+      pdfDoc.fontSize(15).text("" + data.skills);
+      pdfDoc.moveDown();
+      pdfDoc.fontSize(18).text("Contact Me", {
+        underline: true,
+      });
+      pdfDoc.moveDown();
+      pdfDoc.fontSize(15).text("" + data.phone);
+      pdfDoc.moveDown();
+      pdfDoc.fontSize(18).text("Social media links", { underline: true });
+      pdfDoc.fontSize(15).text(data.links);
+
       pdfDoc.end();
-      file.pipe(res);
     })
     .catch((err) => {
       if (!err.statusCode) {
@@ -254,3 +270,5 @@ exports.viewresume = (req, res, next) => {
       next(err);
     });
 };
+
+exports.udateInternship = (req, res, next) => {};
