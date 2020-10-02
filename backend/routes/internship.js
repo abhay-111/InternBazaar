@@ -9,7 +9,7 @@ const User = require("../models/User");
 // GET => /internship/getinternships?query=value
 router.get("/getinternships", internship.getInternships);
 
-// POST => /internships
+// POST => /internship/addInternship
 router.post(
   "/addInternship",
   [
@@ -27,10 +27,13 @@ router.post(
   internship.addInternships
 );
 
+// GET => /internship/view/allinternships
 router.get("/view/allinternships", internship.allinternships);
 
-// GET => /view/:internshipId
+// GET => /internship/view/:internshipId
 router.get("/view/:internshipId", internship.viewinternship);
+
+// POST => /internship/apply
 router.post("/apply", internship.applyinternship);
 
 router.get("/resume/:userId", internship.viewresume);

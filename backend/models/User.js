@@ -1,5 +1,6 @@
 const { Decimal128 } = require("mongodb");
 const mongoose = require("mongoose");
+const { ref } = require("pdfkit");
 
 const Schema = mongoose.Schema;
 
@@ -46,6 +47,7 @@ const userschema = new Schema({
     type: String,
     require: true,
   },
+  about: String,
   education: String,
   phone: String,
   location: String,
@@ -58,7 +60,10 @@ const userschema = new Schema({
   },
   applications: [
     {
-      internshipId: String,
+      internshipId: {
+        type: Schema.Types.ObjectId,
+        ref: "Internship",
+      },
       status: String,
       companyName: String,
       internshipProfile: String,

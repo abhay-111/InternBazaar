@@ -20,7 +20,6 @@ const companyschema = new Schema({
     type: String,
     require: true,
   },
-  collegeName: String,
   website: String,
   established: String,
   about: String,
@@ -28,7 +27,12 @@ const companyschema = new Schema({
   address: String,
   location: String,
   links: String,
-  internshipsPosted: [Schema.Types.ObjectId],
+  internshipsPosted: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Internship",
+    },
+  ],
 });
 
 module.exports = mongoose.model("Employer", companyschema);

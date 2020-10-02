@@ -1,6 +1,7 @@
 const Internship = require("../models/Internship");
 const { validationResult } = require("express-validator/check");
-const User = require("../models/User");
+const Student = require("../models/User");
+const Employer = require("../models/Company");
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const path = require("path");
@@ -14,7 +15,7 @@ exports.addInternships = (req, res, next) => {
     error.data = errors.array();
     throw error;
   }
-  // const skillreq=req.body.skillsReq
+
   var internshipType = req.body.internshipType;
   const title = req.body.title;
   const description = req.body.description;
@@ -49,22 +50,55 @@ exports.addInternships = (req, res, next) => {
     perks: perks,
     creatorId: creatorId,
   });
+  let postedInternship;
+
   internship
-    .save()
+    .save() // saving the internship in the databse
     .then((data) => {
+      if (!data) {
+        const error = new Error("Failed to post internship");
+        error.statusCode = 422;
+        error.data = {
+          msg: "internship could not be saved",
+          dataSent: internship,
+        };
+        throw error;
+      }
+
+      postedInternship = data;
+      return Employer.findById(creatorId);
+    })
+    .then((employer) => {
+      if (!employer) {
+        const error = new Error("employer not found");
+        error.statusCode = 422;
+        error.data = {
+          msg: "internship could not be saved",
+          dataSent: internship,
+        };
+        throw error;
+      }
+      let internshipsPosted = [
+        ...employer.internshipsPosted,
+        postedInternship._id,
+      ];
+      employer.internshipsPosted = internshipsPosted;
+      return employer.save(); // linking the internship with the employer
+    })
+    .then((data) => {
+      if (!data) {
+        const error = new Error("Failed to add internship to employer");
+        error.statusCode = 422;
+        error.data = {
+          msg: "internship posted but could not be added to the employer",
+          dataSent: internship,
+        };
+        throw error;
+      }
+
       res.status(200).json({
         message: "Internship added",
-        perks: perks,
-        whocanApply: whocanApply,
-        title: title,
-        description: description,
-        stipend: stipend,
-        internshipPeriod: internshipPeriod,
-        companyName: companyName,
-        internshipType: internshipType,
-        applyBy: applyBy,
-        startDate: startDate,
-        location: location,
+        data: internship,
       });
     })
     .catch((err) => {
@@ -163,6 +197,7 @@ exports.applyinternship = (req, res, next) => {
   Internship.findById(internshipId)
     .then((result) => {
       result.applications.forEach((application) => {
+        console.log("hello");
         if (application.userId === userId) {
           const error = new Error("You have already applied");
           error.statusCode = 422;
@@ -175,6 +210,7 @@ exports.applyinternship = (req, res, next) => {
 
       const application = {
         userId: userId,
+        status: "Applied",
       };
       console.log(result.applications);
       console.log("abhay");
@@ -182,7 +218,7 @@ exports.applyinternship = (req, res, next) => {
       result.applications = updatedapplications;
       result.save();
 
-      User.findById(userId)
+      Student.findById(userId)
         .then((data) => {
           const appli = {
             internshipId: internshipId,
@@ -224,7 +260,7 @@ exports.viewresume = (req, res, next) => {
   const userId = req.params.userId;
   console.log(__dirname);
 
-  User.findById(userId)
+  Student.findById(userId)
     .then((data) => {
       const resumeName = "resume-" + userId + ".pdf";
 
