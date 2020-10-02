@@ -10,6 +10,7 @@ import CompanySidebar from "../../Components/ProfileElements/CompanySidebar";
 import EditDetails from "../../Components/ProfileElements/EditOrganizationDetails";
 import PostInternship from "../../Components/ProfileElements/PostInternship";
 import ServerService from "../../Services/ServerService";
+import ChangePassword from "../../Components/ProfileElements/ChangePassword";
 
 class CompanyProfilePage extends Component {
   state = {
@@ -46,6 +47,11 @@ class CompanyProfilePage extends Component {
               <Col xs={8}>
                 <Switch>
                   <Route path="/employer/edit" exact component={EditDetails} />
+                  <Route
+                    path="/employer/password"
+                    exact
+                    component={ChangePassword}
+                  />
                   <Route
                     path="/employer/post"
                     exact

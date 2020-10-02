@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card, Table } from "react-bootstrap";
+import uuid from "react-uuid";
 
 import ApplicationRow from "./ApplicationRow";
 import classes from "./ProfileElements.css";
@@ -27,6 +28,17 @@ class MyApplications extends Component {
   }
 
   render() {
+    const rows = this.state.data.map((data) => {
+      return (
+        <ApplicationRow
+          key={uuid()}
+          companyName={data.companyName}
+          profile={data.internshipProfile}
+          status={data.status}
+          appliedOn={data.appliedOn}
+        />
+      );
+    });
     return (
       <Card className={classes.card}>
         <Card.Body>
@@ -45,13 +57,10 @@ class MyApplications extends Component {
                 <th>Company</th>
                 <th>Profile</th>
                 <th>Applied On</th>
-                <th>No. of Applicants</th>
                 <th>Application Status</th>
               </tr>
             </thead>
-            <tbody>
-              <ApplicationRow />
-            </tbody>
+            <tbody>{rows}</tbody>
           </Table>
         </Card.Body>
       </Card>

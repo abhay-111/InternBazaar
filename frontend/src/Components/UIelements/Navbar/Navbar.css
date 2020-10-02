@@ -1,5 +1,6 @@
 .Navbar {
   box-shadow: 0px 0px 8px 2px #cccccc;
+  padding: 5px !important;
 }
 
 .Logo {
@@ -16,20 +17,23 @@
   border-radius: 5px;
   background-color: #0062ff !important;
   color: #fff !important;
-  padding: 7px;
-  font-size: 1.3rem;
+  padding: 5px;
+  font-size: 1.2rem;
   font-weight: bold;
   margin-right: 1rem;
   width: 100 !important;
+  height: 2.5rem !important;
 }
 
 .Dropdown {
   border-radius: 5px !important;
-  font-size: 1.3rem !important;
+  font-size: 1.2rem !important;
   font-weight: bold !important;
   background-color: #0062ff !important;
   color: #fff !important;
   margin-right: 1.5rem !important;
+  padding: 0 !important;
+  height: 2.5rem !important;
 }
 
 .Navlink:hover,
@@ -42,6 +46,7 @@
 
 .login {
   color: #fff;
+  padding-bottom: 5px !important;
 }
 
 @media (max-width: 767px) {

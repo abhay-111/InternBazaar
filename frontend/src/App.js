@@ -32,6 +32,7 @@ class App extends Component {
             exact
             component={InternshipDetails}
           />
+
           <Route path="/employer" component={CompanyProfilePage} />
           <Route path="/student" component={StudentProfilePage} />
           <Route path="/" component={LandingPage} />
