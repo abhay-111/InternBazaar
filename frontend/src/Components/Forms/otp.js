@@ -42,9 +42,9 @@ class OtpPage extends Component {
           localStorage.setItem("token", response.token);
           localStorage.setItem("userId", response.userId);
           if (userType === "employer") {
-            this.setState({ redirect: "/employer" });
+            this.setState({ redirect: "/employer/edit" });
           } else {
-            this.setState({ redirect: "/student" });
+            this.setState({ redirect: "/student/edit" });
           }
         } else alert("registration failed!");
       });

@@ -37,7 +37,7 @@ class StudentLoginForm extends Component {
           if (status === 200) {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("userId", response.data.userId);
-            this.setState({ redirect: "/employer" });
+            this.setState({ redirect: "/employer/edit" });
           }
         })
         .catch((error) => {

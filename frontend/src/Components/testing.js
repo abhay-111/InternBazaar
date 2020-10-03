@@ -9,17 +9,18 @@ class testing extends Component {
   };
 
   componentDidMount() {
-    Axios.get(
-      "http://localhost:8080/internship/resume/" +
-        localStorage.getItem("userId")
-    )
+    Axios.post("http://localhost:8080/auth/verifytoken", "", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
       .then((res) => {
         console.log(res);
 
         this.setState({ data: res.data });
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
       });
   }
 

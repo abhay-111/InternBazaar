@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
   const authHeader = req.get("Authorization");
   if (!authHeader) {
     const error = new Error("Not authenticated.");
-    error.statusCode = 401;
+    error.statusCode = 403;
     throw error;
   }
   const token = authHeader.split(" ")[1];

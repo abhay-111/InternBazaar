@@ -36,6 +36,7 @@ class InternshipDetails extends Component {
       ServerService.applyNow(data)
         .then((response) => {
           console.log(response);
+          if (response.status === 200) alert("applied successfully");
         })
         .catch((err) => {
           console.log(err.response);
