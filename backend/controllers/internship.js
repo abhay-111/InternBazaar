@@ -311,3 +311,17 @@ exports.viewresume = (req, res, next) => {
 };
 
 exports.udateInternship = (req, res, next) => {};
+
+exports.deleteInternship = (req, res, next) => {
+  const id = req.body.internshipId;
+
+  Internship.deleteOne({ _id: id })
+    .then((result) => {
+      res.status(200).json({
+        msg: "Internship deleted",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
