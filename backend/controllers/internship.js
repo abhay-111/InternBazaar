@@ -334,7 +334,6 @@ exports.updateInternship = (req, res, next) => {
   const id = req.body.internshipId;
   const data = req.body.data;
   console.log(id);
-  console.log(data, userType);
 
   Internship.findById(id)
     .then((internship) => {
