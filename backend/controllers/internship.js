@@ -342,10 +342,10 @@ exports.updateInternship = (req, res, next) => {
         const error = new Error("Update request failed");
         error.statusCode = 422;
         error.data = {
-          msg: "user not found",
-          param: "userId",
+          msg: "internship found",
+          param: "internshipId",
           value: id,
-          location: "updateProfile",
+          location: "updateinternship",
         };
         throw error;
       }
@@ -360,7 +360,7 @@ exports.updateInternship = (req, res, next) => {
     .then((internship) => {
       console.log(internship);
       res.status(200).json({
-        message: "updated user",
+        message: "updated internship",
       });
     })
     .catch((err) => {
