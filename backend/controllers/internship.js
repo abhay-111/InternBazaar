@@ -320,7 +320,7 @@ exports.viewresume = (req, res, next) => {
     });
 };
 
-exports.udateInternship = (req, res, next) => {
+exports.updateInternship = (req, res, next) => {
   const id = req.body.internshipId;
   const data = req.body.data;
   console.log(id);
