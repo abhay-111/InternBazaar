@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Card } from "react-bootstrap";
 import classes from "./Internships.css";
-import { a, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class CategoryList extends Component {
   render() {
@@ -28,7 +28,10 @@ class CategoryList extends Component {
           <Link to="/internships/location/international">
             International
           </Link>{" "}
-          <br />
+          <br /> <br />
+          <Card.Subtitle>
+            <Link to="/internships/all">View All</Link>
+          </Card.Subtitle>
         </Card.Body>
       </Card>
     );

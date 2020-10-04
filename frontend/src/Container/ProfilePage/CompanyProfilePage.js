@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Container, Card } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import classes from "./ProfilePage.css";
@@ -14,6 +14,7 @@ import ChangePassword from "../../Components/ProfileElements/ChangePassword";
 import PostedInternships from "../../Components/ProfileElements/PostedInternships/PostedInternships";
 import ViewOrganizationDetails from "../../Components/ProfileElements/ViewOrganizationDetails";
 import Applicants from "../../Components/ProfileElements/PostedInternships/Applicants";
+import EditInternship from "../../Components/ProfileElements/PostedInternships/EditInternships";
 
 class CompanyProfilePage extends Component {
   state = {
@@ -69,6 +70,11 @@ class CompanyProfilePage extends Component {
                     path="/employer/applicants"
                     exact
                     component={Applicants}
+                  />
+                  <Route
+                    path="/employer/editinternship"
+                    exact
+                    component={EditInternship}
                   />
                   <Route
                     path="/employer/post"

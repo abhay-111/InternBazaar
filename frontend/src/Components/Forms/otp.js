@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 import Modal from "../UIelements/Modal/Modal";
 import classes from "./Forms.css";
@@ -50,6 +50,8 @@ class OtpPage extends Component {
       });
   };
 
+  otpResend = () => {};
+
   render() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
@@ -77,6 +79,13 @@ class OtpPage extends Component {
               <Button variant="primary" type="submit">
                 Submit
               </Button>
+              <div style={{ marginTop: "10%" }}>
+                Didn't receive OTP?{" "}
+                <Link to="#" onClick={this.otpResend}>
+                  {" "}
+                  Resend OTP!{" "}
+                </Link>
+              </div>
             </Form>
           </div>
         </div>

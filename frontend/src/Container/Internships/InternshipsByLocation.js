@@ -11,11 +11,13 @@ import uuid from "react-uuid";
 class Internships extends Component {
   state = {
     posts: [],
+    id: "",
   };
 
-  componentDidUpdate() {
+  componentDidMount() {
     let id = this.props.match.params.id;
-    console.log(id);
+    this.setState({ id: id });
+    //console.log(id);
     console.log(this.props.match.params.id);
     ServerService.getInternshipsByLocation(id)
       .then((response) => {
@@ -28,16 +30,19 @@ class Internships extends Component {
   }
   componentDidUpdate() {
     let id = this.props.match.params.id;
-    console.log(id);
-    console.log(this.props.match.params.id);
-    ServerService.getInternshipsByLocation(id)
-      .then((response) => {
-        this.setState({ posts: response.data.post });
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+    //console.log(id);
+    if (id !== this.state.id) {
+      this.setState({ id: id });
+      console.log(this.props.match.params.id);
+      ServerService.getInternshipsByLocation(id)
+        .then((response) => {
+          this.setState({ posts: response.data.post });
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    }
   }
 
   render() {

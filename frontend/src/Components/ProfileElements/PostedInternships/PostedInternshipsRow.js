@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 class PostedInternshipRow extends Component {
   render() {
@@ -19,6 +20,21 @@ class PostedInternshipRow extends Component {
             >
               View
             </Link>
+          </td>
+          <td>
+            <Link
+              to={{
+                pathname: "/employer/editinternship",
+                state: {
+                  internshipId: this.props.internshipId,
+                },
+              }}
+            >
+              Edit
+            </Link>
+          </td>
+          <td>
+            <Button variant="outline-danger">Delete</Button>
           </td>
         </tr>
       </React.Fragment>

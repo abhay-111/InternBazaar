@@ -11,7 +11,6 @@ import InternshipsByLocation from "./Container/Internships/InternshipsByLocation
 import InternshipDetails from "./Container/Internships/InternshipDetails";
 import StudentProfilePage from "./Container/ProfilePage/StudentProfilePage";
 import CompanyProfilePage from "./Container/ProfilePage/CompanyProfilePage";
-import testing from "./Components/testing";
 
 class App extends Component {
   render() {

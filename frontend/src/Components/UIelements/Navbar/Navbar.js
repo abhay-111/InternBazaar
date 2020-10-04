@@ -26,7 +26,7 @@ class LoggedoutNavBar extends Component {
     let token = localStorage.getItem("token");
     let Auth = false;
     if (token != null) {
-      if (token != "undefined") Auth = true;
+      if (token !== "undefined") Auth = true;
     }
     //console.log(typeof token);
     if (Auth) {

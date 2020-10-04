@@ -43,7 +43,9 @@ class ViewOrganizationDetails extends Component {
             </Row>
             <Row>
               <h4>Organization Description : </h4>{" "}
-              <span>{this.state.data.about}</span>
+              <span style={{ paddingRight: "1rem" }}>
+                {this.state.data.about}
+              </span>
             </Row>
           </Container>
         </Card.Body>

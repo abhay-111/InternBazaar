@@ -3,7 +3,6 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 
 import classes from "./ProfileElements.css";
 import userlogo from "../../assets/profile.svg";
-import ServerService from "../../Services/ServerService";
 
 class ProfileName extends Component {
   render() {

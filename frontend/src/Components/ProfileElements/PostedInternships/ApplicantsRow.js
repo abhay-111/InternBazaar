@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import ServerService from "../../../Services/ServerService";
 
@@ -9,7 +8,7 @@ class ApplicantsRow extends Component {
   };
 
   statusHandler = (event) => {
-    this.state.status = event.target.value;
+    this.setState({ status: event.target.value });
     const data = {
       status: this.state.status,
       userId: this.props.userId,

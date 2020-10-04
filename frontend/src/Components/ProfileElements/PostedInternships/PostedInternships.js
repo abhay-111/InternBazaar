@@ -55,6 +55,8 @@ class PostedInternships extends Component {
               <tr>
                 <th>Internships</th>
                 <th>Applicant Details</th>
+                <th>Edit Internship</th>
+                <th>Delete Internship</th>
               </tr>
             </thead>
             <tbody>{internships}</tbody>

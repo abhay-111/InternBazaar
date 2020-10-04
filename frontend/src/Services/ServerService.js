@@ -94,6 +94,10 @@ class ServerService {
       },
     });
   }
+
+  updateInternship(data) {
+    return axios.post(BASE_URL + "internship/updateInternship", data);
+  }
 }
 
 export default new ServerService();
