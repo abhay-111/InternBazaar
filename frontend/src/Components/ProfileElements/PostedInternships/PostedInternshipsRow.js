@@ -1,8 +1,23 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import ServerService from "../../../Services/ServerService";
 
 class PostedInternshipRow extends Component {
+  deleteHandler = () => {
+    let internshipId = {
+      internshipId: this.props.internshipId,
+    };
+    ServerService.deleteInternship(internshipId)
+      .then((response) => {
+        console.log(response);
+        alert(response.data.msg);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -34,7 +49,9 @@ class PostedInternshipRow extends Component {
             </Link>
           </td>
           <td>
-            <Button variant="outline-danger">Delete</Button>
+            <Button onClick={this.deleteHandler} variant="outline-danger">
+              Delete
+            </Button>
           </td>
         </tr>
       </React.Fragment>

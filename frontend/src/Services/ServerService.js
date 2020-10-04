@@ -98,6 +98,14 @@ class ServerService {
   updateInternship(data) {
     return axios.post(BASE_URL + "internship/updateInternship", data);
   }
+
+  deleteInternship(id) {
+    return axios.post(BASE_URL + "internship/deleteInternship", id);
+  }
+
+  changePassword(data) {
+    return axios.post(BASE_URL + "auth/resetPassword", data);
+  }
 }
 
 export default new ServerService();
