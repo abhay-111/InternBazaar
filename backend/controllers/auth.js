@@ -263,17 +263,17 @@ function saveAndSendOtp(email, userType) {
   console.log(email);
   console.log("otp=" + userOtp.otp);
 
-  //sending otp to user via email
-  // transporter
-  //   .sendMail({
-  //     to: email,
-  //     from: "naman1913128@akgec.ac.in",
-  //     subject: "Sign up OTP",
-  //     html: `<h1>OTP: ${otp} </h1>`,
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+  // sending otp to user via email
+  transporter
+    .sendMail({
+      to: email,
+      from: "naman1913128@akgec.ac.in",
+      subject: "Sign up OTP",
+      html: `<h1>OTP: ${otp} </h1>`,
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   return userOtp;
 }

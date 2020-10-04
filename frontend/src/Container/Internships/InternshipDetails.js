@@ -53,6 +53,7 @@ class InternshipDetails extends Component {
     }
 
     const applyBy = this.state.data.applyBy;
+
     const companyName = this.state.data.companyName;
     const description = this.state.data.description;
     const internshipPeriod = this.state.data.internshipPeriod;
@@ -99,8 +100,7 @@ class InternshipDetails extends Component {
                       </tbody>
                     </Table>
                     <hr />
-                    <Card.Title>About {companyName}</Card.Title>
-                    <p>about the company</p>
+
                     <Card.Title>About Internship</Card.Title>
                     <p> {description} </p>
                     <Card.Title>Skills Required</Card.Title>

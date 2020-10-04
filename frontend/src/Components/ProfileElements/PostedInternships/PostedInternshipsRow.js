@@ -17,7 +17,7 @@ class PostedInternshipRow extends Component {
                 },
               }}
             >
-              Link
+              View
             </Link>
           </td>
         </tr>

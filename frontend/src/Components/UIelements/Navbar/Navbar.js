@@ -11,6 +11,7 @@ class LoggedoutNavBar extends Component {
   //     redirect: null,
   //   };
   // }
+
   logoutHandler = () => {
     localStorage.clear();
     //this.setState({ redirect: "/" });
@@ -47,7 +48,7 @@ class LoggedoutNavBar extends Component {
             <Nav className="mr-auto"></Nav>
             <Nav>
               <Link
-                to={"/" + localStorage.getItem("userType")}
+                to={"/" + localStorage.getItem("userType") + "/edit"}
                 style={{ paddingRight: "2rem", paddingTop: "2px" }}
               >
                 <img src={userIcon} alt="" />
@@ -82,12 +83,12 @@ class LoggedoutNavBar extends Component {
                 id="collasible-nav-dropdown"
                 className={classes.Dropdown}
               >
-                <NavDropdown.Item href="/studentlogin">
-                  As a student
+                <NavDropdown.Item>
+                  <Link to="/studentlogin">As a student</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/employerlogin">
-                  As an employer
+                <NavDropdown.Item>
+                  <Link to="/employerlogin">As an employer</Link>
                 </NavDropdown.Item>
               </NavDropdown>
 

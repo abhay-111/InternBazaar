@@ -44,6 +44,7 @@ class PostInternship extends Component {
     ServerService.postInternship(data)
       .then((response) => {
         console.log(response);
+        if (response.status === 200) alert("Internship Posted Successfully!");
       })
       .catch((err) => {
         console.log(err.response);
@@ -154,7 +155,7 @@ class PostInternship extends Component {
                 <Form.Group>
                   <Form.Label>Start Date</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="date"
                     placeholder="dd/mm/yyyy"
                     name="startDate"
                     required
@@ -176,7 +177,7 @@ class PostInternship extends Component {
                 <Form.Group>
                   <Form.Label>Apply by</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="date"
                     placeholder="dd/mm/yyyy"
                     name="applyBy"
                     required
