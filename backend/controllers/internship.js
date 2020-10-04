@@ -276,6 +276,16 @@ exports.viewresume = (req, res, next) => {
       });
 
       pdfDoc.moveDown();
+      pdfDoc.fontSize(18).text("About Me", {
+        underline: true,
+      });
+
+      pdfDoc.moveDown();
+
+      pdfDoc.moveDown();
+      pdfDoc.fontSize(15).text("" + data.about);
+
+      pdfDoc.moveDown();
       pdfDoc.fontSize(18).text("Education", {
         underline: true,
       });
@@ -310,7 +320,46 @@ exports.viewresume = (req, res, next) => {
     });
 };
 
-exports.udateInternship = (req, res, next) => {};
+exports.udateInternship = (req, res, next) => {
+  const id = req.body.internshipId;
+  const data = req.body.data;
+  console.log(id);
+  console.log(data, userType);
+
+  Internship.findById(id)
+    .then((internship) => {
+      if (!internship) {
+        const error = new Error("Update request failed");
+        error.statusCode = 422;
+        error.data = {
+          msg: "user not found",
+          param: "userId",
+          value: id,
+          location: "updateProfile",
+        };
+        throw error;
+      }
+
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          if (data[key] != null) internship.set(key, data[key]);
+        }
+      }
+      return internship.save();
+    })
+    .then((internship) => {
+      console.log(internship);
+      res.status(200).json({
+        message: "updated user",
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
 
 exports.deleteInternship = (req, res, next) => {
   const id = req.body.internshipId;
