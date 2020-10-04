@@ -13,14 +13,31 @@ class Internships extends Component {
     posts: [],
   };
 
-  componentDidMount() {
+  componentDidUpdate() {
     let id = this.props.match.params.id;
     console.log(id);
     console.log(this.props.match.params.id);
-    ServerService.getInternshipsByLocation(id).then((response) => {
-      this.setState({ posts: response.data.post });
-      console.log(response);
-    });
+    ServerService.getInternshipsByLocation(id)
+      .then((response) => {
+        this.setState({ posts: response.data.post });
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }
+  componentDidUpdate() {
+    let id = this.props.match.params.id;
+    console.log(id);
+    console.log(this.props.match.params.id);
+    ServerService.getInternshipsByLocation(id)
+      .then((response) => {
+        this.setState({ posts: response.data.post });
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   }
 
   render() {

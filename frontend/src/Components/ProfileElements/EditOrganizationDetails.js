@@ -39,6 +39,7 @@ class EditDetails extends Component {
     ServerService.editProfile(request)
       .then((response) => {
         console.log(response);
+        if (response.status === 200) alert("Organization Details Updated!");
       })
       .catch((err) => {
         console.log(err.response);

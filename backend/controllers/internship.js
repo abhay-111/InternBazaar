@@ -274,6 +274,16 @@ exports.viewresume = (req, res, next) => {
       pdfDoc.fontSize(22).text("Hello there , I am " + data.name, {
         underline: true,
       });
+      pdfDoc.moveDown();
+      pdfDoc.fontSize(18).text("About Me", {
+        underline: true,
+      });
+
+      pdfDoc.moveDown();
+
+      pdfDoc.fontSize(15).text("" + data.about);
+
+      pdfDoc.moveDown();
 
       pdfDoc.moveDown();
       pdfDoc.fontSize(18).text("About Me", {

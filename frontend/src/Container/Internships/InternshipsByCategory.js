@@ -12,15 +12,33 @@ class Internships extends Component {
   state = {
     posts: [],
   };
-
   componentDidMount() {
     let id = this.props.match.params.id;
     console.log(id);
+
     // console.log(this.props.match.params.id);
-    ServerService.getInternshipsByCategory(id).then((response) => {
-      this.setState({ posts: response.data.post });
-      console.log(response);
-    });
+    ServerService.getInternshipsByCategory(id)
+      .then((response) => {
+        this.setState({ posts: response.data.post });
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }
+  componentDidUpdate() {
+    let id = this.props.match.params.id;
+    console.log(id);
+
+    // console.log(this.props.match.params.id);
+    ServerService.getInternshipsByCategory(id)
+      .then((response) => {
+        this.setState({ posts: response.data.post });
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   }
 
   render() {
@@ -54,7 +72,10 @@ class Internships extends Component {
                 <CategoryList />
               </Col>
 
-              <Col xs={8}>{internships}</Col>
+              <Col xs={8}>
+                <loader />
+                {internships}
+              </Col>
             </Row>
           </Container>
         </section>

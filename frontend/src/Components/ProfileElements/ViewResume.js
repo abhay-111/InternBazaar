@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { Card, Col, Row, Container } from "react-bootstrap";
 
-import classes from "./ProfileElements.css";
-import ServerService from "../../Services/ServerService";
 import Axios from "axios";
 
 class ViewResume extends Component {
@@ -95,6 +92,6 @@ class ViewResume extends Component {
   //     </Card>
   //   );
   // }
-} //
+}
 
 export default ViewResume;
