@@ -8,6 +8,10 @@ const InternshipSchema = new Schema({
     type: String,
     required: true,
   },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
   creatorId: {
     required: true,
     type: String,
