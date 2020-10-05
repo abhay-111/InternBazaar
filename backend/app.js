@@ -6,14 +6,40 @@ const multer = require("multer");
 const path = require("path");
 const app = express();
 
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, "Logo-" + file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
 //custom imports
 const config = require("./config");
 const internshipRoutes = require("./routes/internship");
 const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
 app.use(express.static(path.join(__dirname, "resume")));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join("images")));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // application/json
+
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
+);
 
 //CORS HEADERS
 app.use((req, res, next) => {

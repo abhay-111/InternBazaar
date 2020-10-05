@@ -25,7 +25,7 @@ router.post(
     check("applyBy").isString(),
     check("startDate").isString(),
   ],
-  isAuth,
+
   internship.addInternships
 );
 
