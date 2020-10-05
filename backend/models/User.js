@@ -10,6 +10,7 @@ const education = {
     type: String,
     // required: true,
   },
+
   degree: {
     type: String,
     // required: true,
@@ -32,6 +33,10 @@ const education = {
 // defining the schema model for User resgistration
 const userschema = new Schema({
   name: {
+    type: String,
+    required: true,
+  },
+  imageUrl: {
     type: String,
     required: true,
   },

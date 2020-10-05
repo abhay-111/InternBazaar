@@ -20,6 +20,10 @@ const companyschema = new Schema({
     type: String,
     require: true,
   },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
   website: String,
   established: String,
   about: String,
