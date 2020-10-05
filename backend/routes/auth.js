@@ -9,6 +9,7 @@ const User = require("../models/User");
 const Employer = require("../models/Company");
 const authController = require("../controllers/auth");
 const isAuth = require("../middleware/is-auth");
+const isAuthReset = require("../middleware/is-auth-reset");
 
 // POST => /auth/sinup/otp
 router.post("/signup/otp", authController.otpVerification);
@@ -70,6 +71,18 @@ router.post(
     body("confirmPassword").trim().isLength({ min: 6 }),
   ],
   authController.resetPassword
+);
+
+router.post(
+  "/forgotPassword",
+  [body("email").isEmail().withMessage("Invalid email").normalizeEmail()],
+  authController.forgotPassword
+);
+
+router.use(
+  "/verifytokenLink/:token",
+  isAuthReset,
+  authController.verifyTokenLink
 );
 
 module.exports = router;

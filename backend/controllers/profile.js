@@ -3,24 +3,26 @@ const Student = require("../models/User");
 const Employer = require("../models/Company");
 const Internship = require("../models/Internship");
 
-exports.updateResume = (req, res, next) => {
+exports.updateProfile = (req, res, next) => {
   const id = req.body.userId;
   const data = req.body.data;
   const userType = req.body.userType;
   console.log(id);
   console.log(data, userType);
-  // const tokenUserId = req.id;
-  // if (tokenUserId != id) {
-  //   const error = new Error("Update request failed, token unverified");
-  //   error.statusCode = 401;
-  //   error.data = {
-  //     msg: "user not authorized, token not verified",
-  //     param: "userId",
-  //     value: id,
-  //     location: "updateProfile",
-  //   };
-  //   throw error;
-  // }
+  const tokenUserId = req.id;
+
+  // checking if id in token matches user id
+  if (tokenUserId != id) {
+    const error = new Error("Update request failed, token unverified");
+    error.statusCode = 502;
+    error.data = {
+      msg: "user not authorized, token not verified",
+      param: "userId",
+      value: id,
+      location: "updateProfile",
+    };
+    throw error;
+  }
 
   let UserType;
   if (userType == "student") {
@@ -92,9 +94,22 @@ exports.updateResume = (req, res, next) => {
 // });
 // };
 
-exports.viewResume = (req, res, next) => {
+exports.viewProfile = (req, res, next) => {
   const userID = req.body.userId;
   const userType = req.body.userType;
+
+  // checking if id in token matches user id
+  if (tokenUserId != id) {
+    const error = new Error("request failed, token unverified");
+    error.statusCode = 502;
+    error.data = {
+      msg: "user not authorized, token not verified",
+      param: "userId",
+      value: id,
+      location: "viewProfile",
+    };
+    throw error;
+  }
 
   let UserType;
   if (userType == "student") {
@@ -131,6 +146,20 @@ exports.viewResume = (req, res, next) => {
 
 exports.myapplications = (req, res, next) => {
   const userId = req.body.userId;
+
+  // checking if id in token matches user id
+  if (tokenUserId != id) {
+    const error = new Error("request failed, token unverified");
+    error.statusCode = 502;
+    error.data = {
+      msg: "user not authorized, token not verified",
+      param: "userId",
+      value: id,
+      location: "viewProfile",
+    };
+    throw error;
+  }
+
   Student.findById(userId)
     .select("-applications._id")
     .populate("applications.internshipId", "applications companyName title")
