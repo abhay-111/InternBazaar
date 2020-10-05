@@ -5,6 +5,7 @@ const Internship = require("../models/Internship");
 
 exports.updateProfile = (req, res, next) => {
   const id = req.body.userId;
+  const image = req.file;
   const data = req.body.data;
   const userType = req.body.userType;
   console.log(id);
@@ -12,18 +13,19 @@ exports.updateProfile = (req, res, next) => {
   const tokenUserId = req.userId;
 
   // checking if id in token matches user id
-  if (tokenUserId != id) {
-    const error = new Error("Update request failed, token unverified");
-    error.statusCode = 502;
-    error.data = {
-      msg: "user not authorized, token not verified",
-      param: "userId",
-      value: id,
-      location: "updateProfile",
-    };
-    throw error;
-  }
+  // if (tokenUserId != id) {
+  //   const error = new Error("Update request failed, token unverified");
+  //   error.statusCode = 502;
+  //   error.data = {
+  //     msg: "user not authorized, token not verified",
+  //     param: "userId",
+  //     value: id,
+  //     location: "updateProfile",
+  //   };
+  //   throw error;
+  // }
 
+  console.log(image.path);
   let UserType;
   if (userType == "student") {
     UserType = Student;
@@ -33,6 +35,7 @@ exports.updateProfile = (req, res, next) => {
 
   UserType.findById(id)
     .then((user) => {
+      console.log(user.imageUrl);
       if (!user) {
         const error = new Error("Update request failed");
         error.statusCode = 422;
@@ -50,10 +53,12 @@ exports.updateProfile = (req, res, next) => {
           if (data[key] != null) user.set(key, data[key]);
         }
       }
+      console.log(user.imageUrl);
+      user.imageUrl = image.path;
       return user.save();
     })
     .then((user) => {
-      console.log(user);
+      console.log(user.imageUrl);
       res.status(200).json({
         message: "updated user",
       });

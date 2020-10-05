@@ -28,7 +28,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 //custom imports
-const config = require("./config");
+const config = require("../backend/config");
 const internshipRoutes = require("./routes/internship");
 const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");

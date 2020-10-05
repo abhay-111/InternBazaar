@@ -32,13 +32,8 @@ exports.addInternships = (req, res, next) => {
   var creatorId = req.body.creatorId;
   location = String(location).toLowerCase();
   internshipType = String(internshipType).toLowerCase();
-  const image = req.file;
-  console.log(image);
-  const imageUrl = image.path;
-  console.log(image);
 
   const internship = new Internship({
-    imageUrl: imageUrl,
     creatorId: creatorId,
     location: location,
     vacancy: vacancy,
