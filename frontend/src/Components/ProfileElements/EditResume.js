@@ -60,6 +60,7 @@ class EditResume extends Component {
     const request = {
       userId: localStorage.getItem("userId"),
       userType: localStorage.getItem("userType"),
+      image: this.state.image,
       data: data,
     };
     console.log(request);
