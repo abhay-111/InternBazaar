@@ -9,7 +9,7 @@ exports.updateProfile = (req, res, next) => {
   const userType = req.body.userType;
   console.log(id);
   console.log(data, userType);
-  const tokenUserId = req.id;
+  const tokenUserId = req.userId;
 
   // checking if id in token matches user id
   if (tokenUserId != id) {
@@ -39,7 +39,7 @@ exports.updateProfile = (req, res, next) => {
         error.data = {
           msg: "user not found",
           param: "userId",
-          value: id,
+          value: userId,
           location: "updateProfile",
         };
         throw error;
@@ -95,17 +95,20 @@ exports.updateProfile = (req, res, next) => {
 // };
 
 exports.viewProfile = (req, res, next) => {
-  const userID = req.body.userId;
+  console.log("profile yess");
+  const userId = req.body.userId;
   const userType = req.body.userType;
+  const tokenUserId = req.userId;
+  console.log(userId + " " + tokenUserId);
 
   // checking if id in token matches user id
-  if (tokenUserId != id) {
+  if (tokenUserId != userId) {
     const error = new Error("request failed, token unverified");
     error.statusCode = 502;
     error.data = {
       msg: "user not authorized, token not verified",
       param: "userId",
-      value: id,
+      value: userId,
       location: "viewProfile",
     };
     throw error;
@@ -114,12 +117,14 @@ exports.viewProfile = (req, res, next) => {
   let UserType;
   if (userType == "student") {
     UserType = Student;
+    console.log("student lmao");
   } else {
     UserType = Employer;
   }
 
-  UserType.findById(userID)
+  UserType.findById(userId)
     .then((user) => {
+      console.log(user);
       if (!user) {
         const error = new Error("Invalid user id");
         error.statusCode = 422;
@@ -127,7 +132,7 @@ exports.viewProfile = (req, res, next) => {
           location: "profile",
           msg: "user does not exist",
           param: "userId",
-          value: userID,
+          value: userId,
         };
         throw error;
       }
@@ -146,7 +151,7 @@ exports.viewProfile = (req, res, next) => {
 
 exports.myapplications = (req, res, next) => {
   const userId = req.body.userId;
-
+  const tokenUserId = req.userId;
   // checking if id in token matches user id
   if (tokenUserId != id) {
     const error = new Error("request failed, token unverified");
@@ -154,7 +159,7 @@ exports.myapplications = (req, res, next) => {
     error.data = {
       msg: "user not authorized, token not verified",
       param: "userId",
-      value: id,
+      value: userId,
       location: "viewProfile",
     };
     throw error;
