@@ -4,6 +4,9 @@ import { Button } from "react-bootstrap";
 import ServerService from "../../../Services/ServerService";
 
 class PostedInternshipRow extends Component {
+  state = {
+    redirect: null,
+  };
   deleteHandler = () => {
     let internshipId = {
       internshipId: this.props.internshipId,
@@ -12,6 +15,7 @@ class PostedInternshipRow extends Component {
       .then((response) => {
         console.log(response);
         alert(response.data.msg);
+        this.componentDidUpdate();
       })
       .catch((err) => {
         console.log(err.response);

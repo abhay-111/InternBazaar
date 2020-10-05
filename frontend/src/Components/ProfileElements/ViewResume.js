@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-
-import Axios from "axios";
+import placeholder from "../../assets/studentplaceholder.jpg";
+import classes from "./ProfileElements.css";
+import ServerService from "../../Services/ServerService";
 
 class ViewResume extends Component {
   state = {
@@ -8,10 +9,23 @@ class ViewResume extends Component {
   };
 
   componentDidMount() {
-    Axios.get(
-      "http://localhost:8080/internship/resume/" +
-        localStorage.getItem("userId")
-    )
+    const userId = localStorage.getItem("userId");
+    ServerService.viewResume(userId)
+      .then((res) => {
+        console.log(res);
+
+        const path = "http://localhost:8080/" + this.props.path;
+        console.log(path);
+        window.open(path);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  componentDidUpdate() {
+    const userId = localStorage.getItem("userId");
+    ServerService.viewResume(userId)
       .then((res) => {
         console.log(res);
 
@@ -25,7 +39,7 @@ class ViewResume extends Component {
   }
 
   render() {
-    return <div></div>;
+    return <img src={placeholder} alt="" className={classes.placeholder} />;
   }
 
   //componentDidMount() {

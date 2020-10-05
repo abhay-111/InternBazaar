@@ -21,6 +21,7 @@ class EditResume extends Component {
         links: "",
         additional: "",
       },
+      image: {},
       redirect: null,
       data: [],
     };
@@ -33,8 +34,17 @@ class EditResume extends Component {
       input,
     });
   };
+  onImageChange = (event) => {
+    console.log(event.target.files);
+
+    this.setState({
+      image: event.target.files,
+    });
+  };
   handleSubmit = (event) => {
     event.preventDefault();
+    //console.log(this.state.image);
+
     const data = {
       name: this.state.input.name || this.state.data.name,
       email: this.state.input.email || this.state.data.email,
@@ -209,6 +219,15 @@ class EditResume extends Component {
                 name="additional"
                 placeholder="Any additional details you wish to provide"
                 onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Upload Image</Form.Label>
+              <Form.Control
+                type="file"
+                name="files"
+                alt="image"
+                onChange={this.onImageChange}
               />
             </Form.Group>
 

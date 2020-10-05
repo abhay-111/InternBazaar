@@ -21,7 +21,7 @@ class StudentSidebar extends Component {
           </Link>
           <Link to="/student/view">
             <div className={classes.link}>
-              <img src={lists} className={classes.icon} alt="" />
+              <img src={files} className={classes.icon} alt="" />
               <span className={classes.heading}>VIEW RESUME</span>
             </div>
           </Link>
@@ -33,7 +33,7 @@ class StudentSidebar extends Component {
           </Link>
           <Link to="/student/applications">
             <div className={classes.link}>
-              <img src={files} className={classes.icon} alt="" />
+              <img src={lists} className={classes.icon} alt="" />
               <span className={classes.heading}>MY APPLICATIONS</span>
             </div>
           </Link>

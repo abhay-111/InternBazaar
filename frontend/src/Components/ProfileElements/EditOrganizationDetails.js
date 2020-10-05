@@ -12,6 +12,7 @@ class EditDetails extends Component {
         name: "",
         about: "",
       },
+      image: {},
       redirect: null,
       data: [],
     };
@@ -24,6 +25,15 @@ class EditDetails extends Component {
       input,
     });
   };
+
+  onImageChange = (event) => {
+    //console.log(event.target.files);
+
+    this.setState({
+      image: event.target.files,
+    });
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
     const data = {
@@ -95,6 +105,15 @@ class EditDetails extends Component {
                 defaultValue={this.state.data.about}
                 name="about"
                 onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Upload Logo</Form.Label>
+              <Form.Control
+                type="file"
+                name="files"
+                alt="image"
+                onChange={this.onImageChange}
               />
             </Form.Group>
 

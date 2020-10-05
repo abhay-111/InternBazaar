@@ -10,25 +10,31 @@ class ChangePassword extends Component {
       newPassword: "",
       confirmPassword: "",
     },
+    errors: { passwordlen: "", confirmpw: "" },
   };
 
   submitHandler = (event) => {
     event.preventDefault();
-    const data = {
-      userId: localStorage.getItem("userId"),
-      userType: localStorage.getItem("userType"),
-      oldPassword: this.state.oldPassword,
-      newPassword: this.state.newPassword,
-      confirmPassword: this.state.confirmPassword,
-    };
+    if (this.validate()) {
+      const data = {
+        userId: localStorage.getItem("userId"),
+        userType: localStorage.getItem("userType"),
+        oldPassword: this.state.input.oldPassword,
+        newPassword: this.state.input.newPassword,
+        confirmPassword: this.state.input.confirmPassword,
+      };
+      console.log(data);
 
-    ServerService.changePassword(data)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+      ServerService.changePassword(data)
+        .then((response) => {
+          console.log(response);
+          alert(response.data.message);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          alert(err.response.data.message);
+        });
+    }
   };
 
   handleChange = (event) => {
@@ -38,6 +44,30 @@ class ChangePassword extends Component {
     this.setState({
       input,
     });
+  };
+
+  validate = () => {
+    let input = this.state.input;
+    let errors = {};
+    let isValid = true;
+
+    if (
+      typeof input["newPassword"] !== undefined &&
+      typeof input["confirmPassword"] !== undefined
+    ) {
+      if (input["newPassword"] !== input["confirmPassword"]) {
+        isValid = false;
+        errors["confirmpw"] = "Passwords don't match!";
+      }
+      if (input["newPassword"].length < 6) {
+        isValid = false;
+        errors["passwordlen"] = "Password must be of minimum 6 characters!";
+      }
+    }
+    this.setState({
+      errors: errors,
+    });
+    return isValid;
   };
 
   render() {
@@ -72,6 +102,7 @@ class ChangePassword extends Component {
                 name="newPassword"
                 onChange={this.handleChange}
               />
+              <div className="text-danger">{this.state.errors.passwordlen}</div>
             </Form.Group>
             <Form.Group>
               <Form.Label> New Password</Form.Label>
@@ -81,6 +112,7 @@ class ChangePassword extends Component {
                 name="confirmPassword"
                 onChange={this.handleChange}
               />
+              <div className="text-danger">{this.state.errors.confirmpw}</div>
             </Form.Group>
 
             <Button variant="primary" type="submit">

@@ -125,7 +125,7 @@ class SignupForm extends Component {
                   onChange={this.handleChange}
                 />
               </Form.Group>
-              <Form.Group controlId="exampleForm.ControlSelect1">
+              <Form.Group>
                 <Form.Label>User Type</Form.Label>
                 <Form.Control
                   as="select"

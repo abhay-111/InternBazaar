@@ -62,6 +62,7 @@ class EditInternship extends Component {
       .then((response) => {
         console.log(response);
         if (response.status === 200) alert("Internship Updated!");
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err.response);

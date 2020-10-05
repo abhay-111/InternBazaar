@@ -15,6 +15,7 @@ import PostedInternships from "../../Components/ProfileElements/PostedInternship
 import ViewOrganizationDetails from "../../Components/ProfileElements/ViewOrganizationDetails";
 import Applicants from "../../Components/ProfileElements/PostedInternships/Applicants";
 import EditInternship from "../../Components/ProfileElements/PostedInternships/EditInternships";
+import PlaceholderImage from "../../Components/ProfileElements/PlaceholderImage";
 
 class CompanyProfilePage extends Component {
   state = {
@@ -50,6 +51,7 @@ class CompanyProfilePage extends Component {
 
               <Col xs={8}>
                 <Switch>
+                  <Route path="/employer" exact component={PlaceholderImage} />
                   <Route path="/employer/edit" exact component={EditDetails} />
                   <Route
                     path="/employer/details"

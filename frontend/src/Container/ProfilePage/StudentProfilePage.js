@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Axios from "axios";
 
 import classes from "./ProfilePage.css";
 import Navbar from "../../Components/UIelements/Navbar/Navbar";
@@ -13,6 +12,7 @@ import MyApplications from "../../Components/ProfileElements/MyApplications";
 import ViewResume from "../../Components/ProfileElements/ViewResume";
 import ServerService from "../../Services/ServerService";
 import ChangePassword from "../../Components/ProfileElements/ChangePassword";
+import PlaceholderImage from "../../Components/ProfileElements/PlaceholderImage";
 
 class ProfilePage extends Component {
   state = {
@@ -28,20 +28,6 @@ class ProfilePage extends Component {
       .then((response) => {
         console.log(response);
         this.setState({ user: response.data.user });
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-    Axios.get(
-      "http://localhost:8080/internship/resume/" +
-        localStorage.getItem("userId")
-    )
-      .then((res) => {
-        console.log(res);
-
-        //     const path = "http://localhost:8080/" + this.props.path;
-        //     console.log(path);
-        //     window.open(path);
       })
       .catch((err) => {
         console.log(err.response);
@@ -62,6 +48,7 @@ class ProfilePage extends Component {
 
               <Col xs={8}>
                 <Switch>
+                  <Route path="/student" exact component={PlaceholderImage} />
                   <Route
                     path="/student/password"
                     exact

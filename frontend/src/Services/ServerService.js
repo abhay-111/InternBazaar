@@ -106,6 +106,10 @@ class ServerService {
   changePassword(data) {
     return axios.post(BASE_URL + "auth/resetPassword", data);
   }
+
+  viewResume(userId) {
+    return axios.get(BASE_URL + "internship/resume/" + userId);
+  }
 }
 
 export default new ServerService();

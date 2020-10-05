@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import classes from "./Navbar.css";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import userIcon from "../../../assets/user.png";
+import userIcon from "../../../assets/alt.png";
 
 class LoggedoutNavBar extends Component {
   // constructor() {
@@ -48,8 +48,11 @@ class LoggedoutNavBar extends Component {
             <Nav className="mr-auto"></Nav>
             <Nav>
               <Link
-                to={"/" + localStorage.getItem("userType") + "/edit"}
-                style={{ paddingRight: "2rem", paddingTop: "2px" }}
+                to={"/" + localStorage.getItem("userType")}
+                style={{
+                  marginRight: "2rem",
+                  marginTop: "5px",
+                }}
               >
                 <img src={userIcon} alt="" />
               </Link>
