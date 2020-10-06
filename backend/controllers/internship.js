@@ -111,14 +111,38 @@ exports.addInternships = (req, res, next) => {
 };
 exports.rateInternship = (req, res, next) => {
   const internshipId = req.body.internshipId;
-  const newrating = req.body.rating;
-
+  const userId = req.body.userId;
+  var newrating = req.body.rating;
+  var ratevalue = newrating;
+  var found = false;
   Internship.findById(internshipId).then((result) => {
-    result.rating.rater++;
-    result.rating.ratings.push(newrating);
-    result.rating.ratings[0] += result.rating.ratings[1];
-    result.rating.ratings.pop();
-    console.log(result.rating.ratings);
+    result.rater.forEach((rater) => {
+      if (rater.raterId == userId) {
+        rater.ratevalue = newrating;
+        found = true;
+      }
+    });
+    if (found == false) {
+      var data = {
+        raterId: userId,
+        ratevalue: ratevalue,
+      };
+
+      result.rater.push(data);
+    }
+
+    var total = 0;
+    result.rater.forEach((rater) => {
+      total += rater.ratevalue;
+    });
+    console.log(total / result.rater.length);
+
+    result.avgrating = total / result.rater.length;
+    // result.rating.rater++;
+    // result.rating.ratings.push(newrating);
+    // result.rating.ratings[0] += result.rating.ratings[1];
+    // result.rating.ratings.pop();
+    // console.log(result.rating.ratings);
     result.save().then((data) => {
       res.status(200).json({
         message: "Rating added",

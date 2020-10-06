@@ -1,3 +1,4 @@
+const { Decimal128 } = require("mongodb");
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
@@ -74,15 +75,23 @@ const InternshipSchema = new Schema({
     required: true,
   },
   rating: {
-    ratings: {
-      type: Array,
-      default: [0],
-    },
-    rater: {
-      type: Number,
-      default: 0,
-    },
+    type: Array,
+    default: [0],
   },
+  avgrating: {
+    type: Decimal128,
+  },
+  rater: [
+    {
+      raterId: {
+        type: String,
+      },
+      ratevalue: {
+        type: Number,
+        default: 0,
+      },
+    },
+  ],
 });
 
 module.exports = mongoose.model("Internship", InternshipSchema);
