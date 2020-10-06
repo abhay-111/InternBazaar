@@ -73,6 +73,16 @@ const InternshipSchema = new Schema({
     type: Number,
     required: true,
   },
+  rating: {
+    ratings: {
+      type: Array,
+      default: [0],
+    },
+    rater: {
+      type: Number,
+      default: 0,
+    },
+  },
 });
 
 module.exports = mongoose.model("Internship", InternshipSchema);

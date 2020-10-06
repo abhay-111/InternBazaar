@@ -109,6 +109,22 @@ exports.addInternships = (req, res, next) => {
       next(err);
     });
 };
+exports.rateInternship = (req, res, next) => {
+  const internshipId = req.body.internshipId;
+  const newrating = req.body.rating;
+
+  Internship.findById(internshipId).then((result) => {
+    result.rating.rater++;
+    result.rating.ratings.push(newrating);
+    result.rating.ratings[0] += result.rating.ratings[1];
+    result.rating.ratings.pop();
+    console.log(result.rating.ratings);
+    result.save();
+  });
+
+  // var avgrating = ratings[0] / rater;
+  // console.log(avgrating);
+};
 
 exports.getInternships = (req, res, next) => {
   Internship.find(req.query)

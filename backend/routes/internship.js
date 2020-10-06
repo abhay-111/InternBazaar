@@ -42,5 +42,6 @@ router.get("/resume/:userId", internship.viewresume);
 router.get("/search");
 router.post("/updateInternship", internship.updateInternship);
 router.post("/deleteInternship", internship.deleteInternship);
+router.post("/rateInternship", internship.rateInternship);
 
 module.exports = router;
