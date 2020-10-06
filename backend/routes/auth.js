@@ -79,6 +79,8 @@ router.post(
   authController.forgotPassword
 );
 
+router.post("/forgotReset", isAuthReset, authController.forgotPasswordUpdate);
+
 router.use(
   "/verifytokenLink/:token",
   isAuthReset,

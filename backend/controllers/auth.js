@@ -399,8 +399,10 @@ exports.forgotPassword = (req, res, next) => {
       );
 
       //TODO: SEND EMAIL TOKEN LINK
-      const link = "http://localhost:8080/auth/verifytokenLink/" + token;
+      const link =
+        "http://localhost:3000/resetpassword/" + userType + "/" + token;
       Emails.sendPasswordResetEmail(email, link);
+      console.log(link);
 
       return res.status(200).json({
         message: "password reset email sent",

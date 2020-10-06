@@ -22,7 +22,6 @@ const companyschema = new Schema({
   },
   imageUrl: {
     type: String,
-    required: true,
   },
   website: String,
   established: String,
