@@ -1,13 +1,47 @@
 import React, { Component } from "react";
+import ReactStars from "react-rating-stars-component";
 import { Row, Card, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import classes from "./Internships.css";
+import ServerService from "../../Services/ServerService";
+
 class InternshipCard extends Component {
+  ratingChanged = (newRating) => {
+    const data = {
+      internshipId: this.props.id,
+      rating: newRating,
+    };
+    console.log(data);
+
+    ServerService.sendRatings(data)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   render() {
+    let ratings;
+    if (localStorage.getItem("userType") === "student") {
+      ratings = (
+        <span>
+          <ReactStars
+            count={5}
+            onChange={this.ratingChanged}
+            isHalf={true}
+            size={30}
+            activeColor="#0388fc"
+          />
+        </span>
+      );
+    }
+
     return (
       <React.Fragment>
         <Row className={classes.Row}>
-          <Card className={classes.shadow}>
+          <Card className={classes.internshipCard}>
             <Card.Body>
               <Card.Title> {this.props.title} </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
@@ -33,16 +67,19 @@ class InternshipCard extends Component {
                   </tr>
                 </tbody>
               </Table>
-              <Link
-                to={{
-                  pathname: "/internshipdetails",
-                  state: {
-                    internshipId: this.props.id,
-                  },
-                }}
-              >
-                View Details
-              </Link>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <Link
+                  to={{
+                    pathname: "/internshipdetails",
+                    state: {
+                      internshipId: this.props.id,
+                    },
+                  }}
+                >
+                  View Details
+                </Link>
+                {ratings}
+              </div>
             </Card.Body>
           </Card>
         </Row>

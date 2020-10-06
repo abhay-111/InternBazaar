@@ -2,25 +2,30 @@ import React, { Component } from "react";
 
 import NavigationBar from "../../Components/UIelements/Navbar/Navbar";
 import Footer from "../../Components/UIelements/footer/footer";
-import classes from "./LandingPage.css";
 import Industry from "../../Components/IntersnshipCategories/Industry";
 import Location from "../../Components/IntersnshipCategories/Location";
-import { Row, Col, Container } from "react-bootstrap";
+import { Container, Carousel } from "react-bootstrap";
+import c1 from "../../assets/carousels/c1.png";
+import c2 from "../../assets/carousels/c2.png";
+import c3 from "../../assets/carousels/c3.png";
 
 class LandingPage extends Component {
   render() {
     return (
       <section>
         <NavigationBar />
-        <Container fluid className={classes.SearchSpace}>
-          <Row>
-            <Col>
-              <span className={classes.heading}>
-                FIND THE BEST WINTER &amp; SUMMER INTERNSHIPS FOR STUDENTS
-              </span>
-            </Col>
-          </Row>
-        </Container>
+
+        <Carousel>
+          <Carousel.Item>
+            <img src={c1} className="d-block w-100" alt="" />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img className="d-block w-100" src={c2} alt="" />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img className="d-block w-100" src={c3} alt="" />
+          </Carousel.Item>
+        </Carousel>
 
         <Container fluid>
           <Location />
