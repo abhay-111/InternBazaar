@@ -112,6 +112,10 @@ class ServerService {
   viewResume(userId) {
     return axios.get(BASE_URL + "internship/resume/" + userId);
   }
+
+  sendRatings(data) {
+    return axios.post(BASE_URL + "internship/rateInternship", data);
+  }
 }
 
 export default new ServerService();

@@ -13,6 +13,7 @@ class ProfileName extends Component {
               <Col xs={4}>
                 <img
                   src={"http://localhost:8080/" + this.props.imageUrl}
+                  className={classes.profileImage}
                   alt=""
                 />
               </Col>

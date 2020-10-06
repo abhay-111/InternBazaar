@@ -75,10 +75,7 @@ class Internships extends Component {
                 <CategoryList />
               </Col>
 
-              <Col xs={8}>
-                <loader />
-                {internships}
-              </Col>
+              <Col xs={8}>{internships}</Col>
             </Row>
           </Container>
         </section>
