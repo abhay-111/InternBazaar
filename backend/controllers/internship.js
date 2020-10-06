@@ -119,7 +119,11 @@ exports.rateInternship = (req, res, next) => {
     result.rating.ratings[0] += result.rating.ratings[1];
     result.rating.ratings.pop();
     console.log(result.rating.ratings);
-    result.save();
+    result.save().then((data) => {
+      res.status(200).json({
+        message: "Rating added",
+      });
+    });
   });
 
   // var avgrating = ratings[0] / rater;
