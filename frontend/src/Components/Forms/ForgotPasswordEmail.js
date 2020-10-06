@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Modal from "../UIelements/Modal/Modal";
 import classes from "./Forms.css";
 import ServerService from "../../Services/ServerService";
@@ -14,6 +14,7 @@ class ForgotPasswordEmail extends Component {
       redirect: null,
     };
   }
+
   handleChange = (event) => {
     let input = this.state.input;
     input[event.target.name] = event.target.value;
@@ -22,38 +23,17 @@ class ForgotPasswordEmail extends Component {
       input,
     });
   };
+
   handleSubmit = (event) => {
     event.preventDefault();
-    localStorage.setItem("userType", "employer");
     if (this.validate()) {
-      const data = {
-        email: this.state.input.email,
-        password: this.state.input.password,
-      };
-      ServerService.employerLogin(data)
-        .then((response) => {
-          console.log(response);
-          const status = response.status;
-          if (status === 200) {
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("userId", response.data.userId);
-            this.setState({ redirect: "/employer/edit" });
-          }
-        })
-        .catch((error) => {
-          const response = error.response;
-          console.log(error);
-          console.log(response.status);
-
-          console.log(error.response);
-
-          if (response.status === 403) {
-            localStorage.setItem("id", response.data.data.id);
-            this.setState({ redirect: "/verifyotp" });
-          } else {
-            this.errorHandler(response.data);
-          }
-        });
+      localStorage.setItem("userType", "employer");
+      if (this.validate()) {
+        const data = {
+          email: this.state.input.email,
+          password: this.state.input.password,
+        };
+      }
     }
   };
 
@@ -81,15 +61,6 @@ class ForgotPasswordEmail extends Component {
     }
   };
 
-  errorHandler = (response) => {
-    let errors = {};
-    errors["error"] = response.data.msg;
-
-    this.setState({
-      errors: errors,
-    });
-  };
-
   render() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
@@ -107,9 +78,7 @@ class ForgotPasswordEmail extends Component {
           <div className={classes.item2}></div>
           <div className={classes.item3}>
             <Form onSubmit={this.handleSubmit} className={classes.loginForm}>
-              <div className="text-danger">{this.state.errors.error}</div>
-
-              <Form.Group controlId="formBasicEmail">
+              <Form.Group>
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
                   type="email"
@@ -120,18 +89,6 @@ class ForgotPasswordEmail extends Component {
                   className={classes.shadow}
                 />
                 <div className="text-danger">{this.state.errors.msg}</div>
-              </Form.Group>
-
-              <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter Password"
-                  name="password"
-                  onChange={this.handleChange}
-                  required
-                  className={classes.shadow}
-                />
               </Form.Group>
 
               <Button

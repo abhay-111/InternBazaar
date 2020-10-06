@@ -33,7 +33,9 @@ const internshipRoutes = require("./routes/internship");
 const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
 app.use(express.static(path.join(__dirname, "resume")));
-app.use(express.static(path.join("images")));
+app.use("/images", express.static(path.join(__dirname, "images")));
+
+//app.use("/images", express.static("images"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // application/json
 

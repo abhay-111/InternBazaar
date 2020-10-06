@@ -8,7 +8,7 @@ exports.updateProfile = (req, res, next) => {
   const image = req.file;
   const data = req.body.data;
   const userType = req.body.userType;
-  console.log(id);
+  console.log(id, image);
   console.log(data, userType);
   const tokenUserId = req.userId;
 

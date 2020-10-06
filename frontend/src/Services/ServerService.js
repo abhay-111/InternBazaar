@@ -15,6 +15,8 @@ class ServerService {
     return axios.post(BASE_URL + "profile/edit", data, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
+        "Content-Type": "multipart/form-data",
+        // "Access-Control-Allow-Origin": "*",
       },
     });
   }

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 
 import classes from "./ProfileElements.css";
-import userlogo from "../../assets/profile.svg";
 
 class ProfileName extends Component {
   render() {
@@ -12,7 +11,10 @@ class ProfileName extends Component {
           <Container fluid>
             <Row>
               <Col xs={4}>
-                <img src={userlogo} alt="" />
+                <img
+                  src={"http://localhost:8080/" + this.props.imageUrl}
+                  alt=""
+                />
               </Col>
               <Col>
                 <Card.Text

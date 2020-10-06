@@ -12,7 +12,7 @@ class EditDetails extends Component {
         name: "",
         about: "",
       },
-      image: {},
+      image: "",
       redirect: null,
       data: [],
     };
@@ -27,10 +27,10 @@ class EditDetails extends Component {
   };
 
   onImageChange = (event) => {
-    //console.log(event.target.files);
+    //console.log(event.target.files[0]);
 
     this.setState({
-      image: event.target.files,
+      image: event.target.files[0],
     });
   };
 
@@ -39,14 +39,18 @@ class EditDetails extends Component {
     const data = {
       name: this.state.input.name || this.state.data.name,
       about: this.state.input.about || this.state.data.about,
-    };
-    const request = {
       userId: localStorage.getItem("userId"),
       userType: localStorage.getItem("userType"),
-      data: data,
+      image: this.state.image,
     };
-    console.log(request);
-    ServerService.editProfile(request)
+
+    const fd = new FormData();
+
+    for (let formElement in data) {
+      fd.append(formElement, data[formElement]);
+    }
+
+    ServerService.editProfile(fd)
       .then((response) => {
         console.log(response);
         if (response.status === 200) alert("Organization Details Updated!");

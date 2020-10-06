@@ -45,7 +45,10 @@ class CompanyProfilePage extends Component {
           <Container className={classes.body}>
             <Row>
               <Col xs={4}>
-                <ProfileName userName={this.state.user.name} />
+                <ProfileName
+                  userName={this.state.user.name}
+                  imageUrl={this.state.user.imageUrl}
+                />
                 <CompanySidebar />
               </Col>
 

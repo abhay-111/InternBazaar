@@ -21,7 +21,7 @@ class EditResume extends Component {
         links: "",
         additional: "",
       },
-      image: {},
+      image: "",
       redirect: null,
       data: [],
     };
@@ -35,10 +35,10 @@ class EditResume extends Component {
     });
   };
   onImageChange = (event) => {
-    console.log(event.target.files);
+    //console.log(event.target.files[0]);
 
     this.setState({
-      image: event.target.files,
+      image: event.target.files[0],
     });
   };
   handleSubmit = (event) => {
@@ -56,15 +56,21 @@ class EditResume extends Component {
       jobs: this.state.input.jobs || this.state.data.jobs,
       links: this.state.input.links || this.state.data.links,
       additional: this.state.input.additional || this.state.data.additional,
-    };
-    const request = {
       userId: localStorage.getItem("userId"),
       userType: localStorage.getItem("userType"),
       image: this.state.image,
-      data: data,
+      // image: this.state.image,
     };
-    console.log(request);
-    ServerService.editProfile(request)
+
+    const fd = new FormData();
+
+    for (let formElement in data) {
+      fd.append(formElement, data[formElement]);
+      //console.log(formElement, data[formElement]);
+    }
+    //console.log(fd.get("image"));
+    // console.log(fd);
+    ServerService.editProfile(fd)
       .then((response) => {
         console.log(response);
         alert("resume updated");
@@ -226,7 +232,7 @@ class EditResume extends Component {
               <Form.Label>Upload Image</Form.Label>
               <Form.Control
                 type="file"
-                name="files"
+                name="file"
                 alt="image"
                 onChange={this.onImageChange}
               />
