@@ -4,7 +4,7 @@ const isAuth = require("../middleware/is-auth");
 const profileController = require("../controllers/profile");
 
 // POST => /profile/edit
-router.post("/edit", isAuth, profileController.updateProfile);
+router.post("/edit", profileController.updateProfile);
 
 // GET => /profile/view
 router.post("/view", isAuth, profileController.viewProfile);

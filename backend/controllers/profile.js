@@ -5,30 +5,36 @@ const Internship = require("../models/Internship");
 
 exports.updateProfile = (req, res, next) => {
   const id = req.body.userId;
-  const image = req.file;
-  const data = req.body.data;
-  const userType = req.body.userType;
-  const tokenUserId = req.userId;
 
-  console.log("userId=" + id, "image=" + image);
-  console.log("data=" + data, "userType=" + userType);
-  console.log("id=" + id, "tokenid=" + tokenUserId);
-  console.log(typeof id, typeof tokenUserId);
+  console.log(id);
+
+  const image = req.file;
+  const data = req.body;
+  const userType = req.body.userType;
+  // const tokenUserId = req.body.userId;
+  console.log(data, image);
+
+  // console.log("userId=" + id, "image=" + image);
+  // console.log("data=" + data, "userType=" + userType);
+  // console.log("id=" + id, "tokenid=" + tokenUserId);
+  // console.log(typeof id, typeof tokenUserId);
 
   // checking if id in token matches user id
-  if (tokenUserId != id) {
-    const error = new Error("Update request failed, token unverified");
-    error.statusCode = 502;
-    error.data = {
-      msg: "user not authorized, token not verified",
-      param: "userId",
-      value: id,
-      location: "updateProfile",
-    };
-    throw error;
-  }
+  // if (tokenUserId != id) {
+  //   const error = new Error("Update request failed, token unverified");
+  //   error.statusCode = 502;
+  //   error.data = {
+  //     msg: "user not authorized, token not verified",
+  //     param: "userId",
+  //     value: id,
+  //     location: "updateProfile",
+  //   };
+  //   throw error;
+  // }
 
-  if (image) console.log("image.path=" + image.path);
+  // if (image == undefined) {
+
+  // }
   let UserType;
   if (userType == "student") {
     UserType = Student;
@@ -38,29 +44,35 @@ exports.updateProfile = (req, res, next) => {
 
   UserType.findById(id)
     .then((user) => {
-      console.log("user.imgurl1=" + user.imageUrl);
+      // console.log("user.imgurl1=" + user.imageUrl);
       if (!user) {
         const error = new Error("Update request failed");
         error.statusCode = 422;
         error.data = {
           msg: "user not found",
           param: "userId",
-          value: userId,
+          value: user._id,
           location: "updateProfile",
         };
         throw error;
       }
 
-      for (const key in data) {
-        if (data.hasOwnProperty(key)) {
-          if (data[key] != null) user.set(key, data[key]);
-        }
-      }
-      console.log("user.imgurl2=" + user.imageUrl);
+      user.name = data.name;
+      user.email = data.email;
+      user.phone = data.phone;
+      user.about = data.about;
+      user.location = data.location;
+      user.education = data.education;
+      user.skills = data.skills;
+      user.links = data.links;
+      user.additional = data.additional;
+
       user.imageUrl = image.path;
+      // console.log(user);
       return user.save();
     })
     .then((user) => {
+      console.log(user);
       console.log("user.imgurl3=" + user.imageUrl);
       res.status(200).json({
         message: "updated user",
