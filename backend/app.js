@@ -79,9 +79,10 @@ mongoose
   })
   .then((result) => {
     app.listen(8080);
-
     console.log("Server up and running");
   })
   .catch((err) => {
     console.log(err);
   });
+
+console.log("lmao lololol");
