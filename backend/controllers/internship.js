@@ -319,6 +319,15 @@ exports.viewresume = (req, res, next) => {
         underline: true,
       });
       pdfDoc.moveDown();
+      // var imageUrl = "image/" + data.imageUrl;
+      // pdfDoc.image("images/Logo.png", 180, 150, { fit: [100, 100] });
+      pdfDoc.image(data.imageUrl, 120, 110, { width: 100, height: 90 });
+
+      pdfDoc.moveDown();
+      pdfDoc.moveDown();
+      pdfDoc.moveDown();
+      pdfDoc.moveDown();
+      pdfDoc.moveDown();
       pdfDoc.fontSize(18).text("About Me", {
         underline: true,
       });
