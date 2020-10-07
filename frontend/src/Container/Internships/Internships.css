@@ -44,3 +44,12 @@
 .button {
   margin-left: 45%;
 }
+
+@media (max-width: 320px) {
+  .body {
+    font-size: 90%;
+  }
+  .Row {
+    padding: 0.5rem;
+  }
+}

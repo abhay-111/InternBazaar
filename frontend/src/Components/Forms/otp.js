@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Col, Row, Container } from "react-bootstrap";
 import { Redirect, Link } from "react-router-dom";
 import ServerService from "../../Services/ServerService";
 
@@ -75,37 +75,38 @@ class OtpPage extends Component {
     }
     return (
       <Modal show={true}>
-        <div className={classes.gridContainer}>
-          <div className={classes.item1}>
-            <h2>Verify Yourself!</h2>
-            <p>An OTP has been sent to your E-mail for verification!</p>
-          </div>
-          <div className={classes.item2}></div>
-          <div className={classes.item3}>
-            <Form onSubmit={this.handleSubmit} className={classes.loginForm}>
-              <Form.Group controlId="formBasicEmail">
-                <Form.Label>OTP</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="otp"
-                  placeholder="Enter your OTP here"
-                  required
-                  onChange={this.handleChange}
-                />
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-              <div style={{ marginTop: "10%" }}>
-                Didn't receive OTP?{" "}
-                <Link to="#" onClick={this.otpResend}>
-                  {" "}
-                  Resend OTP!{" "}
-                </Link>
-              </div>
-            </Form>
-          </div>
-        </div>
+        <Container fluid className={classes.Container}>
+          <Row>
+            <Col md={5} className={classes.item1}>
+              <h2>Verify Yourself!</h2>
+              <p>An OTP has been sent to your E-mail for verification!</p>
+            </Col>
+            <Col xs={12} md={7} className={classes.item3}>
+              <Form onSubmit={this.handleSubmit} className={classes.loginForm}>
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label>OTP</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="otp"
+                    placeholder="Enter your OTP here"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+                <div style={{ marginTop: "10%" }}>
+                  Didn't receive OTP?{" "}
+                  <Link to="#" onClick={this.otpResend}>
+                    {" "}
+                    Resend OTP!{" "}
+                  </Link>
+                </div>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
       </Modal>
     );
   }

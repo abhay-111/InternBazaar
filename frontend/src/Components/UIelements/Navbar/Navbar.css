@@ -1,17 +1,15 @@
 .Navbar {
   box-shadow: 0px 0px 8px 2px #cccccc;
-  padding: 5px !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-.Logo {
-  font-family: fantasy;
-  font-size: 1.8rem;
-  color: midnightblue;
+.logo {
+  height: 2rem;
+  width: 10rem;
+  margin-left: 1rem;
 }
-.Logo:hover {
-  color: midnightblue;
-  text-decoration: none;
-}
+
 .Navlink {
   box-sizing: border-box;
   border-radius: 5px;
@@ -20,7 +18,7 @@
   padding: 5px;
   font-size: 1.2rem;
   font-weight: bold;
-  margin-right: 1rem;
+  margin: 1rem;
   width: 100 !important;
   height: 2.5rem !important;
 }
@@ -31,7 +29,7 @@
   font-weight: bold !important;
   background-color: #0062ff !important;
   color: #fff !important;
-  margin-right: 1.5rem !important;
+  margin: 1rem !important;
   padding: 0 !important;
   height: 2.5rem !important;
 }
@@ -50,12 +48,13 @@
 }
 
 @media (max-width: 767px) {
-  .Navlink {
-    margin: 5px;
-
-    align-self: flex-start;
+  .Dropdown {
+    margin-bottom: 5px;
+    width: 5rem;
   }
-  .Logo {
-    align-self: center;
+  .Navlink {
+    margin: 0 1rem;
+    margin-bottom: 5px;
+    width: 5rem;
   }
 }

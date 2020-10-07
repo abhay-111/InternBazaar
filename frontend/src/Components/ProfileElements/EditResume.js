@@ -59,23 +59,22 @@ class EditResume extends Component {
       userId: localStorage.getItem("userId"),
       userType: localStorage.getItem("userType"),
       image: this.state.image,
-      // image: this.state.image,
     };
 
     const fd = new FormData();
 
     for (let formElement in data) {
       fd.append(formElement, data[formElement]);
-      //console.log(formElement, data[formElement]);
+      console.log(formElement, data[formElement]);
     }
     //console.log(fd.get("image"));
-    // console.log(fd);
+    // console.log(fd.get("phone"));
     ServerService.editProfile(fd)
       .then((response) => {
         console.log(response);
         alert("resume updated");
         //this.forceUpdate();
-        window.location.reload(false);
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err.response);
@@ -104,15 +103,7 @@ class EditResume extends Component {
     return (
       <Card className={classes.card}>
         <Card.Body>
-          <Card.Title
-            style={{
-              textAlign: "center",
-              fontSize: "1.5rem",
-              fontWeight: "bold",
-            }}
-          >
-            EDIT RESUME
-          </Card.Title>
+          <Card.Title className={classes.cardHeading}>EDIT RESUME</Card.Title>
           <Form onSubmit={this.handleSubmit}>
             <Form.Group>
               <Form.Label>Name</Form.Label>

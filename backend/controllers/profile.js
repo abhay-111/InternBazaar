@@ -4,13 +4,13 @@ const Employer = require("../models/Company");
 const Internship = require("../models/Internship");
 
 exports.updateProfile = (req, res, next) => {
-  const id = req.body.userId;
+  // const id = req.body.data.userId;
   const image = req.file;
-  const data = req.body.data;
-  const userType = req.body.userType;
-  console.log(id, image);
-  console.log(data, userType);
-  const tokenUserId = req.userId;
+  const data = req.body;
+  //const userType = req.body.data.userType;
+  // console.log(id, image);
+  console.log(data, image);
+  //const tokenUserId = req.userId;
 
   // checking if id in token matches user id
   // if (tokenUserId != id) {
@@ -25,50 +25,50 @@ exports.updateProfile = (req, res, next) => {
   //   throw error;
   // }
 
-  console.log(image.path);
-  let UserType;
-  if (userType == "student") {
-    UserType = Student;
-  } else {
-    UserType = Employer;
-  }
-
-  UserType.findById(id)
-    .then((user) => {
-      console.log(user.imageUrl);
-      if (!user) {
-        const error = new Error("Update request failed");
-        error.statusCode = 422;
-        error.data = {
-          msg: "user not found",
-          param: "userId",
-          value: userId,
-          location: "updateProfile",
-        };
-        throw error;
-      }
-
-      for (const key in data) {
-        if (data.hasOwnProperty(key)) {
-          if (data[key] != null) user.set(key, data[key]);
-        }
-      }
-      console.log(user.imageUrl);
-      user.imageUrl = image.path;
-      return user.save();
-    })
-    .then((user) => {
-      console.log(user.imageUrl);
-      res.status(200).json({
-        message: "updated user",
-      });
-    })
-    .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
-    });
+  //console.log(image.path);
+  // let UserType;
+  // if (userType == "student") {
+  //   UserType = Student;
+  // } else {
+  //   UserType = Employer;
+  // }
+  //
+  // UserType.findById(id)
+  //   .then((user) => {
+  //     //  console.log(user.imageUrl);
+  //     if (!user) {
+  //       const error = new Error("Update request failed");
+  //       error.statusCode = 422;
+  //       error.data = {
+  //         msg: "user not found",
+  //         param: "userId",
+  //         value: userId,
+  //         location: "updateProfile",
+  //       };
+  //       throw error;
+  //     }
+  //
+  //     for (const key in data) {
+  //       if (data.hasOwnProperty(key)) {
+  //         if (data[key] != null) user.set(key, data[key]);
+  //       }
+  //     }
+  //     //console.log(user.imageUrl);
+  //     //user.imageUrl = image.path;
+  //     return user.save();
+  //   })
+  //   .then((user) => {
+  //     //console.log(user.imageUrl);
+  //     res.status(200).json({
+  //       message: "updated user",
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     if (!err.statusCode) {
+  //       err.statusCode = 500;
+  //     }
+  //     next(err);
+  //   });
 };
 // for (const key in data) {
 //   if (Array.isArray(data[key])) {

@@ -44,7 +44,7 @@ class CompanyProfilePage extends Component {
           <Navbar />
           <Container className={classes.body}>
             <Row>
-              <Col xs={4}>
+              <Col md={4} xs={12}>
                 <ProfileName
                   userName={this.state.user.name}
                   imageUrl={this.state.user.imageUrl}
@@ -52,7 +52,7 @@ class CompanyProfilePage extends Component {
                 <CompanySidebar />
               </Col>
 
-              <Col xs={8}>
+              <Col md={8} xs={12}>
                 <Switch>
                   <Route path="/employer" exact component={PlaceholderImage} />
                   <Route path="/employer/edit" exact component={EditDetails} />

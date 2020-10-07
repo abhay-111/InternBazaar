@@ -3,6 +3,7 @@ import classes from "./Navbar.css";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import userIcon from "../../../assets/alt.png";
+import logo from "../../../assets/logo.png";
 
 class LoggedoutNavBar extends Component {
   // constructor() {
@@ -39,8 +40,8 @@ class LoggedoutNavBar extends Component {
           className={classes.Navbar}
         >
           <Navbar.Brand>
-            <a href="/" className={classes.Logo}>
-              InternBazaar
+            <a href="/">
+              <img src={logo} alt="" className={classes.logo} />
             </a>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -50,8 +51,8 @@ class LoggedoutNavBar extends Component {
               <Link
                 to={"/" + localStorage.getItem("userType")}
                 style={{
-                  marginRight: "2rem",
-                  marginTop: "5px",
+                  margin: "1rem",
+                  marginTop: "1.4rem",
                 }}
               >
                 <img src={userIcon} alt="" />
@@ -73,8 +74,8 @@ class LoggedoutNavBar extends Component {
           className={classes.Navbar}
         >
           <Navbar.Brand>
-            <Link to="/" className={classes.Logo}>
-              InternBazaar
+            <Link to="/">
+              <img src={logo} alt="" className={classes.logo} />
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />

@@ -54,6 +54,7 @@ class EditDetails extends Component {
       .then((response) => {
         console.log(response);
         if (response.status === 200) alert("Organization Details Updated!");
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err.response);
@@ -79,15 +80,7 @@ class EditDetails extends Component {
     return (
       <Card className={classes.card}>
         <Card.Body>
-          <Card.Title
-            style={{
-              textAlign: "center",
-              fontSize: "1.5rem",
-              fontWeight: "bold",
-            }}
-          >
-            EDIT ORGANIZATION DETAILS
-          </Card.Title>
+          <Card.Title className={classes.cardHeading}>EDIT DETAILS</Card.Title>
           <Form onSubmit={this.handleSubmit}>
             <Form.Group>
               <Form.Label>Organization Name</Form.Label>

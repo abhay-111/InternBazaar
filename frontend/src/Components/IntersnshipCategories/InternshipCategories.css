@@ -7,7 +7,8 @@
 }
 
 .Container {
-  box-sizing: border-box;
+  display: flex;
+  overflow-x: auto;
 }
 .Container div {
   text-align: center;
@@ -29,4 +30,18 @@
 .Container a:hover {
   text-decoration: none;
   color: #011536;
+}
+
+@media (max-width: 425px) {
+  .heading {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .Container div {
+    height: 8rem;
+    padding: 0.2rem;
+    margin: 0.6rem;
+  }
 }

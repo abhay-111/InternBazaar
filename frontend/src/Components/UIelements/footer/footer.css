@@ -13,14 +13,18 @@
   color: #fff;
 }
 
-.Row {
-  padding: 1.5rem;
+.copy {
+  padding: 1rem;
+  width: 100%;
   font-weight: bold;
-  margin-left: 40%;
+  text-align: center;
 }
 
-@media (max-width: 600px) {
-  .Row {
-    margin-left: 25%;
+@media (max-width: 425px) {
+  .Footer {
+    font-size: 80%;
+  }
+  .Footer h5 {
+    font-size: 100%;
   }
 }
