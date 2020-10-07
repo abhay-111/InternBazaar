@@ -399,8 +399,7 @@ exports.forgotPassword = (req, res, next) => {
       );
 
       //TODO: SEND EMAIL TOKEN LINK
-      const link =
-        "http://localhost:3000/resetpassword/" + userType + "/" + token;
+      const link = "http://localhost:3000/resetpassword/" + token;
       Emails.sendPasswordResetEmail(email, link);
       console.log(link);
 

@@ -5,7 +5,7 @@ import Modal from "../UIelements/Modal/Modal";
 import classes from "./Forms.css";
 import ServerService from "../../Services/ServerService";
 
-class ForgotPasswordEmail extends Component {
+class ForgotPassword extends Component {
   constructor() {
     super();
     this.state = {
@@ -27,13 +27,21 @@ class ForgotPasswordEmail extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.validate()) {
-      localStorage.setItem("userType", "employer");
-      if (this.validate()) {
-        const data = {
-          email: this.state.input.email,
-          password: this.state.input.password,
-        };
-      }
+      const data = {
+        email: this.state.input.email,
+        userType: this.props.location.state.userType,
+      };
+      //console.log(data);
+
+      ServerService.forgotPassword(data)
+        .then((response) => {
+          // console.log(response);
+          alert(response.data.message);
+        })
+        .catch((err) => {
+          //console.log(err.response);
+          alert(err.response.data.data.msg);
+        });
     }
   };
 
@@ -70,10 +78,8 @@ class ForgotPasswordEmail extends Component {
       <Modal show={true}>
         <div className={classes.gridContainer}>
           <div className={classes.item1}>
-            <h2>Welcome Back Employer!</h2>
-            <p>
-              Login to gain access to hundreds of opportunities waiting for you!
-            </p>
+            <h2>Forgot Password!</h2>
+            <p>We will send a link to your Email</p>
           </div>
           <div className={classes.item2}></div>
           <div className={classes.item3}>
@@ -106,4 +112,4 @@ class ForgotPasswordEmail extends Component {
   }
 }
 
-export default ForgotPasswordEmail;
+export default ForgotPassword;

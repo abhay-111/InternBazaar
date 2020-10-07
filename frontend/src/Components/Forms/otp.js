@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Redirect, Link } from "react-router-dom";
+import ServerService from "../../Services/ServerService";
 
 import Modal from "../UIelements/Modal/Modal";
 import classes from "./Forms.css";
@@ -40,7 +41,7 @@ class OtpPage extends Component {
         if (response.message === "password correct, user added") {
           localStorage.setItem("userId", response.userId);
           localStorage.setItem("token", response.token);
-          localStorage.setItem("userId", response.userId);
+
           if (userType === "employer") {
             this.setState({ redirect: "/employer/edit" });
           } else {
@@ -50,7 +51,23 @@ class OtpPage extends Component {
       });
   };
 
-  otpResend = () => {};
+  otpResend = () => {
+    // console.log(this.props);
+    const data = {
+      email: this.props.location.state.email,
+      userType: localStorage.getItem("userType"),
+    };
+    ServerService.resendOtp(data)
+      .then((response) => {
+        // console.log(response);
+        alert(response.data.message);
+        localStorage.setItem("id", response.data.id);
+      })
+      .catch((err) => {
+        // console.log(err.response);
+        alert("sorry, something went wrong!");
+      });
+  };
 
   render() {
     if (this.state.redirect) {

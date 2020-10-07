@@ -67,6 +67,22 @@ class InternshipDetails extends Component {
     const Perks = this.state.data.perks;
     const vacancy = this.state.data.vacancy;
 
+    let applyNow;
+    if (localStorage.getItem("userType") === "employer") {
+      applyNow = null;
+    } else {
+      applyNow = (
+        <Button
+          type="button"
+          value="Input"
+          className={classes.button}
+          onClick={this.ApplyHandler}
+        >
+          Apply Now
+        </Button>
+      );
+    }
+
     return (
       <React.Fragment>
         <Navbar />
@@ -111,15 +127,7 @@ class InternshipDetails extends Component {
                     <p> {Perks} </p>
                     <Card.Title> No. of openings </Card.Title>
                     <p>{vacancy}</p>
-
-                    <Button
-                      type="button"
-                      value="Input"
-                      className={classes.button}
-                      onClick={this.ApplyHandler}
-                    >
-                      Apply Now
-                    </Button>
+                    {applyNow}
                   </Card.Body>
                 </Card>
               </Col>

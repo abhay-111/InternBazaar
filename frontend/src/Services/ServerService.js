@@ -116,6 +116,22 @@ class ServerService {
   sendRatings(data) {
     return axios.post(BASE_URL + "internship/rateInternship", data);
   }
+
+  forgotPassword(data) {
+    return axios.post(BASE_URL + "auth/forgotPassword", data);
+  }
+
+  resetPassword(data, token) {
+    return axios.post(BASE_URL + "auth/forgotReset", data, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+  }
+
+  resendOtp(data) {
+    return axios.post(BASE_URL + "auth/resendOtp", data);
+  }
 }
 
 export default new ServerService();

@@ -123,7 +123,16 @@ class StudentLoginForm extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
+      return (
+        <Redirect
+          to={{
+            pathname: this.state.redirect,
+            state: {
+              email: this.state.input.email,
+            },
+          }}
+        />
+      );
     }
 
     return (
@@ -163,6 +172,18 @@ class StudentLoginForm extends Component {
                   required
                   className={classes.shadow}
                 />
+                <span>
+                  <Link
+                    to={{
+                      pathname: "/forgotpassword",
+                      state: {
+                        userType: "employer",
+                      },
+                    }}
+                  >
+                    Forgot Password?
+                  </Link>
+                </span>
               </Form.Group>
 
               <Button

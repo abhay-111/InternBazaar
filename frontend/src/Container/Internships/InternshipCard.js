@@ -10,6 +10,7 @@ class InternshipCard extends Component {
     const data = {
       internshipId: this.props.id,
       rating: newRating,
+      userId: localStorage.getItem("userId"),
     };
     console.log(data);
 

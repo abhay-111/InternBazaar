@@ -59,3 +59,10 @@
 .item3 p {
   margin-left: 20%;
 }
+
+.border {
+  box-sizing: border-box;
+  border: 1px solid #30302f;
+  padding: 2rem;
+  border-radius: 5px;
+}

@@ -100,11 +100,11 @@ exports.updateProfile = (req, res, next) => {
 // };
 
 exports.viewProfile = (req, res, next) => {
-  console.log("profile yess");
+  // console.log("profile yess");
   const userId = req.body.userId;
   const userType = req.body.userType;
   const tokenUserId = req.userId;
-  console.log(userId + " " + tokenUserId);
+  //console.log(userId + " " + tokenUserId);
 
   // checking if id in token matches user id
   if (tokenUserId != userId) {
@@ -129,7 +129,7 @@ exports.viewProfile = (req, res, next) => {
 
   UserType.findById(userId)
     .then((user) => {
-      console.log(user);
+      // console.log(user);
       if (!user) {
         const error = new Error("Invalid user id");
         error.statusCode = 422;

@@ -6,6 +6,8 @@ import StudentLoginForm from "./Components/Forms/StudentLoginForm";
 import CompanyLoginForm from "./Components/Forms/CompanyLoginForm";
 import SignupForm from "./Components/Forms/SignupForm";
 import OtpPage from "./Components/Forms/otp";
+import ForgotPassword from "./Components/Forms/ForgotPassword";
+import NewPassword from "./Components/Forms/NewPassword";
 import InternshipsByCategory from "./Container/Internships/InternshipsByCategory";
 import InternshipsByLocation from "./Container/Internships/InternshipsByLocation";
 import InternshipDetails from "./Container/Internships/InternshipDetails";
@@ -32,7 +34,7 @@ class App extends Component {
             exact
             component={InternshipDetails}
           />
-
+          <Route path="/resetpassword/:token" exact component={NewPassword} />
           <Route path="/employer" component={CompanyProfilePage} />
           <Route path="/student" component={StudentProfilePage} />
           <Route path="/" component={LandingPage} />
@@ -42,6 +44,7 @@ class App extends Component {
         <Route path="/employerlogin" exact component={CompanyLoginForm} />
         <Route path="/signup" exact component={SignupForm} />
         <Route path="/verifyotp" exact component={OtpPage} />
+        <Route path="/forgotpassword" exact component={ForgotPassword} />
       </div>
     );
   }

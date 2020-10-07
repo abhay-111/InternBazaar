@@ -25,7 +25,7 @@ module.exports = (req, res, next) => {
   req.email = decodedToken.email;
   req.type = decodedToken.type;
   req.userType = decodedToken.userType;
-  if (type != "reset") {
+  if (req.type != "reset") {
     const error = new Error("Not authenticated.");
     error.statusCode = 401;
     throw error;
