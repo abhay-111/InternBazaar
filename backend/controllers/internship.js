@@ -5,6 +5,7 @@ const Employer = require("../models/Company");
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const path = require("path");
+const Company = require("../models/Company");
 
 // // adding internships to database
 exports.addInternships = (req, res, next) => {
@@ -32,6 +33,10 @@ exports.addInternships = (req, res, next) => {
   var creatorId = req.body.creatorId;
   location = String(location).toLowerCase();
   internshipType = String(internshipType).toLowerCase();
+
+  Employer.findById(creatorId).then((company) => {
+    internship.creatorImage = company.imageUrl;
+  });
 
   const internship = new Internship({
     creatorId: creatorId,
@@ -78,6 +83,7 @@ exports.addInternships = (req, res, next) => {
         };
         throw error;
       }
+
       let internshipsPosted = [
         ...employer.internshipsPosted,
         postedInternship._id,

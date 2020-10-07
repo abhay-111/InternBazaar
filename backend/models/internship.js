@@ -79,8 +79,9 @@ const InternshipSchema = new Schema({
     default: [0],
   },
   avgrating: {
-    type: Decimal128,
+    type: Number,
   },
+  creatorImage: String,
   rater: [
     {
       raterId: {
