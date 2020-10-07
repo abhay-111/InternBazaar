@@ -5,9 +5,8 @@ const Employer = require("../models/Company");
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const path = require("path");
-const Company = require("../models/Company");
 
-// // adding internships to database
+// adding internships to database
 exports.addInternships = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -34,9 +33,7 @@ exports.addInternships = (req, res, next) => {
   location = String(location).toLowerCase();
   internshipType = String(internshipType).toLowerCase();
 
-  Employer.findById(creatorId).then((company) => {
-    internship.creatorImage = company.imageUrl;
-  });
+  Employer.findById(creatorId).then((company) => {});
 
   const internship = new Internship({
     creatorId: creatorId,
@@ -102,13 +99,24 @@ exports.addInternships = (req, res, next) => {
         throw error;
       }
 
+      if (
+        data.imageUrl != null ||
+        data.imageUrl != undefined ||
+        data.imageUrl
+      ) {
+        internship.creatorImage = data.imageUrl;
+      }
+
+      return internship.save();
+    })
+    .then((data) => {
       res.status(200).json({
         message: "Internship added",
         data: internship,
       });
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       if (!err.statusCode) {
         err.statusCode = 500;
       }
@@ -186,7 +194,6 @@ exports.getInternships = (req, res, next) => {
 
 exports.viewinternship = (req, res, next) => {
   const internshipId = req.params.internshipId;
-  console.log(typeof internshipId);
 
   Internship.findById(internshipId)
     .then((data) => {
@@ -242,12 +249,24 @@ exports.allinternships = (req, res, next) => {
 exports.applyinternship = (req, res, next) => {
   const internshipId = req.body.internshipId;
   const userId = req.body.userId;
-  console.log(userId, internshipId);
+  // console.log(userId, internshipId);
+
+  if (req.userType != "student") {
+    const error = new Error("Apply internship failed, token unverified");
+    error.statusCode = 502;
+    error.data = {
+      msg: "user not authorized, token not verified",
+      param: "userType",
+      value: req.userType,
+      location: "updateProfile",
+    };
+    throw error;
+  }
 
   Internship.findById(internshipId)
     .then((result) => {
       result.applications.forEach((application) => {
-        console.log(application.userId, userId);
+        // console.log(application.userId, userId);
         if (application.userId == userId) {
           const error = new Error("You have already applied");
           error.statusCode = 422;
@@ -262,8 +281,8 @@ exports.applyinternship = (req, res, next) => {
         userId: userId,
         status: "Applied",
       };
-      console.log(result.applications);
-      console.log("abhay");
+      // console.log(result.applications);
+      // console.log("abhay");
       const updatedapplications = [...result.applications, application];
       result.applications = updatedapplications;
       result.save();
@@ -276,13 +295,13 @@ exports.applyinternship = (req, res, next) => {
             internshipProfile: result.title,
             companyName: result.companyName,
           };
-          console.log(data.applications);
+          // console.log(data.applications);
 
           const updatedapplications = [...data.applications, appli];
           data.applications = updatedapplications;
           data.save();
 
-          console.log(internshipId);
+          // console.log(internshipId);
           res.status(200).json({
             message: "Applied to this internship",
             data: {
@@ -308,7 +327,7 @@ exports.applyinternship = (req, res, next) => {
 
 exports.viewresume = (req, res, next) => {
   const userId = req.params.userId;
-  console.log(__dirname);
+  // console.log(__dirname);
 
   Student.findById(userId)
     .then((data) => {
@@ -392,7 +411,7 @@ exports.viewresume = (req, res, next) => {
 exports.updateInternship = (req, res, next) => {
   const id = req.body.internshipId;
   const data = req.body.data;
-  console.log(id);
+  // console.log(id);
 
   Internship.findById(id)
     .then((internship) => {
@@ -416,7 +435,7 @@ exports.updateInternship = (req, res, next) => {
       return internship.save();
     })
     .then((internship) => {
-      console.log(internship);
+      // console.log(internship);
       res.status(200).json({
         message: "updated internship",
       });

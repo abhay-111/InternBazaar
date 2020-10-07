@@ -8,24 +8,27 @@ exports.updateProfile = (req, res, next) => {
   const image = req.file;
   const data = req.body.data;
   const userType = req.body.userType;
-  console.log(id, image);
-  console.log(data, userType);
   const tokenUserId = req.userId;
 
-  // checking if id in token matches user id
-  // if (tokenUserId != id) {
-  //   const error = new Error("Update request failed, token unverified");
-  //   error.statusCode = 502;
-  //   error.data = {
-  //     msg: "user not authorized, token not verified",
-  //     param: "userId",
-  //     value: id,
-  //     location: "updateProfile",
-  //   };
-  //   throw error;
-  // }
+  console.log("userId=" + id, "image=" + image);
+  console.log("data=" + data, "userType=" + userType);
+  console.log("id=" + id, "tokenid=" + tokenUserId);
+  console.log(typeof id, typeof tokenUserId);
 
-  console.log(image.path);
+  // checking if id in token matches user id
+  if (tokenUserId != id) {
+    const error = new Error("Update request failed, token unverified");
+    error.statusCode = 502;
+    error.data = {
+      msg: "user not authorized, token not verified",
+      param: "userId",
+      value: id,
+      location: "updateProfile",
+    };
+    throw error;
+  }
+
+  if (image) console.log("image.path=" + image.path);
   let UserType;
   if (userType == "student") {
     UserType = Student;
@@ -35,7 +38,7 @@ exports.updateProfile = (req, res, next) => {
 
   UserType.findById(id)
     .then((user) => {
-      console.log(user.imageUrl);
+      console.log("user.imgurl1=" + user.imageUrl);
       if (!user) {
         const error = new Error("Update request failed");
         error.statusCode = 422;
@@ -53,12 +56,12 @@ exports.updateProfile = (req, res, next) => {
           if (data[key] != null) user.set(key, data[key]);
         }
       }
-      console.log(user.imageUrl);
+      console.log("user.imgurl2=" + user.imageUrl);
       user.imageUrl = image.path;
       return user.save();
     })
     .then((user) => {
-      console.log(user.imageUrl);
+      console.log("user.imgurl3=" + user.imageUrl);
       res.status(200).json({
         message: "updated user",
       });
@@ -104,7 +107,7 @@ exports.viewProfile = (req, res, next) => {
   const userId = req.body.userId;
   const userType = req.body.userType;
   const tokenUserId = req.userId;
-  //console.log(userId + " " + tokenUserId);
+  console.log("user=" + userId + " token=" + tokenUserId);
 
   // checking if id in token matches user id
   if (tokenUserId != userId) {
@@ -122,7 +125,6 @@ exports.viewProfile = (req, res, next) => {
   let UserType;
   if (userType == "student") {
     UserType = Student;
-    console.log("student lmao");
   } else {
     UserType = Employer;
   }
@@ -158,7 +160,7 @@ exports.myapplications = (req, res, next) => {
   const userId = req.body.userId;
   const tokenUserId = req.userId;
   // checking if id in token matches user id
-  if (tokenUserId != id) {
+  if (tokenUserId != userId) {
     const error = new Error("request failed, token unverified");
     error.statusCode = 502;
     error.data = {
@@ -223,10 +225,10 @@ exports.appliedusers = (req, res, next) => {
 
 exports.viewPostedInternships = (req, res, next) => {
   const userId = req.body.userId;
-  console.log(userId);
+  // console.log(userId);
   Employer.findById(userId)
     .then((user) => {
-      console.log(user);
+      // console.log(user);
       if (!user) {
         const error = new Error("Invalid user id");
         error.statusCode = 422;
@@ -261,21 +263,21 @@ exports.changeStatus = (req, res, next) => {
   const userId = req.body.userId;
   const internshipId = req.body.internshipId;
   const status = req.body.status;
-  console.log(userId, internshipId, status);
+  // console.log(userId, internshipId, status);
 
   Internship.findById(internshipId)
     .then((internship) => {
       // console.log(internship);
       let lol = internship.applications.some((app) => {
-        console.log("idhar = " + app);
+        // console.log("idhar = " + app);
         if (app.userId == userId) {
-          console.log("trueeeee");
+          // console.log("trueeeee");
           app.status = status;
           return true;
         }
         return false;
       });
-      console.log(internship.applications);
+      // console.log(internship.applications);
       internship.save();
       if (lol) {
         return res.status(200).json({
