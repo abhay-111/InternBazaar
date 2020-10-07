@@ -42,39 +42,25 @@ exports.updateProfile = (req, res, next) => {
     UserType = Employer;
   }
 
-  UserType.findById(id)
+  UserType.findByIdAndUpdate(
+    { _id: id },
+    {
+      $set: {
+        location: data.location,
+        about: data.about,
+        skills: data.skills,
+        jobs: data.jobs,
+        additional: data.additional,
+        location: data.location,
+        phone: data.phone,
+        links: data.links,
+      },
+    }
+  )
+
+    // console.log(user);
     .then((user) => {
-      // console.log("user.imgurl1=" + user.imageUrl);
-      if (!user) {
-        const error = new Error("Update request failed");
-        error.statusCode = 422;
-        error.data = {
-          msg: "user not found",
-          param: "userId",
-          value: user._id,
-          location: "updateProfile",
-        };
-        throw error;
-      }
-
-      user.name = data.name;
-      user.email = data.email;
-      user.phone = data.phone;
-      user.about = data.about;
-      user.location = data.location;
-      user.education = data.education;
-      user.skills = data.skills;
-      user.links = data.links;
-      user.jobs = data.jobs;
-      user.additional = data.additional;
-
-      user.imageUrl = image.path;
       // console.log(user);
-      return user.save();
-    })
-    .then((user) => {
-      console.log(user);
-      console.log("user.imgurl3=" + user.imageUrl);
       res.status(200).json({
         message: "updated user",
       });
