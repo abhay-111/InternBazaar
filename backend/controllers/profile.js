@@ -4,13 +4,20 @@ const Employer = require("../models/Company");
 const Internship = require("../models/Internship");
 
 exports.updateProfile = (req, res, next) => {
-  // const id = req.body.data.userId;
+  const id = req.body.userId;
+
+  console.log(id);
+
   const image = req.file;
   const data = req.body;
-  //const userType = req.body.data.userType;
-  // console.log(id, image);
+  const userType = req.body.userType;
+  // const tokenUserId = req.body.userId;
   console.log(data, image);
-  //const tokenUserId = req.userId;
+
+  // console.log("userId=" + id, "image=" + image);
+  // console.log("data=" + data, "userType=" + userType);
+  // console.log("id=" + id, "tokenid=" + tokenUserId);
+  // console.log(typeof id, typeof tokenUserId);
 
   // checking if id in token matches user id
   // if (tokenUserId != id) {
@@ -25,50 +32,58 @@ exports.updateProfile = (req, res, next) => {
   //   throw error;
   // }
 
-  //console.log(image.path);
-  // let UserType;
-  // if (userType == "student") {
-  //   UserType = Student;
-  // } else {
-  //   UserType = Employer;
+  // if (image == undefined) {
+
   // }
-  //
-  // UserType.findById(id)
-  //   .then((user) => {
-  //     //  console.log(user.imageUrl);
-  //     if (!user) {
-  //       const error = new Error("Update request failed");
-  //       error.statusCode = 422;
-  //       error.data = {
-  //         msg: "user not found",
-  //         param: "userId",
-  //         value: userId,
-  //         location: "updateProfile",
-  //       };
-  //       throw error;
-  //     }
-  //
-  //     for (const key in data) {
-  //       if (data.hasOwnProperty(key)) {
-  //         if (data[key] != null) user.set(key, data[key]);
-  //       }
-  //     }
-  //     //console.log(user.imageUrl);
-  //     //user.imageUrl = image.path;
-  //     return user.save();
-  //   })
-  //   .then((user) => {
-  //     //console.log(user.imageUrl);
-  //     res.status(200).json({
-  //       message: "updated user",
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     if (!err.statusCode) {
-  //       err.statusCode = 500;
-  //     }
-  //     next(err);
-  //   });
+  let UserType;
+  if (userType == "student") {
+    UserType = Student;
+  } else {
+    UserType = Employer;
+  }
+
+  UserType.findById(id)
+    .then((user) => {
+      // console.log("user.imgurl1=" + user.imageUrl);
+      if (!user) {
+        const error = new Error("Update request failed");
+        error.statusCode = 422;
+        error.data = {
+          msg: "user not found",
+          param: "userId",
+          value: user._id,
+          location: "updateProfile",
+        };
+        throw error;
+      }
+
+      user.name = data.name;
+      user.email = data.email;
+      user.phone = data.phone;
+      user.about = data.about;
+      user.location = data.location;
+      user.education = data.education;
+      user.skills = data.skills;
+      user.links = data.links;
+      user.additional = data.additional;
+
+      user.imageUrl = image.path;
+      // console.log(user);
+      return user.save();
+    })
+    .then((user) => {
+      console.log(user);
+      console.log("user.imgurl3=" + user.imageUrl);
+      res.status(200).json({
+        message: "updated user",
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };
 // for (const key in data) {
 //   if (Array.isArray(data[key])) {
@@ -104,7 +119,7 @@ exports.viewProfile = (req, res, next) => {
   const userId = req.body.userId;
   const userType = req.body.userType;
   const tokenUserId = req.userId;
-  //console.log(userId + " " + tokenUserId);
+  console.log("user=" + userId + " token=" + tokenUserId);
 
   // checking if id in token matches user id
   if (tokenUserId != userId) {
@@ -122,7 +137,6 @@ exports.viewProfile = (req, res, next) => {
   let UserType;
   if (userType == "student") {
     UserType = Student;
-    console.log("student lmao");
   } else {
     UserType = Employer;
   }
@@ -158,7 +172,7 @@ exports.myapplications = (req, res, next) => {
   const userId = req.body.userId;
   const tokenUserId = req.userId;
   // checking if id in token matches user id
-  if (tokenUserId != id) {
+  if (tokenUserId != userId) {
     const error = new Error("request failed, token unverified");
     error.statusCode = 502;
     error.data = {
@@ -223,10 +237,10 @@ exports.appliedusers = (req, res, next) => {
 
 exports.viewPostedInternships = (req, res, next) => {
   const userId = req.body.userId;
-  console.log(userId);
+  // console.log(userId);
   Employer.findById(userId)
     .then((user) => {
-      console.log(user);
+      // console.log(user);
       if (!user) {
         const error = new Error("Invalid user id");
         error.statusCode = 422;
@@ -261,21 +275,21 @@ exports.changeStatus = (req, res, next) => {
   const userId = req.body.userId;
   const internshipId = req.body.internshipId;
   const status = req.body.status;
-  console.log(userId, internshipId, status);
+  // console.log(userId, internshipId, status);
 
   Internship.findById(internshipId)
     .then((internship) => {
       // console.log(internship);
       let lol = internship.applications.some((app) => {
-        console.log("idhar = " + app);
+        // console.log("idhar = " + app);
         if (app.userId == userId) {
-          console.log("trueeeee");
+          // console.log("trueeeee");
           app.status = status;
           return true;
         }
         return false;
       });
-      console.log(internship.applications);
+      // console.log(internship.applications);
       internship.save();
       if (lol) {
         return res.status(200).json({
