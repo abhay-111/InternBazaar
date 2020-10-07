@@ -65,6 +65,7 @@ exports.updateProfile = (req, res, next) => {
       user.education = data.education;
       user.skills = data.skills;
       user.links = data.links;
+      user.jobs = data.jobs;
       user.additional = data.additional;
 
       user.imageUrl = image.path;
