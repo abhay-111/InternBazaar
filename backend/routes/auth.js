@@ -73,6 +73,7 @@ router.post(
   authController.resetPassword
 );
 
+// POST => /auth/forgotPassword
 router.post(
   "/forgotPassword",
   [body("email").isEmail().withMessage("Invalid email").normalizeEmail()],

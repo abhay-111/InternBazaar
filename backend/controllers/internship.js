@@ -354,12 +354,13 @@ exports.viewresume = (req, res, next) => {
       // pdfDoc.image("images/Logo.png", 180, 150, { fit: [100, 100] });
 
       // TODO:fix this image in pdf bug
-      // pdfDoc.image(data.imageUrl, 120, 110, { width: 100, height: 90 });
-
-      pdfDoc.moveDown();
-      pdfDoc.moveDown();
-      pdfDoc.moveDown();
-      pdfDoc.moveDown();
+      if (data.imageUrl != "" && data.imageUrl) {
+        pdfDoc.image(data.imageUrl, 120, 110, { width: 100, height: 90 });
+        pdfDoc.moveDown();
+        pdfDoc.moveDown();
+        pdfDoc.moveDown();
+        pdfDoc.moveDown();
+      }
       pdfDoc.moveDown();
       pdfDoc.fontSize(18).text("About Me", {
         underline: true,
