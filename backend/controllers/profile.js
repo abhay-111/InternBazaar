@@ -32,9 +32,6 @@ exports.updateProfile = (req, res, next) => {
   //   throw error;
   // }
 
-  // if (image == undefined) {
-
-  // }
   let UserType;
   if (userType == "student") {
     UserType = Student;
@@ -61,6 +58,7 @@ exports.updateProfile = (req, res, next) => {
     // console.log(user);
     .then((user) => {
       // console.log(user);
+
       res.status(200).json({
         message: "updated user",
       });

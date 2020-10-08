@@ -332,6 +332,7 @@ exports.viewresume = (req, res, next) => {
   let resumePath;
   Student.findById(userId)
     .then((data) => {
+      console.log("data1==" + data);
       const resumeName = "resume-" + userId + ".pdf";
 
       resumePath = path.join(__dirname, "../", "resume", resumeName);
@@ -339,9 +340,11 @@ exports.viewresume = (req, res, next) => {
       return data.save();
     })
     .then((data) => {
+      console.log("data2=");
+      // const userPdf = createPdf(resumePath, data);
       const pdfDoc = new PDFDocument();
       pdfDoc.pipe(fs.createWriteStream(resumePath));
-      pdfDoc.pipe(res);
+      // pdfDoc.pipe(res);
 
       pdfDoc.fontSize(22).text("Hello there , I am " + data.name, {
         underline: true,
@@ -400,9 +403,12 @@ exports.viewresume = (req, res, next) => {
       pdfDoc.moveDown();
       pdfDoc.fontSize(18).text("Social media links", { underline: true });
       pdfDoc.fontSize(15).text(data.links);
-
+      console.log(data);
+      console.log("outside pdf.end");
+      // console.log("you can still do stuff after res");
+      res.status(200).json({ path: data.resume });
       pdfDoc.end(() => {
-        res.status(200).json({ path: data.resume });
+        console.log("inside pdf.end");
       });
     })
     .catch((err) => {
@@ -413,6 +419,76 @@ exports.viewresume = (req, res, next) => {
       next(err);
     });
 };
+
+function createPdf(resumePath, data) {
+  const pdfDoc = new PDFDocument();
+  pdfDoc.pipe(fs.createWriteStream(resumePath));
+  pdfDoc.pipe(res);
+
+  pdfDoc.fontSize(22).text("Hello there , I am " + data.name, {
+    underline: true,
+  });
+  pdfDoc.moveDown();
+  // var imageUrl = "image/" + data.imageUrl;
+  // pdfDoc.image("images/Logo.png", 180, 150, { fit: [100, 100] });
+
+  // TODO:fix this image in pdf bug
+  // pdfDoc.image(data.imageUrl, 120, 110, { width: 100, height: 90 });
+
+  pdfDoc.moveDown();
+  pdfDoc.moveDown();
+  pdfDoc.moveDown();
+  pdfDoc.moveDown();
+  pdfDoc.moveDown();
+  pdfDoc.fontSize(18).text("About Me", {
+    underline: true,
+  });
+
+  pdfDoc.moveDown();
+
+  pdfDoc.fontSize(15).text("" + data.about);
+
+  pdfDoc.moveDown();
+
+  pdfDoc.moveDown();
+  pdfDoc.fontSize(18).text("About Me", {
+    underline: true,
+  });
+
+  pdfDoc.moveDown();
+
+  pdfDoc.moveDown();
+  pdfDoc.fontSize(15).text("" + data.about);
+
+  pdfDoc.moveDown();
+  pdfDoc.fontSize(18).text("Education", {
+    underline: true,
+  });
+
+  pdfDoc.moveDown();
+  pdfDoc.fontSize(15).text("" + data.education);
+  pdfDoc.moveDown();
+  pdfDoc.fontSize(18).text("Skills", {
+    underline: true,
+  });
+  pdfDoc.moveDown();
+  pdfDoc.fontSize(15).text("" + data.skills);
+  pdfDoc.moveDown();
+  pdfDoc.fontSize(18).text("Contact Me", {
+    underline: true,
+  });
+  pdfDoc.moveDown();
+  pdfDoc.fontSize(15).text("" + data.phone);
+  pdfDoc.moveDown();
+  pdfDoc.fontSize(18).text("Social media links", { underline: true });
+  pdfDoc.fontSize(15).text(data.links);
+  console.log(data);
+  console.log("outside pdf.end");
+  // console.log("you can still do stuff after res");
+  pdfDoc.end(() => {
+    console.log("inside pdf.end");
+  });
+}
 
 exports.updateInternship = (req, res, next) => {
   const id = req.body.internshipId;
