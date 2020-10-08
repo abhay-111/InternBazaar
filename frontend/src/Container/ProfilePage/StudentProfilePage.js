@@ -20,7 +20,7 @@ class ProfilePage extends Component {
   };
 
   componentDidMount() {
-    const userId = localStorage.getItem("userId");
+    //const userId = localStorage.getItem("userId");
     const data = {
       userId: localStorage.getItem("userId"),
       userType: localStorage.getItem("userType"),

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classes from "./Navbar.css";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import userIcon from "../../../assets/alt.png";
 import logo from "../../../assets/logo.png";
 

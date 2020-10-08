@@ -8,21 +8,24 @@ class ApplicantsRow extends Component {
   };
 
   statusHandler = (event) => {
-    this.setState({ status: event.target.value });
-    const data = {
-      status: this.state.status,
-      userId: this.props.userId,
-      internshipId: this.props.internshipId,
-    };
-    console.log(data);
-    ServerService.changeStatus(data)
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) alert(response.data.message);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+    console.log(event.target.value);
+    this.setState({ status: event.target.value }, () => {
+      console.log(this.state.status);
+      const data = {
+        status: this.state.status,
+        userId: this.props.userId,
+        internshipId: this.props.internshipId,
+      };
+      console.log(data);
+      ServerService.changeStatus(data)
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) alert(response.data.message);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    });
   };
 
   resumeOpener = () => {

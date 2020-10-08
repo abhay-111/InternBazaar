@@ -49,12 +49,16 @@
 
 @media (max-width: 767px) {
   .Dropdown {
-    margin-bottom: 5px;
-    width: 5rem;
+    font-size: 1rem !important;
+    margin: 1rem;
+    text-align: center;
+    width: 10rem;
   }
   .Navlink {
-    margin: 0 1rem;
-    margin-bottom: 5px;
-    width: 5rem;
+    font-size: 1rem;
+    margin: 1rem;
+    margin-top: 0%;
+    text-align: center;
+    width: 10rem;
   }
 }

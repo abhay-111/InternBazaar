@@ -34,8 +34,6 @@ class CategoryList extends Component {
                 <Card.Subtitle className="mb-2 text-muted">
                   Location
                 </Card.Subtitle>
-                <Link to="/internships/location/wfh">Work From Home</Link>{" "}
-                <br />
                 <Link to="/internships/location/delhi">Delhi</Link> <br />
                 <Link to="/internships/location/hyderabad">Hyderabad</Link>{" "}
                 <br />
@@ -43,6 +41,8 @@ class CategoryList extends Component {
                 <Link to="/internships/location/chennai">Chennai</Link> <br />
                 <Link to="/internships/location/kolkata">Kolkata</Link> <br />
                 <Link to="/internships/location/international">
+                  <Link to="/internships/location/wfh">Work From Home</Link>{" "}
+                  <br />
                   International
                 </Link>
               </Col>
