@@ -41,10 +41,11 @@ class CategoryList extends Component {
                 <Link to="/internships/location/chennai">Chennai</Link> <br />
                 <Link to="/internships/location/kolkata">Kolkata</Link> <br />
                 <Link to="/internships/location/international">
-                  <Link to="/internships/location/wfh">Work From Home</Link>{" "}
-                  <br />
                   International
-                </Link>
+                </Link>{" "}
+                <br />
+                <Link to="/internships/location/bangalore">Bangalore</Link>{" "}
+                <br />
               </Col>
             </Row>
           </Container>
