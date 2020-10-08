@@ -361,7 +361,6 @@ exports.viewresume = (req, res, next) => {
         pdfDoc.moveDown();
         pdfDoc.moveDown();
       }
-      pdfDoc.moveDown();
       pdfDoc.fontSize(18).text("About Me", {
         underline: true,
       });
@@ -373,14 +372,6 @@ exports.viewresume = (req, res, next) => {
       pdfDoc.moveDown();
 
       pdfDoc.moveDown();
-      pdfDoc.fontSize(18).text("About Me", {
-        underline: true,
-      });
-
-      pdfDoc.moveDown();
-
-      pdfDoc.moveDown();
-      pdfDoc.fontSize(15).text("" + data.about);
 
       pdfDoc.moveDown();
       pdfDoc.fontSize(18).text("Education", {

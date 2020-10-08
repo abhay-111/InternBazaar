@@ -82,7 +82,7 @@ exports.sendPasswordResetEmail = (email, link) => {
       to: email,
       from: "naman1913128@akgec.ac.in",
       subject: "Password reset link for InternBazaar",
-      html: `<p>click on this <a href="${link}">${link}</a><p>`,
+      html: `<p>click on this <a href="${link}">link</a> to reset your password<p>`,
     })
     .catch((err) => {
       console.log(err);
