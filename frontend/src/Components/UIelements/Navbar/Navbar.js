@@ -29,6 +29,14 @@ class LoggedoutNavBar extends Component {
     if (token != null) {
       if (token !== "undefined") Auth = true;
     }
+
+    let path;
+    if (localStorage.getItem("userType") === "employer") {
+      path = "/employer";
+    } else {
+      path = "/";
+    }
+
     //console.log(typeof token);
     if (Auth) {
       return (
@@ -40,7 +48,7 @@ class LoggedoutNavBar extends Component {
           className={classes.Navbar}
         >
           <Navbar.Brand>
-            <a href="/">
+            <a href={path}>
               <img src={logo} alt="" className={classes.logo} />
             </a>
           </Navbar.Brand>

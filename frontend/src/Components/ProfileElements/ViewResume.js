@@ -9,21 +9,22 @@ class ViewResume extends Component {
   };
 
   componentDidMount() {
-    const userId = localStorage.getItem("userId");
-    ServerService.viewResume(userId)
-      .then((res) => {
-        console.log(res);
+    // const userId = localStorage.getItem("userId");
+    // ServerService.viewResume(userId)
+    //   .then((res) => {
+    //     console.log(res);
 
-        const path = "http://localhost:8080/" + this.props.path;
-        console.log(path);
-        window.open(path);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const path = "http://localhost:8080/" + this.props.path;
+    // console.log(path);
+    window.open(path);
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
   }
 
   componentDidUpdate() {
+    console.log(this.props.path);
     const userId = localStorage.getItem("userId");
     ServerService.viewResume(userId)
       .then((res) => {

@@ -46,8 +46,8 @@ class EditResume extends Component {
     //console.log(this.state.image);
 
     const data = {
-      name: this.state.input.name || this.state.data.name,
-      email: this.state.input.email || this.state.data.email,
+      name: this.state.data.name,
+      email: this.state.data.email,
       phone: this.state.input.phone || this.state.data.phone,
       about: this.state.input.about || this.state.data.about,
       location: this.state.input.location || this.state.data.phone,
@@ -111,9 +111,8 @@ class EditResume extends Component {
                 type="text"
                 placeholder="Enter name"
                 name="name"
-                required
-                onChange={this.handleChange}
-                defaultValue={this.state.data.name}
+                disabled
+                value={this.state.data.name}
               />
             </Form.Group>
 
@@ -123,9 +122,8 @@ class EditResume extends Component {
                 type="email"
                 placeholder="Enter E-mail"
                 name="email"
-                required
-                onChange={this.handleChange}
-                defaultValue={this.state.data.email}
+                disabled
+                value={this.state.data.email}
               />
             </Form.Group>
 
@@ -134,6 +132,7 @@ class EditResume extends Component {
               <Form.Control
                 type="text"
                 placeholder="Enter Contact No."
+                required
                 name="phone"
                 defaultValue={this.state.data.phone}
                 onChange={this.handleChange}
@@ -148,6 +147,7 @@ class EditResume extends Component {
                 name="about"
                 defaultValue={this.state.data.about}
                 placeholder="Type something about yourself"
+                required
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -159,6 +159,7 @@ class EditResume extends Component {
                 placeholder="Enter your preferred locations"
                 name="location"
                 defaultValue={this.state.data.location}
+                required
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -170,6 +171,7 @@ class EditResume extends Component {
                 rows="3"
                 name="education"
                 defaultValue={this.state.data.education}
+                required
                 placeholder="Enter Your Educational Details"
                 onChange={this.handleChange}
               />
@@ -182,18 +184,20 @@ class EditResume extends Component {
                 rows="3"
                 name="skills"
                 placeholder="Enter your Skills"
+                required
                 defaultValue={this.state.data.skills}
                 onChange={this.handleChange}
               />
             </Form.Group>
 
             <Form.Group controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Jobs/Internships</Form.Label>
+              <Form.Label>Experience</Form.Label>
               <Form.Control
                 as="textarea"
                 rows="3"
                 name="jobs"
                 placeholder="Enter your previos Jobs/Internships"
+                required
                 defaultValue={this.state.data.jobs}
                 onChange={this.handleChange}
               />
@@ -206,6 +210,7 @@ class EditResume extends Component {
                 rows="3"
                 name="links"
                 placeholder="Enter your Github, linkedin or any other profile links"
+                required
                 defaultValue={this.state.data.links}
                 onChange={this.handleChange}
               />
@@ -217,6 +222,8 @@ class EditResume extends Component {
                 as="textarea"
                 rows="3"
                 name="additional"
+                defaultValue={this.state.data.additional}
+                required
                 placeholder="Any additional details you wish to provide"
                 onChange={this.handleChange}
               />

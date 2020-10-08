@@ -1,12 +1,37 @@
 .Modal {
   position: absolute;
+  height: 60%;
   z-index: 500;
   width: 50%;
-  height: 80%;
   left: 25%;
   box-sizing: border-box;
   border-radius: 10px;
-  bottom: 2rem;
+  bottom: 12rem;
 }
 
-@media();
+@media (max-width: 1024px) {
+  .Modal {
+    width: 70%;
+    left: 16%;
+  }
+}
+
+@media (max-height: 636px) {
+  .Modal {
+    height: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .Modal {
+    width: 70%;
+    left: 15%;
+  }
+}
+
+@media (max-width: 425px) {
+  .Modal {
+    width: 90%;
+    left: 5%;
+  }
+}

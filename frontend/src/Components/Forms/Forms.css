@@ -10,8 +10,15 @@
   box-shadow: 6px 6px 17px -1px rgba(150, 148, 150, 1);
 }
 
+.SignupItem {
+  height: 38rem;
+  background-color: #476dd6;
+  color: white;
+  padding: 50px 30px;
+  border-radius: 10px;
+}
 .item1 {
-  height: 40rem;
+  height: 32rem;
   background-color: #476dd6;
   color: white;
   padding: 50px 30px;
@@ -26,7 +33,6 @@
 
 .item3 {
   width: 400px;
-  height: 600px;
 }
 
 .loginForm {
@@ -49,8 +55,8 @@
 }
 
 @media (max-width: 769px) {
-  .item2,
-  .item1 {
+  .item1,
+  .SignupItem {
     height: 0;
     width: 0;
     display: none;
