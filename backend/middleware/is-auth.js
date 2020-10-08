@@ -23,6 +23,6 @@ module.exports = (req, res, next) => {
   }
   req.userId = decodedToken.userId;
   req.userType = decodedToken.userType;
-  console.log("yess token" + req.userId);
+  // console.log("yess token" + req.userId);
   next();
 };

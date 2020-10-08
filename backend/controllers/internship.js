@@ -33,7 +33,7 @@ exports.addInternships = (req, res, next) => {
   location = String(location).toLowerCase();
   internshipType = String(internshipType).toLowerCase();
 
-  Employer.findById(creatorId).then((company) => {});
+  // Employer.findById(creatorId).then((company) => {});
 
   const internship = new Internship({
     creatorId: creatorId,
@@ -329,13 +329,16 @@ exports.viewresume = (req, res, next) => {
   const userId = req.params.userId;
   // console.log(__dirname);
 
+  let resumePath;
   Student.findById(userId)
     .then((data) => {
       const resumeName = "resume-" + userId + ".pdf";
 
-      const resumePath = path.join(__dirname, "../", "resume", resumeName);
+      resumePath = path.join(__dirname, "../", "resume", resumeName);
       data.resume = "resume-" + userId + ".pdf";
-      data.save();
+      return data.save();
+    })
+    .then((data) => {
       const pdfDoc = new PDFDocument();
       pdfDoc.pipe(fs.createWriteStream(resumePath));
       pdfDoc.pipe(res);
@@ -346,7 +349,9 @@ exports.viewresume = (req, res, next) => {
       pdfDoc.moveDown();
       // var imageUrl = "image/" + data.imageUrl;
       // pdfDoc.image("images/Logo.png", 180, 150, { fit: [100, 100] });
-      pdfDoc.image(data.imageUrl, 120, 110, { width: 100, height: 90 });
+
+      // TODO:fix this image in pdf bug
+      // pdfDoc.image(data.imageUrl, 120, 110, { width: 100, height: 90 });
 
       pdfDoc.moveDown();
       pdfDoc.moveDown();
@@ -401,6 +406,7 @@ exports.viewresume = (req, res, next) => {
       });
     })
     .catch((err) => {
+      console.log(err);
       if (!err.statusCode) {
         err.statusCode = 500;
       }
