@@ -6,6 +6,9 @@ const profileController = require("../controllers/profile");
 // POST => /profile/edit
 router.post("/edit", profileController.updateProfile);
 
+// POST => /profile/editmobile
+router.post("/editmobile", profileController.updateProfileMobile);
+
 // GET => /profile/view
 router.post("/view", isAuth, profileController.viewProfile);
 

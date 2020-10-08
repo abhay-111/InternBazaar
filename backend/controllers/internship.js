@@ -332,7 +332,7 @@ exports.viewresume = (req, res, next) => {
   let resumePath;
   Student.findById(userId)
     .then((data) => {
-      console.log("data1==" + data);
+      // console.log("data1==" + data);
       const resumeName = "resume-" + userId + ".pdf";
 
       resumePath = path.join(__dirname, "../", "resume", resumeName);
@@ -340,7 +340,7 @@ exports.viewresume = (req, res, next) => {
       return data.save();
     })
     .then((data) => {
-      console.log("data2=");
+      // console.log("data2=");
       // const userPdf = createPdf(resumePath, data);
       const pdfDoc = new PDFDocument();
       pdfDoc.pipe(fs.createWriteStream(resumePath));
@@ -404,7 +404,7 @@ exports.viewresume = (req, res, next) => {
       pdfDoc.fontSize(18).text("Social media links", { underline: true });
       pdfDoc.fontSize(15).text(data.links);
       console.log(data);
-      console.log("outside pdf.end");
+      // console.log("outside pdf.end");
       // console.log("you can still do stuff after res");
       res.status(200).json({ path: data.resume });
       pdfDoc.end(() => {

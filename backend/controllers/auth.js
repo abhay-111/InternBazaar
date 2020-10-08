@@ -26,12 +26,7 @@ exports.signup = (req, res, next) => {
   const email = req.body.email;
   const userType = req.body.userType;
 
-  let UserType;
-  if (userType == "student") {
-    UserType = Student;
-  } else {
-    UserType = Employer;
-  }
+  let UserType = castUser(userType);
 
   bcryct
     .hash(password, 12)
@@ -42,6 +37,7 @@ exports.signup = (req, res, next) => {
         email: email,
         password: hashedpassword,
         isVerified: "false",
+        imageUrl: "",
       });
       user.save();
 

@@ -6,19 +6,108 @@ const Internship = require("../models/Internship");
 exports.updateProfile = (req, res, next) => {
   const id = req.body.userId;
 
-  console.log(id);
+  console.log("userid=" + id);
 
   const image = req.file;
   const data = req.body;
   const userType = req.body.userType;
-  // const tokenUserId = req.body.userId;
-  console.log(data, image);
+  // const tokenUserId = req.userId;
+  console.log("data=", data);
+  console.log("image=", image);
 
   // console.log("userId=" + id, "image=" + image);
   // console.log("data=" + data, "userType=" + userType);
   // console.log("id=" + id, "tokenid=" + tokenUserId);
   // console.log(typeof id, typeof tokenUserId);
 
+  // checking if id in token matches user id
+  //TODO: SET TOKEN HERE
+  // if (tokenUserId != id) {
+  //   const error = new Error("Update request failed, token unverified");
+  //   error.statusCode = 502;
+  //   error.data = {
+  //     msg: "user not authorized, token not verified",
+  //     param: "userId",
+  //     value: id,
+  //     location: "updateProfile",
+  //   };
+  //   throw error;
+  // }
+
+  let UserType;
+  if (userType == "student") {
+    UserType = Student;
+  } else {
+    UserType = Employer;
+  }
+
+  console.log("typeof data=", typeof data);
+  // for (const key in data) {
+  //   // if (data[key] != null) user.set(key, data[key]);
+  //   console.log("key=" + key, "data=" + data[key]);
+  // }
+
+  UserType.findById(id)
+    // UserType.findByIdAndUpdate(
+    //   { _id: id },
+    //   {
+    //     $set: {
+    //       location: data.location,
+    //       about: data.about,
+    //       skills: data.skills,
+    //       jobs: data.jobs,
+    //       additional: data.additional,
+    //       location: data.location,
+    //       phone: data.phone,
+    //       links: data.links,
+    //     },
+    //   }
+    // )
+
+    // console.log(user);
+    .then((user) => {
+      console.log("founder user =" + user);
+      for (const key in data) {
+        // if (data[key] != null) user.set(key, data[key]);
+        // console.log("typeof key=", typeof key);
+        // console.log(key == "userId");
+        // console.log("key=" + key, "data=" + data[key]);
+        if (
+          key != "image" &&
+          key != "userId" &&
+          key != "userType" &&
+          key != null &&
+          data[key] != undefined &&
+          data[key] != null
+        ) {
+          // console.log("key=" + key, "data=" + data[key]);
+          // console.log("-------------------");
+          user.set(key, data[key]);
+        }
+      }
+      if (image) user.imageUrl = image.path;
+      else user.imageUrl = user.imageUrl;
+      return user.save();
+    })
+    .then((user) => {
+      res.status(200).json({
+        message: "updated user",
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.updateProfileMobile = (req, res, next) => {
+  const id = req.body.userId;
+  const data = req.body.data;
+  const userType = req.body.userType;
+
+  // const tokenUserId = req.userId;
   // checking if id in token matches user id
   // if (tokenUserId != id) {
   //   const error = new Error("Update request failed, token unverified");
@@ -39,26 +128,26 @@ exports.updateProfile = (req, res, next) => {
     UserType = Employer;
   }
 
-  UserType.findByIdAndUpdate(
-    { _id: id },
-    {
-      $set: {
-        location: data.location,
-        about: data.about,
-        skills: data.skills,
-        jobs: data.jobs,
-        additional: data.additional,
-        location: data.location,
-        phone: data.phone,
-        links: data.links,
-      },
-    }
-  )
-
-    // console.log(user);
+  UserType.findById(id)
     .then((user) => {
-      // console.log(user);
+      if (!user) {
+        const error = new Error("Update request failed");
+        error.statusCode = 422;
+        error.data = {
+          msg: "user not found",
+          param: "userId",
+          value: userId,
+          location: "updateProfile",
+        };
+        throw error;
+      }
 
+      for (const key in data) {
+        if (data[key] != null) user.set(key, data[key]);
+      }
+      return user.save();
+    })
+    .then((user) => {
       res.status(200).json({
         message: "updated user",
       });
