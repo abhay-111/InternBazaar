@@ -71,11 +71,13 @@ class Internships extends Component {
         <section className={classes.body}>
           <Container>
             <Row className={classes.Row}>
-              <Col xs={4}>
+              <Col md={4} xs={12}>
                 <CategoryList />
               </Col>
 
-              <Col xs={8}>{internships}</Col>
+              <Col md={8} xs={12}>
+                {internships}
+              </Col>
             </Row>
           </Container>
         </section>

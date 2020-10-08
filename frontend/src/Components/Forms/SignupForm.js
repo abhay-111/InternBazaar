@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 
 import Modal from "../UIelements/Modal/Modal";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Col, Row, Container } from "react-bootstrap";
 import classes from "./Forms.css";
 
 class SignupForm extends Component {
@@ -116,88 +116,91 @@ class SignupForm extends Component {
     }
     return (
       <Modal show={true}>
-        <div className={classes.gridContainer}>
-          <div className={classes.item1}>
-            <h2>Looks like you're new here!</h2>
-            <p>Signup Now to find Your dream internships!</p>
-          </div>
-          <div className={classes.item2}></div>
-          <div className={classes.item3}>
-            <Form onSubmit={this.handleSubmit} className={classes.signupForm}>
-              <Form.Group>
-                <Form.Label>Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter your Name/Organization Name"
-                  name="name"
-                  required
-                  onChange={this.handleChange}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>User Type</Form.Label>
-                <Form.Control
-                  as="select"
-                  name="userType"
-                  required
-                  onChange={this.handleChange}
+        <Container fluid className={classes.Container}>
+          <Row>
+            <Col md={5} className={classes.SignupItem}>
+              <h2>Looks like you're new here!</h2>
+              <p>Signup Now to find Your dream internships!</p>
+            </Col>
+            <Col xs={12} md={7} className={classes.item3}>
+              <Form onSubmit={this.handleSubmit} className={classes.signupForm}>
+                <Form.Group>
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter your Name/Organization Name"
+                    name="name"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>User Type</Form.Label>
+                  <Form.Control
+                    as="select"
+                    name="userType"
+                    required
+                    onChange={this.handleChange}
+                  >
+                    <option>student</option>
+                    <option>employer</option>
+                  </Form.Control>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    name="email"
+                    required
+                    onChange={this.handleChange}
+                  />
+                  <div className="text-danger">{this.state.errors.msg}</div>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Enter Password  (minimum 6 characters)"
+                    name="password"
+                    required
+                    onChange={this.handleChange}
+                  />
+                  <div className="text-danger">
+                    {this.state.errors.passwordlen}
+                  </div>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Confirm Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Re-Enter Password"
+                    name="confirmPassword"
+                    required
+                    onChange={this.handleChange}
+                  />
+                  <div className="text-danger">
+                    {this.state.errors.confirmpw}
+                  </div>
+                </Form.Group>
+
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className={classes.Button}
                 >
-                  <option>student</option>
-                  <option>employer</option>
-                </Form.Control>
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter email"
-                  name="email"
-                  required
-                  onChange={this.handleChange}
-                />
-                <div className="text-danger">{this.state.errors.msg}</div>
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter Password  (minimum 6 characters)"
-                  name="password"
-                  required
-                  onChange={this.handleChange}
-                />
-                <div className="text-danger">
-                  {this.state.errors.passwordlen}
-                </div>
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Re-Enter Password"
-                  name="confirmPassword"
-                  required
-                  onChange={this.handleChange}
-                />
-                <div className="text-danger">{this.state.errors.confirmpw}</div>
-              </Form.Group>
-
-              <Button
-                variant="primary"
-                type="submit"
-                className={classes.Button}
-              >
-                Signup
-              </Button>
-              <p>
-                Already have an account? <Link to="/login">Login!</Link>
-              </p>
-            </Form>
-          </div>
-        </div>
+                  Signup
+                </Button>
+                <p>
+                  Already have an account? <Link to="/login">Login!</Link>
+                </p>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
       </Modal>
     );
   }

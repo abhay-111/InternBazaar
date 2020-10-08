@@ -7,7 +7,7 @@ const Footer = () => {
     <div className={classes.Footer}>
       <Container fluid>
         <Row>
-          <Col sm={4}>
+          <Col xs={6}>
             <h5>Get to Know Us</h5>
             <li>
               <a href="#!">Contact Us</a>
@@ -16,7 +16,7 @@ const Footer = () => {
               <a href="#!">About Us</a>
             </li>
           </Col>
-          <Col sm={4}>
+          <Col xs={6}>
             <h5>Social</h5>
             <li>
               <a href="#!">Facebook</a>
@@ -28,17 +28,11 @@ const Footer = () => {
               <a href="#!">Instagram</a>
             </li>
           </Col>
-          <Col sm={4}>
-            <h5>Help</h5>
-            <li>
-              <a href="#!">FAQ</a>
-            </li>
-          </Col>
         </Row>
 
-        <Row className={classes.Row}>
+        <div className={classes.copy}>
           &copy; Copyright {new Date().getFullYear()} InternBazaar
-        </Row>
+        </div>
       </Container>
     </div>
   );

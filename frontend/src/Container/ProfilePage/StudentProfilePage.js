@@ -20,6 +20,7 @@ class ProfilePage extends Component {
   };
 
   componentDidMount() {
+    const userId = localStorage.getItem("userId");
     const data = {
       userId: localStorage.getItem("userId"),
       userType: localStorage.getItem("userType"),
@@ -41,15 +42,16 @@ class ProfilePage extends Component {
           <Navbar />
           <Container className={classes.body}>
             <Row>
-              <Col xs={4}>
+              <Col md={4} xs={12}>
                 <ProfileName
                   userName={this.state.user.name}
                   imageUrl={this.state.user.imageUrl}
                 />
+
                 <Sidebar />
               </Col>
 
-              <Col xs={8}>
+              <Col md={8} xs={12}>
                 <Switch>
                   <Route path="/student" exact component={PlaceholderImage} />
                   <Route

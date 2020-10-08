@@ -41,13 +41,7 @@ class PostedInternships extends Component {
     return (
       <Card className={classes.card}>
         <Card.Body>
-          <Card.Title
-            style={{
-              textAlign: "center",
-              fontSize: "1.5rem",
-              fontWeight: "bold",
-            }}
-          >
+          <Card.Title className={classes.cardHeading}>
             POSTED INTERNSHIPS
           </Card.Title>
           <Table responsive="sm">

@@ -10,6 +10,7 @@ class EditDetails extends Component {
     this.state = {
       input: {
         name: "",
+        email: "",
         about: "",
       },
       image: "",
@@ -38,6 +39,7 @@ class EditDetails extends Component {
     event.preventDefault();
     const data = {
       name: this.state.input.name || this.state.data.name,
+      email: this.state.input.email || this.state.data.email,
       about: this.state.input.about || this.state.data.about,
       userId: localStorage.getItem("userId"),
       userType: localStorage.getItem("userType"),
@@ -54,6 +56,7 @@ class EditDetails extends Component {
       .then((response) => {
         console.log(response);
         if (response.status === 200) alert("Organization Details Updated!");
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err.response);
@@ -79,15 +82,7 @@ class EditDetails extends Component {
     return (
       <Card className={classes.card}>
         <Card.Body>
-          <Card.Title
-            style={{
-              textAlign: "center",
-              fontSize: "1.5rem",
-              fontWeight: "bold",
-            }}
-          >
-            EDIT ORGANIZATION DETAILS
-          </Card.Title>
+          <Card.Title className={classes.cardHeading}>EDIT DETAILS</Card.Title>
           <Form onSubmit={this.handleSubmit}>
             <Form.Group>
               <Form.Label>Organization Name</Form.Label>
@@ -96,6 +91,19 @@ class EditDetails extends Component {
                 placeholder="Enter the name of your organization"
                 defaultValue={this.state.data.name}
                 name="name"
+                required
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>E-mail</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter E-mail"
+                disabled
+                value={this.state.data.email}
+                name="email"
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -107,6 +115,7 @@ class EditDetails extends Component {
                 rows="3"
                 placeholder="Enter the description of your organization"
                 defaultValue={this.state.data.about}
+                required
                 name="about"
                 onChange={this.handleChange}
               />

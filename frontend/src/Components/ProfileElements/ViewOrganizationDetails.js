@@ -27,25 +27,17 @@ class ViewOrganizationDetails extends Component {
   render() {
     return (
       <Card className={classes.card}>
-        <Card.Body>
-          <Card.Title
-            style={{
-              textAlign: "center",
-              fontSize: "1.5rem",
-              fontWeight: "bold",
-            }}
-          >
-            ORGANZATION DETAILS
+        <Card.Body style={{ paddingRight: "2.5rem" }}>
+          <Card.Title className={classes.cardHeading}>
+            ORGANIZATION DETAILS
           </Card.Title>
           <Container className={classes.data}>
-            <Row>
+            <Row className={classes.OrganizationName}>
               <h4>Organization Name : </h4> <span>{this.state.data.name}</span>
             </Row>
-            <Row>
+            <Row className={classes.OrganizationDescription}>
               <h4>Organization Description : </h4>{" "}
-              <span style={{ paddingRight: "1rem" }}>
-                {this.state.data.about}
-              </span>
+              <span>{this.state.data.about}</span>
             </Row>
           </Container>
         </Card.Body>

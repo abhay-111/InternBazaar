@@ -32,7 +32,7 @@ class InternshipCard extends Component {
             count={5}
             onChange={this.ratingChanged}
             isHalf={true}
-            size={30}
+            size={24}
             activeColor="#0388fc"
           />
         </span>
@@ -50,7 +50,7 @@ class InternshipCard extends Component {
                 {this.props.companyName}{" "}
               </Card.Subtitle>
               <Card.Text>{this.props.description}</Card.Text>
-              <Table responsive="md" className={classes.table}>
+              <Table responsive="lg" className={classes.table}>
                 <tbody>
                   <tr className={classes.heading}>
                     <td>Location</td>

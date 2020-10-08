@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import Modal from "../UIelements/Modal/Modal";
 import classes from "./Forms.css";
@@ -137,68 +137,70 @@ class StudentLoginForm extends Component {
 
     return (
       <Modal show={true}>
-        <div className={classes.gridContainer}>
-          <div className={classes.item1}>
-            <h2>Welcome Back Employer!</h2>
-            <p>
-              Login to gain access to hundreds of opportunities waiting for you!
-            </p>
-          </div>
-          <div className={classes.item2}></div>
-          <div className={classes.item3}>
-            <Form onSubmit={this.handleSubmit} className={classes.loginForm}>
-              <div className="text-danger">{this.state.errors.error}</div>
-
-              <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter email"
-                  name="email"
-                  onChange={this.handleChange}
-                  required
-                  className={classes.shadow}
-                />
-                <div className="text-danger">{this.state.errors.msg}</div>
-              </Form.Group>
-
-              <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter Password"
-                  name="password"
-                  onChange={this.handleChange}
-                  required
-                  className={classes.shadow}
-                />
-                <span>
-                  <Link
-                    to={{
-                      pathname: "/forgotpassword",
-                      state: {
-                        userType: "employer",
-                      },
-                    }}
-                  >
-                    Forgot Password?
-                  </Link>
-                </span>
-              </Form.Group>
-
-              <Button
-                variant="primary"
-                type="submit"
-                className={classes.Button}
-              >
-                Login
-              </Button>
+        <Container fluid className={classes.Container}>
+          <Row>
+            <Col md={5} className={classes.SignupItem}>
+              <h2>Welcome Back Employer!</h2>
               <p>
-                Don't have an account? <Link to="/signup">Sign up!</Link>
+                Login to gain access to hundreds of opportunities waiting for
+                you!
               </p>
-            </Form>
-          </div>
-        </div>
+            </Col>
+            <Col xs={12} md={7} className={classes.item3}>
+              <Form onSubmit={this.handleSubmit} className={classes.loginForm}>
+                <div className="text-danger">{this.state.errors.error}</div>
+
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    name="email"
+                    onChange={this.handleChange}
+                    required
+                    className={classes.shadow}
+                  />
+                  <div className="text-danger">{this.state.errors.msg}</div>
+                </Form.Group>
+
+                <Form.Group controlId="formBasicPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Enter Password"
+                    name="password"
+                    onChange={this.handleChange}
+                    required
+                    className={classes.shadow}
+                  />
+                  <span>
+                    <Link
+                      to={{
+                        pathname: "/forgotpassword",
+                        state: {
+                          userType: "employer",
+                        },
+                      }}
+                    >
+                      Forgot Password?
+                    </Link>
+                  </span>
+                </Form.Group>
+
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className={classes.Button}
+                >
+                  Login
+                </Button>
+                <p>
+                  Don't have an account? <Link to="/signup">Sign up!</Link>
+                </p>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
       </Modal>
     );
   }

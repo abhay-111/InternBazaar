@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col } from "react-bootstrap";
 
 import WFH from "../../assets/internshipLogos/wfh.svg";
 import NCR from "../../assets/internshipLogos/delhi_ncr.svg";
@@ -33,61 +32,59 @@ class Location extends Component {
     //   return <Redirect to={this.state.redirect} />;
     // }
     return (
-      <Row>
-        <Col>
-          <div className={classes.heading}>Internships by location</div>
-          <Row className={classes.Container}>
-            <Link to="/internships/location/wfh">
-              <div>
-                <img src={WFH} alt="" name="wfh" />
-                <h6>Work from home</h6>
-              </div>
-            </Link>
-            <Link to="/internships/location/delhi">
-              <div>
-                <img src={NCR} alt="" />
-                <h6>Delhi/NCR</h6>
-              </div>
-            </Link>
-            <Link to="/internships/location/bangalore">
-              <div>
-                <img src={Bangalore} alt="bangalore" />
-                <h6>Bangalore</h6>
-              </div>
-            </Link>
-            <Link to="/internships/location/mumbai">
-              <div>
-                <img src={Mumbai} alt="" name="mumbai" />
-                <h6>Mumbai</h6>
-              </div>
-            </Link>
-            <Link to="/internships/location/hyderabad">
-              <div>
-                <img src={Hyderabad} alt="" name="hyderabad" />
-                <h6>Hyderabad</h6>
-              </div>
-            </Link>
-            <Link to="/internships/location/chennai">
-              <div>
-                <img src={Chennai} alt="" name="chennai" />
-                <h6>Chennai</h6>
-              </div>
-            </Link>
-            <Link to="/internships/location/kolkata">
-              <div>
-                <img src={Kolkata} alt="" />
-                <h6>Kolkata</h6>
-              </div>
-            </Link>
-            <Link to="/internships/location/international">
-              <div>
-                <img src={International} alt="" />
-                <h6>International</h6>
-              </div>
-            </Link>
-          </Row>
-        </Col>
-      </Row>
+      <React.Fragment>
+        <div className={classes.heading}>Internships by location</div>
+        <div className={classes.Container}>
+          <Link to="/internships/location/wfh">
+            <div>
+              <img src={WFH} alt="" name="wfh" />
+              <h6>Work from home</h6>
+            </div>
+          </Link>
+          <Link to="/internships/location/delhi">
+            <div>
+              <img src={NCR} alt="" />
+              <h6>Delhi/NCR</h6>
+            </div>
+          </Link>
+          <Link to="/internships/location/bangalore">
+            <div>
+              <img src={Bangalore} alt="bangalore" />
+              <h6>Bangalore</h6>
+            </div>
+          </Link>
+          <Link to="/internships/location/mumbai">
+            <div>
+              <img src={Mumbai} alt="" name="mumbai" />
+              <h6>Mumbai</h6>
+            </div>
+          </Link>
+          <Link to="/internships/location/hyderabad">
+            <div>
+              <img src={Hyderabad} alt="" name="hyderabad" />
+              <h6>Hyderabad</h6>
+            </div>
+          </Link>
+          <Link to="/internships/location/chennai">
+            <div>
+              <img src={Chennai} alt="" name="chennai" />
+              <h6>Chennai</h6>
+            </div>
+          </Link>
+          <Link to="/internships/location/kolkata">
+            <div>
+              <img src={Kolkata} alt="" />
+              <h6>Kolkata</h6>
+            </div>
+          </Link>
+          <Link to="/internships/location/international">
+            <div>
+              <img src={International} alt="" />
+              <h6>International</h6>
+            </div>
+          </Link>
+        </div>
+      </React.Fragment>
     );
   }
 }

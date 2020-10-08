@@ -17,16 +17,8 @@ class ProfileName extends Component {
                   alt=""
                 />
               </Col>
-              <Col>
-                <Card.Text
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: "1.2em",
-                  }}
-                >
-                  Welcome, <br />
-                  {this.props.userName}
-                </Card.Text>
+              <Col xs={8}>
+                <p className={classes.profileName}>{this.props.userName}</p>
               </Col>
             </Row>
           </Container>

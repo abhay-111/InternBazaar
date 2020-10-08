@@ -33,3 +33,7 @@
   font-size: 2.5rem;
   font-weight: 700;
 }
+
+.carouselItem img {
+  min-height: 5rem !important;
+}

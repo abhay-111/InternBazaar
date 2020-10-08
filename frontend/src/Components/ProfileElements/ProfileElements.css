@@ -32,6 +32,14 @@
 
 .data span {
   font-size: 1.2rem;
+  padding-right: 1rem;
+}
+
+.OrganizationName {
+  font-size: 1.4rem;
+}
+
+.OrganizationName span {
   padding-left: 1rem;
 }
 
@@ -45,4 +53,42 @@
 .profileImage {
   max-width: 80%;
   max-height: 100%;
+}
+
+.profileName {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.cardHeading {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+@media (max-width: 425px) {
+  .heading {
+    font-size: 0.8rem;
+    padding: 2px;
+  }
+  .profileName {
+    font-size: 1rem;
+  }
+  .cardHeading {
+    font-size: 1.2rem;
+  }
+  .data {
+    margin: 5px;
+    padding-left: 1rem;
+    padding-right: 0;
+  }
+  .OrganizationName span,
+  .OrganizationDescription span {
+    font-size: 1.1rem;
+  }
+  .OrganizationName h4,
+  .OrganizationDescription h4 {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
 }

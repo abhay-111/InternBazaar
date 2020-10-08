@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = "http://localhost:8080/";
+//const BASE_URL = "https://internbazaar.herokuapp.com/";
 
 class ServerService {
   studentLogin(data) {
@@ -15,7 +16,7 @@ class ServerService {
     return axios.post(BASE_URL + "profile/edit", data, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
-        "Content-Type": "multipart/form-data",
+        //"Content-Type": "multipart/form-data",
         // "Access-Control-Allow-Origin": "*",
       },
     });
