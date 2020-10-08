@@ -18,7 +18,6 @@
   border-radius: 10px;
 }
 .item1 {
-  height: 32rem;
   background-color: #476dd6;
   color: white;
   padding: 50px 30px;
@@ -32,11 +31,12 @@
 }
 
 .item3 {
+  min-height: 35rem;
   width: 400px;
 }
 
 .loginForm {
-  margin-top: 50%;
+  margin-top: 25%;
 }
 
 .signupForm {
@@ -54,7 +54,7 @@
   border-radius: 5px;
 }
 
-@media (max-width: 769px) {
+@media (max-width: 768px) {
   .item1,
   .SignupItem {
     height: 0;
@@ -62,7 +62,27 @@
     display: none;
   }
   .item3 {
-    height: 100%;
+    min-height: 20rem;
+
     width: 100%;
+  }
+  .loginForm,
+  .signupForm {
+    margin-top: 10%;
+  }
+}
+
+@media (max-width: 425px) {
+  .item3 Form {
+    font-size: 90% !important;
+  }
+  .item3 p {
+    margin-left: 0;
+  }
+  .Button {
+    width: 70%;
+    font-size: 100%;
+    margin: 5%;
+    margin-left: 13%;
   }
 }

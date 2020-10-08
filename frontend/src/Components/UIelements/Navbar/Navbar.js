@@ -1,33 +1,24 @@
 import React, { Component } from "react";
 import classes from "./Navbar.css";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import userIcon from "../../../assets/alt.png";
 import logo from "../../../assets/logo.png";
 
-class LoggedoutNavBar extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     redirect: null,
-  //   };
-  // }
-
+class NavBar extends Component {
   logoutHandler = () => {
     localStorage.clear();
-    //this.setState({ redirect: "/" });
+
     window.location.href = "/";
   };
 
   render() {
-    // if (this.state.redirect) {
-    //   return <Redirect to={this.state.redirect} />;
-    // }
-
     let token = localStorage.getItem("token");
     let Auth = false;
     if (token != null) {
-      if (token !== "undefined") Auth = true;
+      if (token !== "undefined") {
+        Auth = true;
+      }
     }
 
     let path;
@@ -65,9 +56,9 @@ class LoggedoutNavBar extends Component {
               >
                 <img src={userIcon} alt="" />
               </Link>
-              <a className={classes.Navlink} onClick={this.logoutHandler}>
+              <Link className={classes.Navlink} onClick={this.logoutHandler}>
                 Logout
-              </a>
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -115,4 +106,4 @@ class LoggedoutNavBar extends Component {
   }
 }
 
-export default LoggedoutNavBar;
+export default NavBar;
