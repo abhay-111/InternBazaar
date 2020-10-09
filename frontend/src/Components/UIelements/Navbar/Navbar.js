@@ -56,7 +56,11 @@ class NavBar extends Component {
               >
                 <img src={userIcon} alt="" />
               </Link>
-              <Link className={classes.Navlink} onClick={this.logoutHandler}>
+              <Link
+                to="/"
+                className={classes.Navlink}
+                onClick={this.logoutHandler}
+              >
                 Logout
               </Link>
             </Nav>
@@ -86,12 +90,12 @@ class NavBar extends Component {
                 id="collasible-nav-dropdown"
                 className={classes.Dropdown}
               >
-                <NavDropdown.Item>
-                  <Link to="/studentlogin">As a student</Link>
+                <NavDropdown.Item as={Link} to="/studentlogin">
+                  As a student
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item>
-                  <Link to="/employerlogin">As an employer</Link>
+                <NavDropdown.Item as={Link} to="/employerlogin">
+                  As an employer
                 </NavDropdown.Item>
               </NavDropdown>
 

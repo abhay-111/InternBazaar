@@ -142,8 +142,8 @@ class StudentLoginForm extends Component {
             <Col md={5} className={classes.SignupItem}>
               <h2>Welcome Back Employer!</h2>
               <p>
-                Login to gain access to hundreds of opportunities waiting for
-                you!
+                Hire the best interns, Register and post your internship for
+                free now!
               </p>
             </Col>
             <Col xs={12} md={7} className={classes.item3}>
