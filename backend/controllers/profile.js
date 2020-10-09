@@ -1,7 +1,7 @@
 const { body } = require("express-validator");
 const Student = require("../models/User");
 const Employer = require("../models/Company");
-const Internship = require("../models/Internship");
+const Internship = require("../models/internship");
 
 exports.updateProfile = (req, res, next) => {
   const id = req.body.userId;

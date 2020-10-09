@@ -1,4 +1,4 @@
-const Internship = require("../models/Internship");
+const Internship = require("../models/internship");
 const { validationResult } = require("express-validator/check");
 const Student = require("../models/User");
 const Employer = require("../models/Company");

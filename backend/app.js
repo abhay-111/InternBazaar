@@ -78,9 +78,9 @@ mongoose
     useNewUrlParser: true,
   })
   .then((result) => {
-    app.listen(8080);
-
-    console.log("Server up and running");
+    let port = process.env.PORT || 8080;
+    app.listen(port);
+    console.log("Server up and running on port " + port);
   })
   .catch((err) => {
     console.log(err);
