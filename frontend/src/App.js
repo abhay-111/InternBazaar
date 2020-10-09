@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 import LandingPage from "./Container/LandingPage/LandingPage";
 import StudentLoginForm from "./Components/Forms/StudentLoginForm";
@@ -25,7 +25,7 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <BrowserRouter>
         <Switch>
           <Route
             path="/internships/category/:id"
@@ -86,7 +86,7 @@ class App extends Component {
         <Route path="/signup" exact component={SignupForm} />
         <Route path="/verifyotp" exact component={OtpPage} />
         <Route path="/forgotpassword" exact component={ForgotPassword} />
-      </React.Fragment>
+      </BrowserRouter>
     );
   }
 }

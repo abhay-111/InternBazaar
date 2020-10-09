@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 import classes from "./Navbar.css";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import userIcon from "../../../assets/alt.png";
 import logo from "../../../assets/logo.png";
 
 class NavBar extends Component {
-  logoutHandler = () => {
-    localStorage.clear();
-
-    window.location.href = "/";
-  };
-
   render() {
     let token = localStorage.getItem("token");
     let Auth = false;
@@ -39,9 +33,9 @@ class NavBar extends Component {
           className={classes.Navbar}
         >
           <Navbar.Brand>
-            <a href={path}>
+            <Link to={path}>
               <img src={logo} alt="" className={classes.logo} />
-            </a>
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -59,7 +53,7 @@ class NavBar extends Component {
               <Link
                 to="/"
                 className={classes.Navlink}
-                onClick={this.logoutHandler}
+                onClick={() => localStorage.clear()}
               >
                 Logout
               </Link>

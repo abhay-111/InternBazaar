@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import ReactStars from "react-rating-stars-component";
 import { Row, Card, Table } from "react-bootstrap";
+
 import { Link } from "react-router-dom";
 import classes from "./Internships.css";
 import ServerService from "../../Services/ServerService";
 
 class InternshipCard extends Component {
+  applyLater = () => {};
+
   ratingChanged = (newRating) => {
     const data = {
       internshipId: this.props.id,
@@ -24,7 +27,7 @@ class InternshipCard extends Component {
   };
 
   render() {
-    let ratings;
+    let ratings, button;
     if (localStorage.getItem("userType") === "student") {
       ratings = (
         <span>
@@ -44,7 +47,19 @@ class InternshipCard extends Component {
         <Row className={classes.Row}>
           <Card className={classes.internshipCard}>
             <Card.Body>
-              <Card.Title> {this.props.title} </Card.Title>
+              <Card.Title>
+                {" "}
+                {this.props.title}{" "}
+                <span>
+                  <ReactStars
+                    count={this.props.avgrating}
+                    isHalf={true}
+                    size={16}
+                    edit={false}
+                    color="#fcf91c"
+                  />{" "}
+                </span>{" "}
+              </Card.Title>{" "}
               <Card.Subtitle className="mb-2 text-muted">
                 {" "}
                 {this.props.companyName}{" "}

@@ -37,6 +37,18 @@ class StudentSidebar extends Component {
               <span className={classes.heading}>MY APPLICATIONS</span>
             </div>
           </Link>
+          <Link to="/internships/category/engineering">
+            <div className={classes.link}>
+              <img src={lists} className={classes.icon} alt="" />
+              <span className={classes.heading}>GO TO INTERNSHIPS</span>
+            </div>
+          </Link>
+          <Link to="/student/saved">
+            <div className={classes.link}>
+              <img src={lists} className={classes.icon} alt="" />
+              <span className={classes.heading}>SAVED FOR LATER</span>
+            </div>
+          </Link>
         </Card.Body>
       </Card>
     );

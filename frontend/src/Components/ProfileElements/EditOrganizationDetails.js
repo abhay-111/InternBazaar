@@ -56,7 +56,7 @@ class EditDetails extends Component {
       .then((response) => {
         console.log(response);
         if (response.status === 200) alert("Organization Details Updated!");
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((err) => {
         console.log(err.response);

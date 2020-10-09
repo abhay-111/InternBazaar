@@ -15,7 +15,7 @@ class PostedInternshipRow extends Component {
       .then((response) => {
         console.log(response);
         alert(response.data.msg);
-        window.location.reload();
+        //window.location.reload();
         //this.forceUpdate;
       })
       .catch((err) => {
