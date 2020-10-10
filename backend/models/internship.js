@@ -80,6 +80,7 @@ const InternshipSchema = new Schema({
   },
   avgrating: {
     type: Number,
+    default: 0,
   },
   creatorImage: String,
   rater: [

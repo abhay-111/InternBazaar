@@ -153,7 +153,7 @@ exports.rateInternship = (req, res, next) => {
     });
     console.log(total / result.rater.length);
 
-    result.avgrating = total / result.rater.length;
+    result.avgrating = Math.round(total / result.rater.length);
     // result.rating.rater++;
     // result.rating.ratings.push(newrating);
     // result.rating.ratings[0] += result.rating.ratings[1];
@@ -589,23 +589,46 @@ exports.bookmarkInternship = (req, res, next) => {
       throw error;
     }
 
-    User.findById(userId).then((user) => {
-      user.bookmark.push({
-        internshipId: internship._id,
-        title: internship.title,
-      });
-
-      user
-        .save()
-        .then((data) => {
-          res.status(200).json({
-            message: " bookmarks Added",
-          });
-        })
-        .catch((err) => {
-          console.log(err);
+    User.findById(userId)
+      .then((user) => {
+        user.bookmark.forEach((bookmark) => {
+          if (bookmark.internshipId === internshipId) {
+            const error = new Error("Already Bookmarked");
+            error.status = 401;
+            error.data = {
+              msg: "already bookmaked found",
+              param: "internshipId",
+              location: "bookmarkinternship",
+            };
+            throw error;
+          }
         });
-    });
+
+        user.bookmark.push({
+          internshipId: internship._id,
+          title: internship.title,
+        });
+
+        user
+          .save()
+          .then((data) => {
+            res.status(200).json({
+              message: " bookmarks Added",
+            });
+          })
+          .catch((err) => {
+            if (!err.statusCode) {
+              err.statusCode = 500;
+            }
+            next(err);
+          });
+      })
+      .catch((err) => {
+        if (!err.statusCode) {
+          err.statusCode = 500;
+        }
+        next(err);
+      });
   });
 };
 
@@ -618,11 +641,19 @@ exports.deleteBookmarks = (req, res, next) => {
     );
 
     user.bookmark.splice(0, 1);
-    user.save().then((data) => {
-      res.status(200).json({
-        message: "Bookmark deleted",
+    user
+      .save()
+      .then((data) => {
+        res.status(200).json({
+          message: "Bookmark deleted",
+        });
+      })
+      .catch((err) => {
+        if (!err.statusCode) {
+          err.statusCode = 500;
+        }
+        next(err);
       });
-    });
   });
 };
 
