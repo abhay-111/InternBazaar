@@ -1,4 +1,6 @@
 const { body } = require("express-validator");
+const base64ToImage = require("base64-to-image");
+const path = require("path");
 const Student = require("../models/User");
 const Employer = require("../models/Company");
 const Internship = require("../models/internship");
@@ -41,10 +43,10 @@ exports.updateProfile = (req, res, next) => {
     UserType = Employer;
   }
 
-  console.log("typeof data=", typeof data);
+  // console.log("typeof data=", typeof data);
   // for (const key in data) {
   //   // if (data[key] != null) user.set(key, data[key]);
-  //   console.log("key=" + key, "data=" + data[key]);
+  // console.log("key=" + key, "data=" + data[key]);
   // }
 
   UserType.findById(id)
@@ -136,15 +138,33 @@ exports.updateProfileMobile = (req, res, next) => {
         error.data = {
           msg: "user not found",
           param: "userId",
-          value: userId,
+          value: id,
           location: "updateProfile",
         };
         throw error;
       }
-
       for (const key in data) {
-        if (data[key] != null) user.set(key, data[key]);
+        // console.log("key=" + key, "data=" + data[key]);
+        if (data[key] != null && key != "image") user.set(key, data[key]);
       }
+      var paths = path.join(__dirname, "..", "images");
+
+      //saving the image in the database
+      if (data.image) {
+        var base64Str = data.image;
+        var pathToImage = path.join(__dirname, "..", "images", "Logo-");
+        var optionalObj = { fileName: id };
+        base64ToImage(base64Str, pathToImage, optionalObj);
+
+        //extracting the type of the image
+        var matches = data.image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+        var type = matches[1].split("/")[1];
+        // console.log(type);
+        user.imageUrl = "images/Logo-" + id + "." + type;
+
+        // console.log("image saved");
+      }
+
       return user.save();
     })
     .then((user) => {
