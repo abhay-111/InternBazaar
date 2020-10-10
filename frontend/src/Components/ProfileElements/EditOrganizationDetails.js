@@ -100,11 +100,8 @@ class EditDetails extends Component {
               <Form.Label>E-mail</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter E-mail"
+                defaultValue={this.state.data.email}
                 disabled
-                value={this.state.data.email}
-                name="email"
-                onChange={this.handleChange}
               />
             </Form.Group>
 

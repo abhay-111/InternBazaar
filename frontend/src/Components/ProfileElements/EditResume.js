@@ -73,7 +73,6 @@ class EditResume extends Component {
       .then((response) => {
         console.log(response);
         alert("resume updated");
-        //this.forceUpdate();
         // window.location.reload();
       })
       .catch((err) => {
@@ -112,7 +111,7 @@ class EditResume extends Component {
                 placeholder="Enter name"
                 name="name"
                 disabled
-                value={this.state.data.name}
+                defaultValue={this.state.data.name}
               />
             </Form.Group>
 
@@ -123,7 +122,7 @@ class EditResume extends Component {
                 placeholder="Enter E-mail"
                 name="email"
                 disabled
-                value={this.state.data.email}
+                defaultValue={this.state.data.email}
               />
             </Form.Group>
 

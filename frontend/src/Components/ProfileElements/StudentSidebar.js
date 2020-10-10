@@ -7,6 +7,8 @@ import user from "../../assets/user.svg";
 import lists from "../../assets/list.svg";
 import checklists from "../../assets/checklists.svg";
 import files from "../../assets/files.svg";
+import goto from "../../assets/goto.svg";
+import save from "../../assets/save.svg";
 
 class StudentSidebar extends Component {
   render() {
@@ -39,13 +41,13 @@ class StudentSidebar extends Component {
           </Link>
           <Link to="/internships/category/engineering">
             <div className={classes.link}>
-              <img src={lists} className={classes.icon} alt="" />
+              <img src={goto} className={classes.icon} alt="" />
               <span className={classes.heading}>GO TO INTERNSHIPS</span>
             </div>
           </Link>
           <Link to="/student/saved">
             <div className={classes.link}>
-              <img src={lists} className={classes.icon} alt="" />
+              <img src={save} className={classes.icon} alt="" />
               <span className={classes.heading}>SAVED FOR LATER</span>
             </div>
           </Link>

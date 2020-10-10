@@ -27,7 +27,7 @@ class InternshipCard extends Component {
   };
 
   render() {
-    let ratings, button;
+    let ratings;
     if (localStorage.getItem("userType") === "student") {
       ratings = (
         <span>

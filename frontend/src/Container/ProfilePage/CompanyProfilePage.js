@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import classes from "./ProfilePage.css";
 import Navbar from "../../Components/UIelements/Navbar/Navbar";

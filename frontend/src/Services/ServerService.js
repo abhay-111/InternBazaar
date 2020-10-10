@@ -133,6 +133,18 @@ class ServerService {
   resendOtp(data) {
     return axios.post(BASE_URL + "auth/resendOtp", data);
   }
+
+  saveInternship(data) {
+    return axios.post(BASE_URL + "internship/bookmark", data);
+  }
+
+  getSavedInternships(userId) {
+    return axios.post(BASE_URL + "internship/getbookmarks", userId);
+  }
+
+  deleteBookmark(data) {
+    return axios.post(BASE_URL + "internship/deletebookmark", data);
+  }
 }
 
 export default new ServerService();

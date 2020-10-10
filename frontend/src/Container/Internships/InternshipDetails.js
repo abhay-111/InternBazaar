@@ -47,6 +47,24 @@ class InternshipDetails extends Component {
     } else this.setState({ redirect: "/studentlogin" });
   };
 
+  saveHandler = () => {
+    const internshipId = this.state.data._id;
+    const userId = localStorage.getItem("userId");
+    const data = {
+      internshipId: internshipId,
+      userId: userId,
+    };
+    ServerService.saveInternship(data)
+      .then((response) => {
+        // console.log(response);
+        alert("Internship Saved!");
+      })
+      .catch((err) => {
+        console.log(err.response);
+        alert("Already Saved!");
+      });
+  };
+
   render() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
@@ -67,9 +85,10 @@ class InternshipDetails extends Component {
     const Perks = this.state.data.perks;
     const vacancy = this.state.data.vacancy;
 
-    let applyNow;
+    let applyNow, save;
     if (localStorage.getItem("userType") === "employer") {
       applyNow = null;
+      save = null;
     } else {
       applyNow = (
         <Button
@@ -79,6 +98,11 @@ class InternshipDetails extends Component {
           onClick={this.ApplyHandler}
         >
           Apply Now
+        </Button>
+      );
+      save = (
+        <Button variant="outline-info" onClick={this.saveHandler}>
+          Save
         </Button>
       );
     }
@@ -92,7 +116,10 @@ class InternshipDetails extends Component {
               <Col xs={12}>
                 <Card className={classes.shadow}>
                   <Card.Body>
-                    <Card.Title> {title} </Card.Title>
+                    <Card.Title>
+                      {" "}
+                      {title} <span> {save} </span>{" "}
+                    </Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">
                       {companyName}
                     </Card.Subtitle>
