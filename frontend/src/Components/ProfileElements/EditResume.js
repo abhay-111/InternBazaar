@@ -74,7 +74,7 @@ class EditResume extends Component {
         console.log(response);
         alert("resume updated");
         //this.forceUpdate();
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((err) => {
         console.log(err.response);

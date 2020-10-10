@@ -39,62 +39,60 @@ class CompanyProfilePage extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <section className={classes.body}>
-          <Navbar />
-          <Container className={classes.body}>
-            <Row>
-              <Col md={4} xs={12}>
-                <ProfileName
-                  userName={this.state.user.name}
-                  imageUrl={this.state.user.imageUrl}
-                />
-                <CompanySidebar />
-              </Col>
+      <section className={classes.body}>
+        <Navbar />
+        <Container className={classes.body}>
+          <Row>
+            <Col md={4} xs={12}>
+              <ProfileName
+                userName={this.state.user.name}
+                imageUrl={this.state.user.imageUrl}
+              />
+              <CompanySidebar />
+            </Col>
 
-              <Col md={8} xs={12}>
-                <Switch>
-                  <Route path="/employer" exact component={PlaceholderImage} />
-                  <Route path="/employer/edit" exact component={EditDetails} />
-                  <Route
-                    path="/employer/details"
-                    exact
-                    component={ViewOrganizationDetails}
-                  />
-                  <Route
-                    path="/employer/password"
-                    exact
-                    component={ChangePassword}
-                  />
-                  <Route
-                    path="/employer/posted"
-                    exact
-                    component={PostedInternships}
-                  />
-                  <Route
-                    path="/employer/applicants"
-                    exact
-                    component={Applicants}
-                  />
-                  <Route
-                    path="/employer/editinternship"
-                    exact
-                    component={EditInternship}
-                  />
-                  <Route
-                    path="/employer/post"
-                    exact
-                    component={() => (
-                      <PostInternship userName={this.state.user.name} />
-                    )}
-                  />
-                </Switch>
-              </Col>
-            </Row>
-          </Container>
-          <Footer />
-        </section>
-      </BrowserRouter>
+            <Col md={8} xs={12}>
+              <Switch>
+                <Route path="/employer" exact component={PlaceholderImage} />
+                <Route path="/employer/edit" exact component={EditDetails} />
+                <Route
+                  path="/employer/details"
+                  exact
+                  component={ViewOrganizationDetails}
+                />
+                <Route
+                  path="/employer/password"
+                  exact
+                  component={ChangePassword}
+                />
+                <Route
+                  path="/employer/posted"
+                  exact
+                  component={PostedInternships}
+                />
+                <Route
+                  path="/employer/applicants"
+                  exact
+                  component={Applicants}
+                />
+                <Route
+                  path="/employer/editinternship"
+                  exact
+                  component={EditInternship}
+                />
+                <Route
+                  path="/employer/post"
+                  exact
+                  component={() => (
+                    <PostInternship userName={this.state.user.name} />
+                  )}
+                />
+              </Switch>
+            </Col>
+          </Row>
+        </Container>
+        <Footer />
+      </section>
     );
   }
 }

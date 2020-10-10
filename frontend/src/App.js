@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 import LandingPage from "./Container/LandingPage/LandingPage";
 import StudentLoginForm from "./Components/Forms/StudentLoginForm";
@@ -15,9 +15,17 @@ import StudentProfilePage from "./Container/ProfilePage/StudentProfilePage";
 import CompanyProfilePage from "./Container/ProfilePage/CompanyProfilePage";
 
 class App extends Component {
+  Auth = (token) => {
+    if (token != null) {
+      if (token !== "undefined") {
+        return true;
+      }
+    } else return false;
+  };
+
   render() {
     return (
-      <div>
+      <BrowserRouter>
         <Switch>
           <Route
             path="/internships/category/:id"
@@ -35,9 +43,42 @@ class App extends Component {
             component={InternshipDetails}
           />
           <Route path="/resetpassword/:token" exact component={NewPassword} />
-          <Route path="/employer" component={CompanyProfilePage} />
-          <Route path="/student" component={StudentProfilePage} />
-          <Route path="/" component={LandingPage} />
+          <Route
+            path="/employer"
+            component={() => {
+              if (this.Auth(localStorage.getItem("token"))) {
+                if (localStorage.getItem("userType") === "employer")
+                  return <CompanyProfilePage />;
+                else return <Redirect to="/student" />;
+              } else {
+                return <Redirect to="/employerlogin" />;
+              }
+            }}
+          />
+          <Route
+            path="/student"
+            component={() => {
+              if (this.Auth(localStorage.getItem("token"))) {
+                if (localStorage.getItem("userType") === "student")
+                  return <StudentProfilePage />;
+                else return <Redirect to="/employer" />;
+              } else {
+                return <Redirect to="/studentlogin" />;
+              }
+            }}
+          />
+          <Route
+            path="/"
+            component={() => {
+              if (this.Auth(localStorage.getItem("token"))) {
+                if (localStorage.getItem("userType") === "student")
+                  return <LandingPage />;
+                else return <Redirect to="/employer" />;
+              } else {
+                return <LandingPage />;
+              }
+            }}
+          />
         </Switch>
 
         <Route path="/studentlogin" exact component={StudentLoginForm} />
@@ -45,7 +86,7 @@ class App extends Component {
         <Route path="/signup" exact component={SignupForm} />
         <Route path="/verifyotp" exact component={OtpPage} />
         <Route path="/forgotpassword" exact component={ForgotPassword} />
-      </div>
+      </BrowserRouter>
     );
   }
 }

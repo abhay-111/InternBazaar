@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import classes from "./ProfilePage.css";
 import Navbar from "../../Components/UIelements/Navbar/Navbar";
@@ -12,6 +12,7 @@ import MyApplications from "../../Components/ProfileElements/MyApplications";
 import ViewResume from "../../Components/ProfileElements/ViewResume";
 import ServerService from "../../Services/ServerService";
 import ChangePassword from "../../Components/ProfileElements/ChangePassword";
+import SavedForLater from "../../Components/ProfileElements/savedInternships/SavedForLater";
 import PlaceholderImage from "../../Components/ProfileElements/PlaceholderImage";
 
 class ProfilePage extends Component {
@@ -37,48 +38,45 @@ class ProfilePage extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <section className={classes.body}>
-          <Navbar />
-          <Container className={classes.body}>
-            <Row>
-              <Col md={4} xs={12}>
-                <ProfileName
-                  userName={this.state.user.name}
-                  imageUrl={this.state.user.imageUrl}
+      <section className={classes.body}>
+        <Navbar />
+        <Container className={classes.body}>
+          <Row>
+            <Col md={4} xs={12}>
+              <ProfileName
+                userName={this.state.user.name}
+                imageUrl={this.state.user.imageUrl}
+              />
+
+              <Sidebar />
+            </Col>
+
+            <Col md={8} xs={12}>
+              <Switch>
+                <Route path="/student" exact component={PlaceholderImage} />
+                <Route
+                  path="/student/password"
+                  exact
+                  component={ChangePassword}
                 />
-
-                <Sidebar />
-              </Col>
-
-              <Col md={8} xs={12}>
-                <Switch>
-                  <Route path="/student" exact component={PlaceholderImage} />
-                  <Route
-                    path="/student/password"
-                    exact
-                    component={ChangePassword}
-                  />
-                  <Route path="/student/edit" exact component={EditResume} />
-                  <Route
-                    path="/student/view"
-                    exact
-                    component={() => (
-                      <ViewResume path={this.state.user.resume} />
-                    )}
-                  />
-                  <Route
-                    path="/student/applications"
-                    exact
-                    component={MyApplications}
-                  />
-                </Switch>
-              </Col>
-            </Row>
-          </Container>
-          <Footer />
-        </section>
-      </BrowserRouter>
+                <Route path="/student/edit" exact component={EditResume} />
+                <Route
+                  path="/student/view"
+                  exact
+                  component={() => <ViewResume path={this.state.user.resume} />}
+                />
+                <Route
+                  path="/student/applications"
+                  exact
+                  component={MyApplications}
+                />
+                <Route path="/student/saved" exact component={SavedForLater} />
+              </Switch>
+            </Col>
+          </Row>
+        </Container>
+        <Footer />
+      </section>
     );
   }
 }

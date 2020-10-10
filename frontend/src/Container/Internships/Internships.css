@@ -53,3 +53,13 @@
     padding: 0.5rem;
   }
 }
+
+.click :hover {
+  cursor: pointer;
+  color: #0388fc;
+}
+
+.clicked {
+  color: #0388fc;
+  background: #0388fc;
+}

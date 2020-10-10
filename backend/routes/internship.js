@@ -43,5 +43,8 @@ router.get("/search");
 router.post("/updateInternship", internship.updateInternship);
 router.post("/deleteInternship", internship.deleteInternship);
 router.post("/rateInternship", internship.rateInternship);
+router.post("/bookmark", internship.bookmarkInternship);
+router.post("/deletebookmark", internship.deleteBookmarks);
+router.post("/getbookmarks", internship.getbookmarks);
 
 module.exports = router;

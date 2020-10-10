@@ -59,6 +59,17 @@ const userschema = new Schema({
   links: String,
   jobs: String,
   additional: String,
+  bookmark: [
+    {
+      internshipId: String,
+      title: String,
+    },
+  ],
+  resumecreated: {
+    type: Boolean,
+    default: false,
+  },
+
   resume: {
     type: String,
   },

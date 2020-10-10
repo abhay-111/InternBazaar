@@ -5,6 +5,8 @@ const Employer = require("../models/Company");
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const path = require("path");
+const User = require("../models/User");
+const { find } = require("../models/User");
 
 // adding internships to database
 exports.addInternships = (req, res, next) => {
@@ -251,6 +253,18 @@ exports.applyinternship = (req, res, next) => {
   const userId = req.body.userId;
   // console.log(userId, internshipId);
 
+  // Student.findById(userId)
+  //   .then((user) => {
+  //     if (user.resumecreated == false) {
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     if (!err.statusCode) {
+  //       err.statusCode = 500;
+  //     }
+  //     next(err);
+  //   });
+
   if (req.userType != "student") {
     const error = new Error("Apply internship failed, token unverified");
     error.statusCode = 502;
@@ -285,10 +299,19 @@ exports.applyinternship = (req, res, next) => {
       // console.log("abhay");
       const updatedapplications = [...result.applications, application];
       result.applications = updatedapplications;
-      result.save();
 
       Student.findById(userId)
         .then((data) => {
+          if (data.resumecreated == false) {
+            const error = new Error("Create your resume first");
+            error.status = 412;
+            error.data = {
+              id: userId,
+              param: userId,
+              type: req.userType,
+            };
+            throw error;
+          }
           const appli = {
             internshipId: internshipId,
             status: "Applied",
@@ -299,6 +322,7 @@ exports.applyinternship = (req, res, next) => {
 
           const updatedapplications = [...data.applications, appli];
           data.applications = updatedapplications;
+          result.save();
           data.save();
 
           // console.log(internshipId);
@@ -398,7 +422,16 @@ exports.viewresume = (req, res, next) => {
       console.log(data);
       // console.log("outside pdf.end");
       // console.log("you can still do stuff after res");
-      res.status(200).json({ path: data.resume });
+      data.resumecreated = true;
+      data
+        .save()
+        .then((result) => {
+          res.status(200).json({ path: data.resume });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
       pdfDoc.end(() => {
         console.log("inside pdf.end");
       });
@@ -537,4 +570,69 @@ exports.deleteInternship = (req, res, next) => {
       }
       next(err);
     });
+};
+
+exports.bookmarkInternship = (req, res, next) => {
+  const internshipId = req.body.internshipId;
+  const userId = req.body.userId;
+
+  Internship.findById(internshipId).then((internship) => {
+    if (!internship) {
+      const error = new Error("No internship found");
+      error.status = 401;
+      error.data = {
+        msg: "internship not found",
+        param: "internshipId",
+
+        location: "updateinternship",
+      };
+      throw error;
+    }
+
+    User.findById(userId).then((user) => {
+      user.bookmark.push({
+        internshipId: internship._id,
+        title: internship.title,
+      });
+
+      user
+        .save()
+        .then((data) => {
+          res.status(200).json({
+            message: " bookmarks Added",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  });
+};
+
+exports.deleteBookmarks = (req, res, next) => {
+  const internshipId = req.body.internshipId;
+  const userId = req.body.userId;
+  Student.findById(userId).then((user) => {
+    const index = user.bookmark.findIndex(
+      (internship) => internship.internshipId === internshipId
+    );
+
+    user.bookmark.splice(0, 1);
+    user.save().then((data) => {
+      res.status(200).json({
+        message: "Bookmark deleted",
+      });
+    });
+  });
+};
+
+exports.getbookmarks = (req, res, next) => {
+  const userId = req.body.userId;
+
+  Student.findById(userId).then((user) => {
+    res.status(200).json({
+      message: "Bookmarks fetched",
+      data: user.bookmark,
+    });
+  });
 };

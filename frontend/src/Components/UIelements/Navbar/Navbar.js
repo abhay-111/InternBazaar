@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 import classes from "./Navbar.css";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import userIcon from "../../../assets/alt.png";
 import logo from "../../../assets/logo.png";
 
 class NavBar extends Component {
-  logoutHandler = () => {
-    localStorage.clear();
-
-    window.location.href = "/";
-  };
-
   render() {
     let token = localStorage.getItem("token");
     let Auth = false;
@@ -39,9 +33,9 @@ class NavBar extends Component {
           className={classes.Navbar}
         >
           <Navbar.Brand>
-            <a href={path}>
+            <Link to={path}>
               <img src={logo} alt="" className={classes.logo} />
-            </a>
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -56,7 +50,11 @@ class NavBar extends Component {
               >
                 <img src={userIcon} alt="" />
               </Link>
-              <Link className={classes.Navlink} onClick={this.logoutHandler}>
+              <Link
+                to="/"
+                className={classes.Navlink}
+                onClick={() => localStorage.clear()}
+              >
                 Logout
               </Link>
             </Nav>
@@ -86,12 +84,12 @@ class NavBar extends Component {
                 id="collasible-nav-dropdown"
                 className={classes.Dropdown}
               >
-                <NavDropdown.Item>
-                  <Link to="/studentlogin">As a student</Link>
+                <NavDropdown.Item as={Link} to="/studentlogin">
+                  As a student
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item>
-                  <Link to="/employerlogin">As an employer</Link>
+                <NavDropdown.Item as={Link} to="/employerlogin">
+                  As an employer
                 </NavDropdown.Item>
               </NavDropdown>
 

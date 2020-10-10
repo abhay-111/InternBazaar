@@ -61,6 +61,7 @@ class Internships extends Component {
           stipend={post.stipend}
           title={post.title}
           vacancy={post.vacancy}
+          avgrating={post.avgrating}
         />
       );
     });
