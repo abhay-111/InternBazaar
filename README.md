@@ -17,6 +17,8 @@ add and apply for various internships posted by the employers
 The employer can reject or accept the user for an interview on the
 basis of the resume that is created by Internbazaar.
   <br/>
+  Link : https://internbazaar.web.app
+  <br/>
 Test UserId :user@user.com
   <br/>
 Password    :password123   
