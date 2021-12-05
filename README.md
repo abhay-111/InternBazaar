@@ -19,12 +19,12 @@
 <p align="center">
   <img src="Project_Images_Interbazaar/home.PNG">
   <h5>Landing Page</h5>
-  <img src="Project_Images/home2.PNG">
+  <img src="Project_Images_Interbazaar/home2.PNG">
 </p>
 
 * ### Login ###
 <p align="center">
-  <img src="Project_Images/login.PNG">
+  <img src="Project_Images_Interbazaar/login.PNG">
 </p>
 
 * ### Listed Interships ###
@@ -41,10 +41,17 @@
 <p align="center">
 <img src="Project_Images_Interbazaar/UserProfile.PNG">
 </p>
-
+* ### Create Resume ###
+<p align="center">
+  <img src="Project_Images_Interbazaar/editresume.PNG">
+</p>
 * ### Your Applications ###
 <p align="center">
-  <img src="Project_Images/myapplication.PNG">
+  <img src="Project_Images_Interbazaar/myapplication.PNG">
+</p>
+* ### Saved For Later Internships ###
+<p align="center">
+  <img src="Project_Images_Interbazaar/savedInternship.PNG">
 </p>
 
 * ### Change Password ###
