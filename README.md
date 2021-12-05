@@ -1,10 +1,4 @@
-# InternBazaar
-<b>
-InternBazaar helps both the employers and the internship seekers to
-add and apply for various internships posted by the employers
-The employer can reject or accept the user for an interview on the
-basis of the resume that is created by Internbazaar
-</b>
+
 # InterBazaar project
 
 <p float="left">
@@ -15,7 +9,14 @@ basis of the resume that is created by Internbazaar
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" height="28" width="100" />
 </p>
 
+<br/>
 
+<b>
+InternBazaar helps both the employers and the internship seekers to
+add and apply for various internships posted by the employers
+The employer can reject or accept the user for an interview on the
+basis of the resume that is created by Internbazaar
+</b>
 
 
 ## Screens for User-role
