@@ -34,7 +34,7 @@
 
 * ### Internship Detail ###
 <p align="center">
-  <img src="Project_Images_Interbazaar/internshipdetail.PNG">
+  <img src="Project_Images_Interbazaar/intershipdetail.PNG">
 </p>
 
 * ### Profile Details ###
