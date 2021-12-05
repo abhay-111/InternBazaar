@@ -27,34 +27,29 @@
   <img src="Project_Images/login.PNG">
 </p>
 
-* ### Listed Events ###
+* ### Listed Interships ###
 <p align="center">
-  <img src="Project_Images/listed event.PNG">
+  <img src="Project_Images_Interbazaar/searchInternship.PNG">
 </p>
 
-* ### Event Detail ###
+* ### Internship Detail ###
 <p align="center">
-  <img src="Project_Images/event detail.PNG">
+  <img src="Project_Images_Interbazaar/internshipdetail.PNG">
 </p>
 
 * ### Profile Details ###
 <p align="center">
-<img src="Project_Images/profile.PNG">
+<img src="Project_Images_Interbazaar/UserProfile.PNG">
 </p>
 
-* ### Your Tickets ###
+* ### Your Applications ###
 <p align="center">
-  <img src="Project_Images/your ticket.PNG">
-</p>
-
-* ### Book Ticket ###
-<p align="center">
-  <img src="Project_Images/book ticket.PNG">
+  <img src="Project_Images/myapplication.PNG">
 </p>
 
 * ### Change Password ###
 <p align="center">
-  <img src="Project_Images/change password.PNG">
+  <img src="Project_Images_Interbazaar/changepass.PNG">
 </p>
 
 
