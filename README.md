@@ -41,14 +41,18 @@
 <p align="center">
 <img src="Project_Images_Interbazaar/UserProfile.PNG">
 </p>
+
 * ### Create Resume ###
 <p align="center">
   <img src="Project_Images_Interbazaar/editresume.PNG">
 </p>
+
 * ### Your Applications ###
 <p align="center">
   <img src="Project_Images_Interbazaar/myapplication.PNG">
 </p>
+
+
 * ### Saved For Later Internships ###
 <p align="center">
   <img src="Project_Images_Interbazaar/savedInternship.PNG">
