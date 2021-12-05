@@ -16,6 +16,7 @@ InternBazaar helps both the employers and the internship seekers to
 add and apply for various internships posted by the employers
 The employer can reject or accept the user for an interview on the
 basis of the resume that is created by Internbazaar.
+  <br/>
 Test UserId :user@user.com
 Password    :password123   
 </b>
