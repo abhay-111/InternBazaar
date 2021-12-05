@@ -1,6 +1,6 @@
-# EventsMine
-https://eventzmine-67789.web.app/
-# Eventzmine project
+# InternBazaar
+
+# InterBazaar project
 
 <p float="left">
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" height="28" width="100" />
@@ -10,20 +10,14 @@ https://eventzmine-67789.web.app/
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" height="28" width="100" />
 </p>
 
-The problem that Eventzmine solves is that it helps the locals to know
-what all cultural and technical events are happening around them.
-• Eventzmine helps user to find and book any of the event happening
-around them The user gets a automatic PDF generated ticket after he
-proceeds with the payment.
-• The user can also login as a corporate and list his own event with all
-the required details.
+
 
 
 ## Screens for User-role
 
 * ### Landing Page ### 
 <p align="center">
-  <img src="Project_Images/home.PNG">
+  <img src="Project_Images_Internbazaar/home.PNG">
   <h5>Landing Page</h5>
   <img src="Project_Images/home2.PNG">
 </p>
